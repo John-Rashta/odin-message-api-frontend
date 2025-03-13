@@ -1,9 +1,13 @@
 import { configureStore, combineSlices } from "@reduxjs/toolkit";
 import { apiSlice } from "../features/message-api/message-api-slice";
+import { authSlice } from "../features/auth/auth-slice";
+import { managerSlice } from "../features/manager/manager-slice";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 const rootReducer = combineSlices(
-    apiSlice
+    apiSlice,
+    authSlice,
+    managerSlice,
 );
 
 export const makeStore = (preloadedState?: Partial<RootState>) => {
