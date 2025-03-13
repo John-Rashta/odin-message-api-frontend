@@ -1,4 +1,3 @@
-///NEED GROUP ID, CONVERSATION ID AND USER ID
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface managerState {
