@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+///KEEPING INTERFACES FOR NOW FOR REFERENCE OF WHATS NEEDED
+
 interface CrendentialsType {
     username: string,
     password: string,
@@ -17,6 +19,9 @@ interface UserInfo {
             id: number;
             source: string;
         };
+        customIcon: {
+            url: string;
+        } | null;
         aboutMe: string | null;
         joinedAt: Date;
         online?: boolean;
@@ -29,9 +34,12 @@ interface CredentialsUpdate {
 };
 
 interface UserProfile {
+    data: FormData;
+    /*FOR REFERENCE
     name?: string,
     icon?: number,
     aboutMe?: string,
+    */
 };
 
 interface IconInfo {
@@ -40,7 +48,7 @@ interface IconInfo {
 };
 
 interface Message {
-    message: string
+    message: FormData
 };
 
 interface UId {
@@ -58,6 +66,9 @@ interface FriendshipsInfo {
                 id: number;
                 source: string;
             };
+            customIcon: {
+                url: string;
+            } | null;
             online: boolean;
         }[];
     }[];
@@ -74,12 +85,17 @@ interface UserConversations {
 
 interface ConversationInfo {
     id: string;
-    members: VeryBasicUserInfo[];
+    members: BasicUserInfo[];
     contents: {
         id: string;
         content: string;
         sentAt: Date;
         sender: VeryBasicUserInfo;
+        image: {
+            url: string;
+            public_id: string;
+            uploadAt: Date;
+        } | null;
     }[];
 };
 
@@ -123,7 +139,7 @@ interface UserGroups {
     id: string;
     username: string;
     groups: ({
-        members: VeryBasicUserInfo[];
+        members: BasicUserInfo[];
     } & {
         name: string | null;
         id: string;
@@ -139,17 +155,25 @@ interface GroupInfo {
         sentAt: Date;
         edited: boolean;
         sender: VeryBasicUserInfo;
+        image: {
+            url: string;
+            public_id: string;
+            uploadAt: Date;
+        } | null;
     }[];
     admins: BasicUserInfo[];
 };
 
 interface BasicUserInfo {
-    id: string;
+        id: string;
         username: string;
         icon: {
             id: number;
             source: string;
         };
+        customIcon: {
+            url: string
+        } | null
 };
 
 interface VeryBasicUserInfo {
@@ -237,7 +261,7 @@ export const apiSlice = createApi({
                 url: `/users/${user}`
             })
         }),
-        updateMe: builder.mutation<ReturnMessage, CredentialsUpdate & UserProfile>({
+        updateMe: builder.mutation<ReturnMessage, FormData>({
             query: (info) => ({
                 url: "/users/profile",
                 method: "PUT",
@@ -292,7 +316,7 @@ export const apiSlice = createApi({
             }),
             providesTags: ["ConvoInfo"],
         }),
-        messageConversation: builder.mutation<ReturnMessage, OptionalBodyUID & Message & OptionalConvo>({
+        messageConversation: builder.mutation<ReturnMessage, FormData>({
             query: (info) => ({
                 url: "/conversations",
                 method: "POST",
@@ -374,9 +398,7 @@ export const apiSlice = createApi({
             query: ({message, id}) => ({
                 url: `/groups/${id}`,
                 method: "POST",
-                body: {
-                    message
-                }
+                body: message
             }),
             invalidatesTags:["GroupInfo"]
         }),
