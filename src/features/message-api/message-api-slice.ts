@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { MessageInfo, BasicUserInfo, VeryBasicUserInfo } from "../../../util/interfaces";
+ 
 ///KEEPING INTERFACES FOR NOW FOR REFERENCE OF WHATS NEEDED
 
 interface CrendentialsType {
@@ -86,17 +87,7 @@ interface UserConversations {
 interface ConversationInfo {
     id: string;
     members: BasicUserInfo[];
-    contents: {
-        id: string;
-        content: string;
-        sentAt: Date;
-        sender: VeryBasicUserInfo;
-        image: {
-            url: string;
-            public_id: string;
-            uploadAt: Date;
-        } | null;
-    }[];
+    contents: MessageInfo[];
 };
 
 interface UserRequests {
@@ -133,6 +124,9 @@ interface RequestInfo {
     sentAt: Date;
     sender: VeryBasicUserInfo;
     receiver: VeryBasicUserInfo;
+    group: {
+        name: string | null
+    } | null;
 };
 
 interface UserGroups {
@@ -149,36 +143,8 @@ interface UserGroups {
 interface GroupInfo {
     id: string;
     members: BasicUserInfo[];
-    contents: {
-        id: string;
-        content: string;
-        sentAt: Date;
-        edited: boolean;
-        sender: VeryBasicUserInfo;
-        image: {
-            url: string;
-            public_id: string;
-            uploadAt: Date;
-        } | null;
-    }[];
+    contents: MessageInfo[];
     admins: BasicUserInfo[];
-};
-
-interface BasicUserInfo {
-        id: string;
-        username: string;
-        icon: {
-            id: number;
-            source: string;
-        };
-        customIcon: {
-            url: string
-        } | null
-};
-
-interface VeryBasicUserInfo {
-    id: string;
-    username: string;
 };
 
 interface OptionalName {

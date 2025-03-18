@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface managerState {
+  myId: string;
   userId: string;
   groupId: string;
   conversationId: string;
 }
 
 const initialState: managerState = {
+    myId: "0",
     userId: "0",
     groupId: "0",
     conversationId: "0",
@@ -16,6 +18,9 @@ export const managerSlice = createSlice({
   name: "manager",
   initialState,
   reducers: (create) => ({
+    setMyId: create.reducer((state, action: PayloadAction<string>) => {
+      state.myId = action.payload;
+    }),
     setUserId: create.reducer((state, action: PayloadAction<string>) => {
       state.userId = action.payload;
     }),
@@ -27,6 +32,7 @@ export const managerSlice = createSlice({
     }),
   }),
   selectors: {
+    selectMyId: (data) => data.myId,
     selectUserId: (data) => data.userId,
     selectGroupId: (data) => data.groupId,
     selectConversationId: (data) => data.conversationId,
