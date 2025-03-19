@@ -28,4 +28,10 @@ id: string;
 username: string;
 };
 
-export { VeryBasicUserInfo, BasicUserInfo, MessageInfo };
+interface BasicGroupInfo {
+    members: BasicUserInfo[];
+    name: string | null;
+    id: string;
+};
+
+export { VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo };

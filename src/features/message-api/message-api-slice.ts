@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { MessageInfo, BasicUserInfo, VeryBasicUserInfo } from "../../../util/interfaces";
+import { MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo } from "../../../util/interfaces";
  
 ///KEEPING INTERFACES FOR NOW FOR REFERENCE OF WHATS NEEDED
 
@@ -132,12 +132,7 @@ interface RequestInfo {
 interface UserGroups {
     id: string;
     username: string;
-    groups: ({
-        members: BasicUserInfo[];
-    } & {
-        name: string | null;
-        id: string;
-    })[];
+    groups: BasicGroupInfo[];
 };
 
 interface GroupInfo {
