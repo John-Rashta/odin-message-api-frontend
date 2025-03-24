@@ -34,4 +34,10 @@ interface BasicGroupInfo {
     id: string;
 };
 
-export { VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo };
+interface UserConversation {
+    id: string;
+    members: BasicUserInfo[];
+
+};
+
+export { VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation };

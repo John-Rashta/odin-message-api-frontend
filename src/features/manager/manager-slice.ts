@@ -5,6 +5,7 @@ export interface managerState {
   userId: string;
   groupId: string;
   conversationId: string;
+  editId: string | null;
 }
 
 const initialState: managerState = {
@@ -12,6 +13,7 @@ const initialState: managerState = {
     userId: "0",
     groupId: "0",
     conversationId: "0",
+    editId: null,
 };
 
 export const managerSlice = createSlice({
@@ -30,14 +32,18 @@ export const managerSlice = createSlice({
     setConversationId: create.reducer((state, action: PayloadAction<string>) => {
         state.conversationId = action.payload;
     }),
+    setEditId: create.reducer((state, action: PayloadAction<string>) => {
+      state.editId = action.payload;
+  }),
   }),
   selectors: {
     selectMyId: (data) => data.myId,
     selectUserId: (data) => data.userId,
     selectGroupId: (data) => data.groupId,
     selectConversationId: (data) => data.conversationId,
+    selectEditId: (data) => data.editId,
   },
 });
 
-export const { setConversationId, setGroupId, setUserId } = managerSlice.actions;
-export const { selectConversationId, selectGroupId, selectUserId} = managerSlice.selectors;
+export const { setConversationId, setGroupId, setUserId, setEditId } = managerSlice.actions;
+export const { selectConversationId, selectGroupId, selectUserId, selectEditId } = managerSlice.selectors;

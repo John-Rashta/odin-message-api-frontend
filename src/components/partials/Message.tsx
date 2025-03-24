@@ -5,7 +5,7 @@ import { locale } from "../../../util/helpers";
 export default function Message({info, previousMessage} : {info: MessageInfo, previousMessage: MessageInfo}) {
 
     return (
-        <>
+        <div>
             {info.edited ? <div>Edited</div> : null}
             <div>
                 <div>
@@ -21,6 +21,6 @@ export default function Message({info, previousMessage} : {info: MessageInfo, pr
                     {typeof info.image?.url === "string" ? <img src={info.image.url} alt="message image"/> : null}
                 </div>
             </div>
-        </>
+        </div>
     )
 };

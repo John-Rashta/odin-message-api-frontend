@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo } from "../../../util/interfaces";
+import { MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo, UserConversation } from "../../../util/interfaces";
  
 ///KEEPING INTERFACES FOR NOW FOR REFERENCE OF WHATS NEEDED
 
@@ -78,10 +78,7 @@ interface FriendshipsInfo {
 interface UserConversations {
     id: string;
     username: string;
-    convos: {
-        id: string;
-        members: VeryBasicUserInfo[];
-    }[];
+    convos: UserConversation[];
 };
 
 interface ConversationInfo {
@@ -388,3 +385,4 @@ export const apiSlice = createApi({
     })
 });
 
+export const { useDeleteMessageMutation } = apiSlice;
