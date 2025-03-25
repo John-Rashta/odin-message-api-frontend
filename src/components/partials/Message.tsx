@@ -5,7 +5,7 @@ import { locale } from "../../../util/helpers";
 export default function Message({info, previousMessage} : {info: MessageInfo, previousMessage: MessageInfo}) {
 
     return (
-        <div>
+        <div data-id={info.id}>
             {info.edited ? <div>Edited</div> : null}
             <div>
                 <div>
