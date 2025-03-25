@@ -95,6 +95,10 @@ interface UserRequests {
         type: RequestTypes;
         sentAt: Date;
         sender: VeryBasicUserInfo;
+        group: {
+            name: string | null;
+            id: string;
+        } | null; 
     }[];
 };
 
@@ -122,7 +126,8 @@ interface RequestInfo {
     sender: VeryBasicUserInfo;
     receiver: VeryBasicUserInfo;
     group: {
-        name: string | null
+        name: string | null;
+        id: string;
     } | null;
 };
 
