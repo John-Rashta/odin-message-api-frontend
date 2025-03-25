@@ -1,3 +1,5 @@
+import { RequestTypes } from "./types";
+
 interface MessageInfo {
     id: string;
         content: string;
@@ -40,4 +42,21 @@ interface UserConversation {
 
 };
 
-export { VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation };
+interface CoordsProp {
+    top: number;
+    left: number;
+}
+
+interface RequestInfo {
+    id: string;
+    type: RequestTypes;
+    sentAt: Date;
+    sender: VeryBasicUserInfo;
+    receiver: VeryBasicUserInfo;
+    group: {
+        name: string | null;
+        id: string;
+    } | null;
+};
+
+export { RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };

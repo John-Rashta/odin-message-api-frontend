@@ -45,5 +45,5 @@ export const managerSlice = createSlice({
   },
 });
 
-export const { setConversationId, setGroupId, setUserId, setEditId } = managerSlice.actions;
-export const { selectConversationId, selectGroupId, selectUserId, selectEditId } = managerSlice.selectors;
+export const { setConversationId, setGroupId, setUserId, setEditId, setMyId } = managerSlice.actions;
+export const { selectConversationId, selectGroupId, selectUserId, selectEditId, selectMyId } = managerSlice.selectors;

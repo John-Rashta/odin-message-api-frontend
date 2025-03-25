@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo, UserConversation } from "../../../util/interfaces";
+import { RequestInfo, MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo, UserConversation } from "../../../util/interfaces";
+import { RequestTypes } from "../../../util/types";
  
 ///KEEPING INTERFACES FOR NOW FOR REFERENCE OF WHATS NEEDED
 
@@ -95,6 +96,7 @@ interface UserRequests {
         type: RequestTypes;
         sentAt: Date;
         sender: VeryBasicUserInfo;
+        receiver: VeryBasicUserInfo;
         group: {
             name: string | null;
             id: string;
@@ -117,18 +119,6 @@ interface RequestGroup {
 
 interface OptionalConvo {
     conversationid?: string,
-};
-
-interface RequestInfo {
-    id: string;
-    type: RequestTypes;
-    sentAt: Date;
-    sender: VeryBasicUserInfo;
-    receiver: VeryBasicUserInfo;
-    group: {
-        name: string | null;
-        id: string;
-    } | null;
 };
 
 interface UserGroups {
@@ -174,8 +164,6 @@ interface UserSentRequests {
         };
     }[];
 }
-
-type RequestTypes = "FRIEND" | "GROUP";
 
 export const apiSlice = createApi({
     reducerPath: "api",
