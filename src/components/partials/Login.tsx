@@ -34,7 +34,7 @@ export default function Login() {
     };
 
     return (
-        <div>
+        <main>
             {wrongInputs ? <div>Username or Password wrong!</div> : null} 
             <form onSubmit={handleForm}>
                 <label htmlFor="username">Username:</label>
@@ -43,6 +43,6 @@ export default function Login() {
                 <input type="password" name="password" id="password" required/>
                 <button type="submit">Login</button>
             </form>
-        </div>
+        </main>
     )
 };

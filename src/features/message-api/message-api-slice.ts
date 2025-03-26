@@ -378,4 +378,4 @@ export const apiSlice = createApi({
     })
 });
 
-export const { useDeleteMessageMutation, useLoginUserMutation, useCreateUserMutation } = apiSlice;
+export const { useDeleteMessageMutation, useLoginUserMutation, useCreateUserMutation, useLogoutUserMutation, useLazySearchUsersQuery } = apiSlice;

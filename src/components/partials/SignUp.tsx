@@ -40,7 +40,7 @@ export default function SignUp() {
 
     };
     return (
-        <div>
+        <main>
             {wrongInputs ? <div>Username or Password wrong!</div> : null} 
             <form onSubmit={handleForm}>
                 <label htmlFor="username">Username:
@@ -61,7 +61,7 @@ export default function SignUp() {
                 }} required/>
                 <button type="submit">Sign Me Up!</button>
             </form>
-        </div>
+        </main>
     )
 
 };
