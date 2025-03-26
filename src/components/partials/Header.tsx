@@ -25,11 +25,11 @@ export default function Header() {
                 <div style={{position: "absolute"}}></div>
             </div>
             <div style={{position: "absolute"}}>
-                {usersData && usersData.map((user) => {
+                {usersData && (usersData.length > 0 ? usersData.map((user) => {
                     return (
                     <div></div>
                 )
-                })}
+                }) : <div>No Results Found</div>)}
             </div>
             <div onClick={() =>  setShowOptions(!showOptions)}>Requests</div>
             {showOptions?  
