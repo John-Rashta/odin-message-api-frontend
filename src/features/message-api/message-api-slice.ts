@@ -173,14 +173,14 @@ export const apiSlice = createApi({
     }),
     tagTypes: ["SelfInfo", "ConvoInfo", "GroupInfo", "FriendsInfo", "ConvosInfo", "RequestInfo", "SentRequestsInfo", "RequestsInfo", "GroupsInfo"],
     endpoints: (builder) => ({
-        createUser: builder.mutation<ReturnMessage, CrendentialsType & UserProfile>({
+        createUser: builder.mutation<ReturnMessage, UserProfile>({
             query: (body) => ({
                 url: "/users",
                 method: "POST",
                 body: body
             }),
         }),
-        loginUser: builder.mutation<ReturnMessage, CrendentialsType>({
+        loginUser: builder.mutation<UId, CrendentialsType>({
             query: ({username, password}) => ({
                 url: "/auth",
                 method: "POST",
@@ -378,4 +378,4 @@ export const apiSlice = createApi({
     })
 });
 
-export const { useDeleteMessageMutation } = apiSlice;
+export const { useDeleteMessageMutation, useLoginUserMutation, useCreateUserMutation } = apiSlice;
