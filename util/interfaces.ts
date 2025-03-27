@@ -59,4 +59,45 @@ interface RequestInfo {
     } | null;
 };
 
-export { RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };
+interface UserInfo {
+    id: string;
+    name: string | null;
+    username: string;
+    icon: {
+        id: number;
+        source: string;
+    };
+    customIcon: {
+        url: string;
+    } | null;
+    aboutMe: string | null;
+    joinedAt: Date;
+    online?: boolean;
+};
+
+interface FriendsInfo {
+    id: string;
+    username: string;
+    icon: {
+        id: number;
+        source: string;
+    };
+    customIcon: {
+        url: string;
+    } | null;
+    online: boolean;
+};
+
+interface TargetData {
+    user: string | undefined,
+    message: string |  undefined,
+    admin: string | undefined,
+    friend: string | undefined,
+};
+
+interface CoordsInfo {
+    top: number,
+    left: number
+}
+
+export { CoordsInfo, TargetData, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };

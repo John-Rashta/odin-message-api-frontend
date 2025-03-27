@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { RequestInfo, MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo, UserConversation } from "../../../util/interfaces";
+import { FriendsInfo, UserInfo, RequestInfo, MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo, UserConversation } from "../../../util/interfaces";
 import { RequestTypes } from "../../../util/types";
  
 ///KEEPING INTERFACES FOR NOW FOR REFERENCE OF WHATS NEEDED
@@ -11,22 +11,6 @@ interface CrendentialsType {
 
 interface ReturnMessage {
     message?: string,
-};
-
-interface UserInfo {
-        id: string;
-        name: string | null;
-        username: string;
-        icon: {
-            id: number;
-            source: string;
-        };
-        customIcon: {
-            url: string;
-        } | null;
-        aboutMe: string | null;
-        joinedAt: Date;
-        online?: boolean;
 };
 
 interface CredentialsUpdate {
@@ -61,18 +45,7 @@ interface FriendshipsInfo {
     id: string;
     username: string;
     friendlist: {
-        users: {
-            id: string;
-            username: string;
-            icon: {
-                id: number;
-                source: string;
-            };
-            customIcon: {
-                url: string;
-            } | null;
-            online: boolean;
-        }[];
+        users: FriendsInfo[];
     }[];
 };
 
@@ -163,6 +136,10 @@ interface UserSentRequests {
             username: string;
         };
     }[];
+};
+
+interface ResponseGroup {
+    group: GroupInfo;
 }
 
 export const apiSlice = createApi({
@@ -316,9 +293,9 @@ export const apiSlice = createApi({
                 url: `/requests/${id}`,
                 method: "PUT"
             }),
-            invalidatesTags: ["RequestInfo", "RequestsInfo"],
+            invalidatesTags: ["RequestInfo", "RequestsInfo",  "GroupsInfo", "FriendsInfo"],
         }),
-        rejectRequest: builder.mutation<ReturnMessage, UId>({
+        deleteRequest: builder.mutation<ReturnMessage, UId>({
             query: ({id}) => ({
                  url: `/requests/${id}`,
                 method: "DELETE"
@@ -331,11 +308,19 @@ export const apiSlice = createApi({
             }),
             providesTags: ["GroupsInfo"],
         }),
-        getGroup: builder.query<{group: GroupInfo}, UId>({
+        getGroup: builder.query<ResponseGroup, UId>({
             query: ({id}) => ({
                 url: `/groups/${id}`
             }),
             providesTags: ["GroupInfo"],
+            transformResponse(responseData: ResponseGroup) {
+                const response = {
+                    group: {...responseData.group, members: responseData.group.members.map((member) => {
+                        return {...member, admin: responseData.group.admins.some((admin) => member.id === admin.id)}
+                    })}
+                };
+                return response;
+            }
         }),
         createGroup: builder.mutation<{group: BasicGroup}, OptionalName>({
             query: ({name}) => ({
@@ -378,4 +363,12 @@ export const apiSlice = createApi({
     })
 });
 
-export const { useDeleteMessageMutation, useLoginUserMutation, useCreateUserMutation, useLogoutUserMutation, useLazySearchUsersQuery } = apiSlice;
+export const { 
+    useDeleteMessageMutation, 
+    useLoginUserMutation, 
+    useCreateUserMutation, 
+    useLogoutUserMutation, 
+    useLazySearchUsersQuery,
+    useAcceptRequestMutation,
+    useDeleteRequestMutation,
+} = apiSlice;
