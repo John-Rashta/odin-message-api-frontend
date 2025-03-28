@@ -35,7 +35,7 @@ export default function Header() {
     return (
         <header>
             <NavLink to="/">Home</NavLink>
-            <div>
+            <div style={{position: "relative"}}>
                 <input type="text" name="searchBar" id="searchBar" onChange={(e) => {
                     if (e.target.value !== "") {
                         const he = searchUser(e.target.value);
