@@ -1,5 +1,9 @@
 import { RequestTypes } from "./types";
 
+interface UId {
+    id: string
+};
+
 interface MessageInfo {
     id: string;
         content: string;
@@ -88,16 +92,33 @@ interface FriendsInfo {
     online: boolean;
 };
 
-interface TargetData {
+interface TargetUser {
     user: string | undefined,
-    message: string |  undefined,
     admin: string | undefined,
     friend: string | undefined,
+};
+
+interface TargetMessage{
+    message: string |  undefined,
 };
 
 interface CoordsInfo {
     top: number,
     left: number
+};
+
+interface FullMessageInfo {
+    id: string;
+    sentAt: Date;
+    content: string;
+    edited: boolean;
+    convoid: string | null;
+    groupid: string | null;
+    sender: BasicUserInfo;
+    image: {
+        id: string,
+        url: string,
+    } | null;
 }
 
-export { CoordsInfo, TargetData, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };
+export { UId, FullMessageInfo, TargetMessage, CoordsInfo, TargetUser, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };

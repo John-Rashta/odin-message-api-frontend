@@ -5,15 +5,15 @@ import { locale } from "../../../util/helpers";
 export default function Message({info, previousMessage, admin} : {info: MessageInfo, previousMessage: MessageInfo, admin?: boolean}) {
 
     return (
-        <div data-messageid={info.id}>
+        <div data-messageid={info.id} data-userid={info.sender.id} className="optionsMessage">
             {info.edited ? <div>Edited</div> : null}
             <div>
-                <div data-userid={info.sender.id} {...(typeof admin === "boolean") ? {"data-admin" : admin} : {}}>
-                    <img src={info.sender.customIcon ? info.sender.customIcon.url : info.sender.icon.source} alt="user icon" />
+                <div>
+                    <img className="optionsUser" data-userid={info.sender.id} {...(typeof admin === "boolean") ? {"data-admin" : admin} : {}} src={info.sender.customIcon ? info.sender.customIcon.url : info.sender.icon.source} alt="user icon" />
                 </div>
                 <div>
                     <div>
-                        <div data-userid={info.sender.id}>{info.sender.username}</div>
+                        <div className="optionsUser" data-userid={info.sender.id} {...(typeof admin === "boolean") ? {"data-admin" : admin} : {}}>{info.sender.username}</div>
                         {info.sender.id === previousMessage.sender.id ? null : 
                         <div>{formatRelative(new Date(info.sentAt), new Date(), {locale})}</div>}
                     </div>

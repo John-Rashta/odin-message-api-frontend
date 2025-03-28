@@ -1,7 +1,22 @@
 import { enIN } from "date-fns/locale";
 import { Locale } from "date-fns/locale";
 import { ClickType } from "./types";
-import { TargetData, CoordsInfo } from "./interfaces";
+import { TargetUser, CoordsInfo, TargetMessage } from "./interfaces";
+import { selectMyId } from "../src/features/manager/manager-slice";
+import { useSelector } from "react-redux";
+
+interface HandleOptions {
+    changeShow: React.Dispatch<React.SetStateAction<boolean>>,
+    changeCoords: React.Dispatch<React.SetStateAction<CoordsInfo>>,
+};
+
+interface UserOptions {
+    changeData: React.Dispatch<React.SetStateAction<TargetUser>>,
+};
+
+interface MessageOptions {
+    changeData: React.Dispatch<React.SetStateAction<TargetMessage>>,
+};
 
 const formatRelativeLocale = {
     lastWeek: "'last' eeee 'at' p",
@@ -17,32 +32,68 @@ const locale : Locale = {
     formatRelative: token => formatRelativeLocale[token]
 };
 
-interface HandleOptions {
-    changeShow: React.Dispatch<React.SetStateAction<boolean>>,
-    changeCoords: React.Dispatch<React.SetStateAction<CoordsInfo>>,
-    changeData: React.Dispatch<React.SetStateAction<TargetData>>,
-}
-
-const handleOptionsClick = function handleClickingForOptions(e : ClickType, helpFuncs : HandleOptions ) {
-    e.preventDefault();
-    const target = e.target as HTMLElement;
+const helperGetCoords = function getCoordsFromEventAndTarget(e : ClickType, target : HTMLElement) {
     const rect = target.getBoundingClientRect();
     const mouseX = e.clientX;
     const mouseY = e.clientY;
     const finalX = mouseX - rect.left;
     const finalY = mouseY - rect.top;
-    const possibleUser = target.dataset.userid;
-    const possibleMessage = target.dataset.messageid;
-    const possibleAdmin = target.dataset.admin;
-    const possibleFriend = target.dataset.friend;
+
+    return {
+        top: finalY,
+        left: finalX
+    }
+};
+
+const handleUserOptionsClick = function handleClickingForOptions(e : ClickType, helpFuncs : HandleOptions & UserOptions ) {
+    e.preventDefault();
+    const myId = useSelector(selectMyId);
+    const target = e.target as HTMLElement;
+    const realTarget = target.closest(".optionsUser");
+    if (!realTarget || !(realTarget instanceof HTMLElement)) {
+        return;
+    };
+
+    const possibleUser = realTarget.dataset.userid;
+    if (possibleUser === myId) {
+        return;
+    }
+
+    const finalCoords = helperGetCoords(e, target);
+    const possibleAdmin = realTarget.dataset.admin;
+    const possibleFriend = realTarget.dataset.friend;
     helpFuncs.changeData({
         user: possibleUser,
-        message: possibleMessage,
         admin: possibleAdmin,
         friend: possibleFriend,
     })
-    helpFuncs.changeCoords({top: finalY, left: finalX});
+    helpFuncs.changeCoords(finalCoords);
+    helpFuncs.changeShow(true);
+};
+
+const handleMessageOptionsClick = function handleClickingMessageForOptions(e: ClickType, helpFuncs: HandleOptions & MessageOptions) {
+    e.preventDefault();
+    const myId = useSelector(selectMyId);
+    const target = e.target as HTMLElement;
+    const checkIfUser = target.closest(".optionsUser");
+    if (checkIfUser) {
+        return;
+    };
+    const realTarget = target.closest(".optionsMessage");
+    if (!realTarget || !(realTarget instanceof HTMLElement)) {
+        return;
+    };
+    const possibleMessage = realTarget.dataset.messageid;
+    const possibleSender = realTarget.dataset.userid;
+    if (possibleSender !== myId) {
+        return;
+    };
+    const finalCoords = helperGetCoords(e, target);
+    helpFuncs.changeData({
+        message: possibleMessage
+    });
+    helpFuncs.changeCoords(finalCoords);
     helpFuncs.changeShow(true);
 }
 
-export { locale, handleOptionsClick };
+export { locale, handleUserOptionsClick, handleMessageOptionsClick };

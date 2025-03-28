@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { FriendsInfo, UserInfo, RequestInfo, MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo, UserConversation } from "../../../util/interfaces";
+import { UId, FriendsInfo, UserInfo, RequestInfo, MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo, UserConversation, FullMessageInfo } from "../../../util/interfaces";
 import { RequestTypes } from "../../../util/types";
  
 ///KEEPING INTERFACES FOR NOW FOR REFERENCE OF WHATS NEEDED
@@ -35,10 +35,6 @@ interface IconInfo {
 
 interface Message {
     message: FormData
-};
-
-interface UId {
-    id: string
 };
 
 interface FriendshipsInfo {
@@ -119,6 +115,7 @@ interface BasicGroup {
 interface GroupUpdate extends OptionalName {
     targetid?: string,
     action?: "REMOVE" | "PROMOTE" | "DEMOTE",
+    name?: string,
 };
 
 interface UserSentRequests {
@@ -140,7 +137,7 @@ interface UserSentRequests {
 
 interface ResponseGroup {
     group: GroupInfo;
-}
+};
 
 export const apiSlice = createApi({
     reducerPath: "api",
@@ -200,6 +197,11 @@ export const apiSlice = createApi({
         getIcons: builder.query<{icons: IconInfo[]}, void>({
             query: () => ({
                 url: "/users/profile/icons",
+            })
+        }),
+        getMessage: builder.query<FullMessageInfo, UId>({
+            query: ({id}) => ({
+                url:`/messages/${id}`
             })
         }),
         updateMessage: builder.mutation<ReturnMessage, Message & UId>({
@@ -371,4 +373,9 @@ export const {
     useLazySearchUsersQuery,
     useAcceptRequestMutation,
     useDeleteRequestMutation,
+    useLazyGetMessageQuery,
+    useMakeRequestMutation,
+    useDeleteFriendMutation,
+    useUpdateGroupMutation,
+    useGetGroupsQuery,
 } = apiSlice;
