@@ -1,7 +1,4 @@
-interface PwInfo {
-    checkValue: string,
-    changeValue: React.Dispatch<React.SetStateAction<string>>
-}
+import { PwInfo } from "../../../util/interfaces";
 
 export default function PasswordConfirm({passwordInfo, confirmPasswordInfo} : {passwordInfo : PwInfo, confirmPasswordInfo: PwInfo}) {
 

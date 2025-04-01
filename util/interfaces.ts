@@ -119,6 +119,11 @@ interface FullMessageInfo {
         id: string,
         url: string,
     } | null;
-}
+};
 
-export { UId, FullMessageInfo, TargetMessage, CoordsInfo, TargetUser, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };
+interface PwInfo {
+    checkValue: string,
+    changeValue: React.Dispatch<React.SetStateAction<string>>
+};
+
+export { PwInfo, UId, FullMessageInfo, TargetMessage, CoordsInfo, TargetUser, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };
