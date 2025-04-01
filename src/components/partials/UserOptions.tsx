@@ -6,6 +6,7 @@ import { useMakeRequestMutation, useUpdateGroupMutation, useDeleteFriendMutation
 import { useRef, useState } from "react";
 import useClickOutside from "../../../util/useClickOutside";
 import { useNavigate } from "react-router-dom";
+import GroupSelection from "./GroupSelection";
 
 export default function UserOptions({ info, changeVisible, coords, group } : {info: TargetUser, changeVisible: SimpleFunctionType, coords: CoordsProp, group?: string}) {
     const [showOptions, setShowOptions] = useState(false);
@@ -34,6 +35,7 @@ export default function UserOptions({ info, changeVisible, coords, group } : {in
     };
 
     const handleClick = function handleClickingAnOption(event : ClickType) {
+        event.stopPropagation();
         const currentTarget = event.target as HTMLDivElement;
         const possibleType = currentTarget.dataset.type;
         if (!info.user) {
@@ -45,8 +47,7 @@ export default function UserOptions({ info, changeVisible, coords, group } : {in
             changeVisible();
         }  else if (possibleType === "ADDFRIEND") {
             makeRequest({targetid: info.user, type: "FRIEND"}).unwrap().then(() => {
-                currentTarget.textContent = "Sent";
-                delete currentTarget.dataset.type;
+                changeVisible();
             }).catch((response) => {
                 if (response.data.message === "Request Already Sent") {
                     currentTarget.textContent = "Already Sent";
@@ -55,22 +56,8 @@ export default function UserOptions({ info, changeVisible, coords, group } : {in
             })
         } else if (possibleType === "REMOVEFRIEND") {
             deleteFriend({id: info.user}).unwrap().then(() => {
-                currentTarget.textContent = "Add Friend";
-                currentTarget.dataset.type = "ADDFRIEND";
+                changeVisible();
             }).catch();
-        } else if (possibleType === "INVITEGROUP") {
-            const possibleGroup = currentTarget.dataset.groupid;
-            if (!possibleGroup) {
-                return;
-            };
-            makeRequest({targetid: info.user, type: "GROUP", groupid: possibleGroup}).unwrap().then(() => {
-                currentTarget.remove();
-            }).catch((response) => {
-                if (response.data.message === "Request Already Sent") {
-                    currentTarget.remove();
-                }
-            });
-            setShowOptions(false);
         } else if (possibleType === "REMOVEGROUP") {
             if (!group) {
                 return;
@@ -110,13 +97,7 @@ export default function UserOptions({ info, changeVisible, coords, group } : {in
             {info.friend ? <div data-type="REMOVEFRIEND">Remove Friend</div> : <div data-type="ADDFRIEND">Add Friend</div>}
             <div onMouseEnter={() => setShowOptions(true)} onMouseLeave={() => setShowOptions(false)} style={{position: "relative"}}>
                 <div>Invite to Groups</div>
-                {showOptions && <div style={{position: "absolute"}}>
-                    {groupsData && groupsData.length > 0 ? groupsData.map((group) => {
-                        return (
-                            <div data-groupid={group.id} data-type="INVITEGROUP">{group.name}</div>
-                        )
-                    }) : <div>No Groups</div> }
-                </div>}
+                {showOptions && <GroupSelection userid={info.user} hideMe={() => setShowOptions(false)} groupsData={groupsData} />}
             </div>
             {group && groupOptions()}
         </div>
