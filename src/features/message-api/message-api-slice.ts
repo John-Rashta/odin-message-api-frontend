@@ -378,4 +378,5 @@ export const {
     useDeleteFriendMutation,
     useUpdateGroupMutation,
     useGetGroupsQuery,
+    useUpdateMeMutation,
 } = apiSlice;
