@@ -92,6 +92,10 @@ interface FriendsInfo {
     online: boolean;
 };
 
+interface ReturnMessage {
+    message?: string,
+};
+
 interface TargetUser {
     user: string | undefined,
     admin: string | undefined,
@@ -126,4 +130,4 @@ interface PwInfo {
     changeValue: React.Dispatch<React.SetStateAction<string>>
 };
 
-export { PwInfo, UId, FullMessageInfo, TargetMessage, CoordsInfo, TargetUser, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };
+export { ReturnMessage, PwInfo, UId, FullMessageInfo, TargetMessage, CoordsInfo, TargetUser, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };

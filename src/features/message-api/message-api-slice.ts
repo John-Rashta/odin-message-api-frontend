@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { UId, FriendsInfo, UserInfo, RequestInfo, MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo, UserConversation, FullMessageInfo } from "../../../util/interfaces";
+import { ReturnMessage, UId, FriendsInfo, UserInfo, RequestInfo, MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo, UserConversation, FullMessageInfo } from "../../../util/interfaces";
 import { RequestTypes } from "../../../util/types";
  
 ///KEEPING INTERFACES FOR NOW FOR REFERENCE OF WHATS NEEDED
@@ -7,10 +7,6 @@ import { RequestTypes } from "../../../util/types";
 interface CrendentialsType {
     username: string,
     password: string,
-};
-
-interface ReturnMessage {
-    message?: string,
 };
 
 interface CredentialsUpdate {
@@ -381,4 +377,6 @@ export const {
     useUpdateMeMutation,
     useCreateConversationMutation,
     useGetUserQuery,
+    useGetSelfQuery,
+    useGetIconsQuery,
 } = apiSlice;
