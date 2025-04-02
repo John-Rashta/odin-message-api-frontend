@@ -94,6 +94,6 @@ const handleMessageOptionsClick = function handleClickingMessageForOptions(e: Cl
     });
     helpFuncs.changeCoords(finalCoords);
     helpFuncs.changeShow(true);
-}
+};
 
 export { locale, handleUserOptionsClick, handleMessageOptionsClick };

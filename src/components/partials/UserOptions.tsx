@@ -1,8 +1,8 @@
 import { TargetUser, CoordsProp } from "../../../util/interfaces";
 import { SimpleFunctionType, ClickType } from "../../../util/types";
-import { setUserId } from "../../features/manager/manager-slice";
+import { setUserId, setConversationId } from "../../features/manager/manager-slice";
 import { useDispatch } from "react-redux";
-import { useMakeRequestMutation, useUpdateGroupMutation, useDeleteFriendMutation, useGetGroupsQuery } from "../../features/message-api/message-api-slice";
+import { useCreateConversationMutation, useMakeRequestMutation, useUpdateGroupMutation, useDeleteFriendMutation, useGetGroupsQuery } from "../../features/message-api/message-api-slice";
 import { useRef, useState } from "react";
 import useClickOutside from "../../../util/useClickOutside";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ export default function UserOptions({ info, changeVisible, coords, group } : {in
     const [makeRequest] = useMakeRequestMutation();
     const [changeGroup] = useUpdateGroupMutation();
     const [deleteFriend] = useDeleteFriendMutation();
+    const [createConvo] = useCreateConversationMutation();
     const optionsRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
     useClickOutside(optionsRef, changeVisible);
@@ -44,7 +45,6 @@ export default function UserOptions({ info, changeVisible, coords, group } : {in
         if (possibleType === "PROFILE") {
             dispatch(setUserId(info.user));
             navigate("/users");
-            changeVisible();
         }  else if (possibleType === "ADDFRIEND") {
             makeRequest({targetid: info.user, type: "FRIEND"}).unwrap().then(() => {
                 changeVisible();
@@ -58,6 +58,11 @@ export default function UserOptions({ info, changeVisible, coords, group } : {in
             deleteFriend({id: info.user}).unwrap().then(() => {
                 changeVisible();
             }).catch();
+        } else if (possibleType === "STARTCONVO") {
+            createConvo({targetid: info.user}).unwrap().then((response) => {
+                dispatch(setConversationId(response.conversation));
+                navigate("/conversations");
+            }).catch()
         } else if (possibleType === "REMOVEGROUP") {
             if (!group) {
                 return;
@@ -95,6 +100,7 @@ export default function UserOptions({ info, changeVisible, coords, group } : {in
         <div ref={optionsRef} style={{position: "absolute", ...coords}} onClick={handleClick}>
             <div data-type="PROFILE">Profile</div>
             {info.friend ? <div data-type="REMOVEFRIEND">Remove Friend</div> : <div data-type="ADDFRIEND">Add Friend</div>}
+            <div data-type="STARTCONVO">Start Conversation</div>
             <div onMouseEnter={() => setShowOptions(true)} onMouseLeave={() => setShowOptions(false)} style={{position: "relative"}}>
                 <div>Invite to Groups</div>
                 {showOptions && <GroupSelection userid={info.user} hideMe={() => setShowOptions(false)} groupsData={groupsData} />}

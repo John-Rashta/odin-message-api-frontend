@@ -379,4 +379,6 @@ export const {
     useUpdateGroupMutation,
     useGetGroupsQuery,
     useUpdateMeMutation,
+    useCreateConversationMutation,
+    useGetUserQuery,
 } = apiSlice;
