@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { CoordsInfo } from "./interfaces";
+import { CoordsInfo, ShowType, CoordsType } from "./interfaces";
+
+type OptionsType = [ShowType, CoordsType];
 
 export default function useOptionsHandle() {
     const [openStatus, setOpenStatus] = useState(false);
@@ -14,5 +16,5 @@ export default function useOptionsHandle() {
             checkCoords: coords,
             changeCoords: setCoords,
         },
-    ]
+    ] as OptionsType
 };

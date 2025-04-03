@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ReturnMessage, UId, FriendsInfo, UserInfo, RequestInfo, MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo, UserConversation, FullMessageInfo } from "../../../util/interfaces";
+import { MessageForm, ReturnMessage, UId, FriendsInfo, UserInfo, RequestInfo, MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo, UserConversation, FullMessageInfo } from "../../../util/interfaces";
 import { RequestTypes } from "../../../util/types";
  
 ///KEEPING INTERFACES FOR NOW FOR REFERENCE OF WHATS NEEDED
@@ -27,10 +27,6 @@ interface UserProfile {
 interface IconInfo {
     id: number,
     source: string,
-};
-
-interface Message {
-    message: FormData
 };
 
 interface FriendshipsInfo {
@@ -200,13 +196,11 @@ export const apiSlice = createApi({
                 url:`/messages/${id}`
             })
         }),
-        updateMessage: builder.mutation<ReturnMessage, Message & UId>({
+        updateMessage: builder.mutation<ReturnMessage, MessageForm & UId>({
             query: ({id, message}) => ({
                 url: `/messages/${id}`,
                 method: "PUT",
-                body: {
-                    message
-                }
+                body: message
             }),
             invalidatesTags: ["GroupInfo", "ConvoInfo"],
         }),
@@ -242,11 +236,11 @@ export const apiSlice = createApi({
             }),
             providesTags: ["ConvoInfo"],
         }),
-        messageConversation: builder.mutation<ReturnMessage, FormData>({
-            query: (info) => ({
+        messageConversation: builder.mutation<ReturnMessage, MessageForm>({
+            query: ({message}) => ({
                 url: "/conversations",
                 method: "POST",
-                body: info
+                body: message
             }),
             invalidatesTags: ["ConvoInfo"],
         }),
@@ -328,7 +322,7 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ["GroupsInfo"],
         }),
-        messageGroup: builder.mutation<ReturnMessage, Message & UId>({
+        messageGroup: builder.mutation<ReturnMessage, MessageForm & UId>({
             query: ({message, id}) => ({
                 url: `/groups/${id}`,
                 method: "POST",
@@ -369,7 +363,6 @@ export const {
     useLazySearchUsersQuery,
     useAcceptRequestMutation,
     useDeleteRequestMutation,
-    useLazyGetMessageQuery,
     useMakeRequestMutation,
     useDeleteFriendMutation,
     useUpdateGroupMutation,
@@ -379,4 +372,10 @@ export const {
     useGetUserQuery,
     useGetSelfQuery,
     useGetIconsQuery,
+    useGetConversationQuery,
+    useGetConversationsQuery,
+    useGetMessageQuery,
+    useMessageConversationMutation,
+    useMessageGroupMutation,
+    useUpdateMessageMutation,
 } = apiSlice;

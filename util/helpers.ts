@@ -1,6 +1,6 @@
 import { enIN } from "date-fns/locale";
 import { Locale } from "date-fns/locale";
-import { ClickType } from "./types";
+import { BasicClickType, ClickType } from "./types";
 import { TargetUser, CoordsInfo, TargetMessage } from "./interfaces";
 import { selectMyId } from "../src/features/manager/manager-slice";
 import { useSelector } from "react-redux";
@@ -32,7 +32,7 @@ const locale : Locale = {
     formatRelative: token => formatRelativeLocale[token]
 };
 
-const helperGetCoords = function getCoordsFromEventAndTarget(e : ClickType, target : HTMLElement) {
+const helperGetCoords = function getCoordsFromEventAndTarget(e : BasicClickType, target : HTMLElement) {
     const rect = target.getBoundingClientRect();
     const mouseX = e.clientX;
     const mouseY = e.clientY;
@@ -45,7 +45,7 @@ const helperGetCoords = function getCoordsFromEventAndTarget(e : ClickType, targ
     }
 };
 
-const handleUserOptionsClick = function handleClickingForOptions(e : ClickType, helpFuncs : HandleOptions & UserOptions ) {
+const handleUserOptionsClick = function handleClickingForOptions(e : BasicClickType, helpFuncs : HandleOptions & UserOptions ) {
     e.preventDefault();
     const myId = useSelector(selectMyId);
     const target = e.target as HTMLElement;

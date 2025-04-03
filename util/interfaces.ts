@@ -130,4 +130,35 @@ interface PwInfo {
     changeValue: React.Dispatch<React.SetStateAction<string>>
 };
 
-export { ReturnMessage, PwInfo, UId, FullMessageInfo, TargetMessage, CoordsInfo, TargetUser, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };
+interface ShowType {
+    checkShow: boolean,
+    changeShow: React.Dispatch<React.SetStateAction<boolean>>
+};
+
+interface CoordsType {
+    checkCoords: CoordsInfo,
+    changeCoords: React.Dispatch<React.SetStateAction<CoordsInfo>>
+};
+
+interface MessageDataType {
+    checkData: TargetMessage,
+    changeData: React.Dispatch<React.SetStateAction<TargetMessage>>
+};
+
+
+interface UserDataType {
+    checkData: TargetUser,
+    changeData: React.Dispatch<React.SetStateAction<TargetUser>>
+};
+
+interface MessageForm {
+    message: FormData
+};
+
+interface ChatInfo {
+    id: string,
+    type: "GROUP" | "CONVERSATION"
+}
+
+
+export { ChatInfo, MessageForm, UserDataType, MessageDataType, ShowType, CoordsType, ReturnMessage, PwInfo, UId, FullMessageInfo, TargetMessage, CoordsInfo, TargetUser, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };

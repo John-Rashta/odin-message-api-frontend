@@ -1,23 +1,18 @@
-import { ClickType, SimpleFunctionType } from "../../../util/types";
-import { setEditId } from "../../features/manager/manager-slice";
+import { ClickType, EditStateType, SimpleFunctionType } from "../../../util/types";
 import { useDeleteMessageMutation } from "../../features/message-api/message-api-slice";
 import { useRef } from "react";
 import  useClickOutside from "../../../util/useClickOutside";
-import { CoordsProp, FullMessageInfo, UId } from "../../../util/interfaces";
-import { useDispatch } from "react-redux";
-import { LazyGetTriggerType } from "../../../util/types";
+import { CoordsProp } from "../../../util/interfaces";
 
-export default function MessageOptions({ messageid, changeVisible, coords, trigger } : {messageid: string, changeVisible: SimpleFunctionType, coords: CoordsProp, trigger: LazyGetTriggerType<UId, FullMessageInfo>}) {
+export default function MessageOptions({ messageid, changeVisible, coords, changeId } : {messageid: string, changeVisible: SimpleFunctionType, coords: CoordsProp, changeId: EditStateType}) {
     const [deleteMessage] = useDeleteMessageMutation();
     const optionsRef = useRef<HTMLDivElement>(null);
-    const dispatch = useDispatch();
     useClickOutside(optionsRef, changeVisible);
     const handleOnClick = function handleClickingOption(event : ClickType) {
         const currentTarget = event.target as HTMLDivElement;
 
         if (currentTarget.dataset.type === "EDIT") {
-            dispatch(setEditId(messageid));
-            trigger({id: messageid});
+            changeId(messageid);
             changeVisible();
 
         } else if (currentTarget.dataset.type === "DELETE") {

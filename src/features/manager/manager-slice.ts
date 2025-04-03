@@ -31,9 +31,6 @@ export const managerSlice = createSlice({
     }),
     setConversationId: create.reducer((state, action: PayloadAction<string>) => {
         state.conversationId = action.payload;
-    }),
-    setEditId: create.reducer((state, action: PayloadAction<string>) => {
-      state.editId = action.payload;
   }),
   }),
   selectors: {
@@ -41,9 +38,8 @@ export const managerSlice = createSlice({
     selectUserId: (data) => data.userId,
     selectGroupId: (data) => data.groupId,
     selectConversationId: (data) => data.conversationId,
-    selectEditId: (data) => data.editId,
   },
 });
 
-export const { setConversationId, setGroupId, setUserId, setEditId, setMyId } = managerSlice.actions;
-export const { selectConversationId, selectGroupId, selectUserId, selectEditId, selectMyId } = managerSlice.selectors;
+export const { setConversationId, setGroupId, setUserId, setMyId } = managerSlice.actions;
+export const { selectConversationId, selectGroupId, selectUserId, selectMyId } = managerSlice.selectors;
