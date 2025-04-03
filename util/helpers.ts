@@ -1,6 +1,6 @@
 import { enIN } from "date-fns/locale";
 import { Locale } from "date-fns/locale";
-import { BasicClickType, ClickType } from "./types";
+import { BasicClickType, ClickType, FuncsOptionsType } from "./types";
 import { TargetUser, CoordsInfo, TargetMessage } from "./interfaces";
 import { selectMyId } from "../src/features/manager/manager-slice";
 import { useSelector } from "react-redux";
@@ -96,4 +96,12 @@ const handleMessageOptionsClick = function handleClickingMessageForOptions(e: Cl
     helpFuncs.changeShow(true);
 };
 
-export { locale, handleUserOptionsClick, handleMessageOptionsClick };
+const getFuncs = function getChangeFunctionsFromHandlers(info : FuncsOptionsType) {
+    return {
+        changeShow: info[0].changeShow,
+        changeCoords: info[1].changeCoords,
+        changeData: info[2].changeData,
+    }
+};
+
+export { locale, handleUserOptionsClick, handleMessageOptionsClick, getFuncs };

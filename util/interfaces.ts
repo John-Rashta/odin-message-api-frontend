@@ -158,7 +158,12 @@ interface MessageForm {
 interface ChatInfo {
     id: string,
     type: "GROUP" | "CONVERSATION"
+};
+
+interface FuncsType {
+    checkData: any,
+    changeData: React.Dispatch<React.SetStateAction<any>>
 }
 
 
-export { ChatInfo, MessageForm, UserDataType, MessageDataType, ShowType, CoordsType, ReturnMessage, PwInfo, UId, FullMessageInfo, TargetMessage, CoordsInfo, TargetUser, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };
+export { FuncsType, ChatInfo, MessageForm, UserDataType, MessageDataType, ShowType, CoordsType, ReturnMessage, PwInfo, UId, FullMessageInfo, TargetMessage, CoordsInfo, TargetUser, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };

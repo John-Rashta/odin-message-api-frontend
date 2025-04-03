@@ -5,10 +5,10 @@ import { isUUID } from "validator";
 import SideBar from "./SideBar";
 import MiniConversationSide from "./MiniConversationSide";
 import FullChat from "./FullChat";
-import useUserOptionsHandle from "../../../util/useUserOptionsHandle";
-import { handleUserOptionsClick } from "../../../util/helpers";
+import { handleUserOptionsClick, getFuncs } from "../../../util/helpers";
 import UserOptions from "./UserOptions";
 import MinimalUserOptions from "./MinimalUserOptions";
+import useBothUserOptionsHandle from "../../../util/useBothUserOptionsHandle";
 
 export default function Conversations() {
     const convoId = useSelector(selectConversationId);
@@ -22,14 +22,13 @@ export default function Conversations() {
     
     const { data, error, isLoading } = useGetConversationQuery({id: convoId});
     const [sendMessage] = useMessageConversationMutation();
-    const [showFuncs, coordsFuncs, dataFuncs] = useUserOptionsHandle();
-    const [showMinFuncs, coordsMinFuncs, dataMinFuncs] = useUserOptionsHandle();
+    const [full, min] = useBothUserOptionsHandle();
     const { data: convosData, error: convosError, isLoading: convosLoading } = useGetConversationsQuery();
     return (
-        <main style={{position: "relative"}} onContextMenu={(e) => handleUserOptionsClick(e, {changeShow: showFuncs.changeShow, changeCoords: coordsFuncs.changeCoords, changeData: dataFuncs.changeData})}
-        onClick={(e) => handleUserOptionsClick(e, {changeShow: showMinFuncs.changeShow, changeCoords: coordsMinFuncs.changeCoords, changeData: dataMinFuncs.changeData})}>
-            {(showFuncs.checkShow && !showMinFuncs.checkShow) && <UserOptions info={dataFuncs.checkData} changeVisible={() => showFuncs.changeShow(false)} coords={coordsFuncs.checkCoords} />}
-            {(!showFuncs.checkShow && showMinFuncs.checkShow) && <MinimalUserOptions info={dataMinFuncs.checkData} changeVisible={() => showMinFuncs.changeShow(false)} coords={coordsMinFuncs.checkCoords} />}
+        <main style={{position: "relative"}} onContextMenu={(e) => handleUserOptionsClick(e, getFuncs([full.showFuncs, full.coordsFuncs, full.dataFuncs]))}
+        onClick={(e) => handleUserOptionsClick(e, getFuncs([min.showFuncs, min.coordsFuncs, min.dataFuncs]))}>
+            {(full.showFuncs.checkShow && !min.showFuncs.checkShow) && <UserOptions info={full.dataFuncs.checkData} changeVisible={() => full.showFuncs.changeShow(false)} coords={full.coordsFuncs.checkCoords} />}
+            {(!full.showFuncs.checkShow && min.showFuncs.checkShow) && <MinimalUserOptions info={min.dataFuncs.checkData} changeVisible={() => min.showFuncs.changeShow(false)} coords={min.coordsFuncs.checkCoords} />}
             {convosLoading ? <div>Loading Conversations...</div>
             : convosError ? <div>Failed getting Conversations!</div> 
             : convosData && convosData.user ? <SideBar data={convosData.user.convos} innerComp={MiniConversationSide} activeId={convoId} /> : <div>No Conversations Yet!</div> }
