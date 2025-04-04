@@ -8,4 +8,10 @@ export default function RootLayout() {
         return;
     }
 
+
+
+    return (
+        <>
+        </>
+    )
 };

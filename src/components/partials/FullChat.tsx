@@ -9,7 +9,7 @@ import { TriggerType } from "../../../util/types";
 import EditChat from "./EditChat";
 
 
-export default function FullChat({info, admin, basicInfo, trigger} : {info: MessageInfo[], basicInfo: ChatInfo, trigger: TriggerType , admin?: boolean}) {
+export default function FullChat({info, adminList, basicInfo, trigger} : {info: MessageInfo[], basicInfo: ChatInfo, trigger: TriggerType , adminList?: string[]}) {
     const [editId, setEditId] = useState("0");
     const { data } = useGetMessageQuery((isUUID(editId) && {id: editId}) || skipToken);
     const clearEdit = function clearEditAfterEditing() {
@@ -17,7 +17,7 @@ export default function FullChat({info, admin, basicInfo, trigger} : {info: Mess
     }
     return (
         <div>
-            <MessagesContainer info={info} setEditId={setEditId} {...(admin ? {admin} : {})} />
+            <MessagesContainer info={info} setEditId={setEditId} {...(adminList ? {adminList} : {})} />
             {(!isUUID(editId) && !data )&& <NormalChat trigger={trigger} info={basicInfo}/>}
             {(isUUID(editId) && data) && <EditChat info={data} changeEdit={clearEdit} />}
         </div>

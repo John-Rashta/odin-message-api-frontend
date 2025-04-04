@@ -36,7 +36,7 @@ username: string;
 
 interface BasicGroupInfo {
     members: BasicUserInfo[];
-    name: string | null;
+    name?: string | null;
     id: string;
 };
 

@@ -378,4 +378,6 @@ export const {
     useMessageConversationMutation,
     useMessageGroupMutation,
     useUpdateMessageMutation,
+    useGetGroupQuery,
+    useLeaveGroupMutation,
 } = apiSlice;

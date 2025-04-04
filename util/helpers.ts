@@ -1,7 +1,7 @@
 import { enIN } from "date-fns/locale";
 import { Locale } from "date-fns/locale";
 import { BasicClickType, ClickType, FuncsOptionsType } from "./types";
-import { TargetUser, CoordsInfo, TargetMessage } from "./interfaces";
+import { TargetUser, CoordsInfo, TargetMessage, BasicUserInfo } from "./interfaces";
 import { selectMyId } from "../src/features/manager/manager-slice";
 import { useSelector } from "react-redux";
 
@@ -104,4 +104,10 @@ const getFuncs = function getChangeFunctionsFromHandlers(info : FuncsOptionsType
     }
 };
 
-export { locale, handleUserOptionsClick, handleMessageOptionsClick, getFuncs };
+const getAdminIds = function getIdOfAdminsFroAdminList(info: BasicUserInfo[]) {
+    return info.map((admin) => {
+        return admin.id
+    });
+}
+
+export { locale, handleUserOptionsClick, handleMessageOptionsClick, getFuncs, getAdminIds };
