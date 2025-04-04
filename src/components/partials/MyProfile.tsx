@@ -87,6 +87,7 @@ export default function MyProfile() {
                     <button onClick={handleChangePassword}>Change Password</button>
                     <ChangeTextFields fieldname="aboutMe" myData={data.user} updater={updateMe} area={true} />
                     <div>{data.user.joinedAt.toDateString()}</div>
+                    <div>{data.user.id}</div>
                 </>
             ) : <div>Something went wrong...</div>
             }

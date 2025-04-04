@@ -89,6 +89,7 @@ interface UserGroups {
 };
 
 interface GroupInfo {
+    name: string | null;
     id: string;
     members: BasicUserInfo[];
     contents: MessageInfo[];
@@ -114,16 +115,21 @@ interface UserSentRequests {
     id: string;
     username: string;
     sentRequest: {
+        id: string;
         sentAt: Date;
         sender: {
             id: string;
             username: string;
         };
-        type: RequestTypes;
+        group: {
+            id: string;
+            name: string | null;
+        } | null;
         receiver: {
             id: string;
             username: string;
         };
+        type: RequestTypes;
     }[];
 };
 
@@ -380,4 +386,9 @@ export const {
     useUpdateMessageMutation,
     useGetGroupQuery,
     useLeaveGroupMutation,
+    useGetFriendsQuery,
+    useGetRequestsQuery,
+    useGetSentRequestsQuery,
+    useCreateGroupMutation,
+    useDeleteGroupMutation,
 } = apiSlice;

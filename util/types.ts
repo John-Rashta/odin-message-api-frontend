@@ -24,5 +24,7 @@ type ConversationTriggerType = MutationTriggerType<MessageForm, ReturnMessage>;
 type GroupTriggerType = MutationTriggerType<MessageForm & UId, ReturnMessage>;
 type TriggerType = ConversationTriggerType | GroupTriggerType ;
 type FuncsOptionsType = [ShowType, CoordsType, FuncsType];
+type SimpleSubmitFunctionType = (e : FormType) => void;
+type SimpleAnyFunctionType = (e: any) =>  void;
 
-export { FuncsOptionsType, BasicClickType, ConversationTriggerType, GroupTriggerType, TriggerType, EditStateType, MutationTriggerType, ClickType, SimpleFunctionType, FormType, RequestTypes, LazyGetTriggerType, ButtonClickType };
+export { SimpleAnyFunctionType, SimpleSubmitFunctionType, FuncsOptionsType, BasicClickType, ConversationTriggerType, GroupTriggerType, TriggerType, EditStateType, MutationTriggerType, ClickType, SimpleFunctionType, FormType, RequestTypes, LazyGetTriggerType, ButtonClickType };

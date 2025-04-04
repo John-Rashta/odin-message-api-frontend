@@ -25,7 +25,7 @@ export default function NormalChat({trigger, info} : {trigger: TriggerType, info
         if (info.type === "CONVERSATION") {
             newForm.append("conversationid", info.id);
             const checkTrigger = trigger as ConversationTriggerType;
-            checkTrigger({message: newForm})
+            checkTrigger({message: newForm});
         } else if (info.type === "GROUP") {
             trigger({message: newForm, id: info.id});
         }

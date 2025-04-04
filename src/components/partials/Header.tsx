@@ -52,8 +52,8 @@ export default function Header() {
             <div onClick={() =>  setShowOptions(!showOptions)}>Requests</div>
             {showOptions &&  
             <div>
-                <NavLink to="">Received</NavLink>
-                <NavLink to="">Sent</NavLink>
+                <NavLink to="/requests">Received</NavLink>
+                <NavLink to="/requests" state={{type: "SENT"}}>Sent</NavLink>
             </div>}
             <NavLink to="">Conversations</NavLink>
             <NavLink to="">Groups</NavLink>

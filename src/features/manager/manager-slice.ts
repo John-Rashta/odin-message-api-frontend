@@ -5,7 +5,6 @@ export interface managerState {
   userId: string;
   groupId: string;
   conversationId: string;
-  editId: string | null;
 }
 
 const initialState: managerState = {
@@ -13,7 +12,6 @@ const initialState: managerState = {
     userId: "0",
     groupId: "0",
     conversationId: "0",
-    editId: null,
 };
 
 export const managerSlice = createSlice({

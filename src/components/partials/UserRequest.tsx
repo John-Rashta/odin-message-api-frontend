@@ -3,7 +3,7 @@ import { selectMyId } from "../../features/manager/manager-slice";
 import { RequestInfo } from "../../../util/interfaces";
 import { useAcceptRequestMutation, useDeleteRequestMutation } from "../../features/message-api/message-api-slice";
 
-export default function Request({info} : {info: RequestInfo}) {
+export default function UserRequest({info} : {info: RequestInfo}) {
     const myId = useSelector(selectMyId);
     const [acceptRequest] = useAcceptRequestMutation();
     const [deleteRequest] = useDeleteRequestMutation();
@@ -24,7 +24,7 @@ export default function Request({info} : {info: RequestInfo}) {
     if (info.type === "GROUP") {
 
         if (!info.group) {
-            return;
+            return <></>;
         };
         return (
             <div>
@@ -46,6 +46,8 @@ export default function Request({info} : {info: RequestInfo}) {
             </div>
         )
     } else {
-        return;
+        return (
+            <></>
+        )
     };
 };

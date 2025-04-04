@@ -108,6 +108,6 @@ const getAdminIds = function getIdOfAdminsFroAdminList(info: BasicUserInfo[]) {
     return info.map((admin) => {
         return admin.id
     });
-}
+};
 
 export { locale, handleUserOptionsClick, handleMessageOptionsClick, getFuncs, getAdminIds };
