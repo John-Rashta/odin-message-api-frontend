@@ -5,7 +5,7 @@ import useMessageOptionsHandle from "../../../util/useMessageOptionsHandle";
 import MessageOptions from "./MessageOptions";
 import { EditStateType } from "../../../util/types";
 
-export default function MessagesContainer({info, admin, setEditId} : {info: MessageInfo[], setEditId: EditStateType, admin?: boolean}) {
+export default function MessagesContainer({info, adminList, setEditId} : {info: MessageInfo[], setEditId: EditStateType, adminList?: string[]}) {
     const [showFuncs, coordsFuncs, dataFuncs] = useMessageOptionsHandle();
 
     return (
@@ -14,7 +14,7 @@ export default function MessagesContainer({info, admin, setEditId} : {info: Mess
             {info.map((currentMessage, index) => {
                 return (
                     <Message info={currentMessage} {...(index > 0 ? {previousMessageSenderId: info[index-1].sender.id} : {})} 
-                    {...(typeof admin === "boolean" ? {admin: admin} : {})} />
+                    {...( Array.isArray(adminList) ? {adminList} : {})} />
                 )
             })}
         </div>
