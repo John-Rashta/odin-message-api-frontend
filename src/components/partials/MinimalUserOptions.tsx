@@ -1,4 +1,4 @@
-import { useGetUserQuery, useCreateConversationMutation } from "../../features/message-api/message-api-slice";
+import { useGetUserQuery } from "../../features/message-api/message-api-slice";
 import { TargetUser, CoordsProp } from "../../../util/interfaces";
 import { SimpleFunctionType } from "../../../util/types";
 import StartConvoButton from "./StartConvoButton";
@@ -17,7 +17,7 @@ export default function MinimalUserOptions({ info, changeVisible, coords, group 
         setShowOptions(false)
     };
 
-    useClickOutside(optionsRef, closeOptions);
+    useClickOutside(optionsRef, changeVisible);
 
     return (
         <div ref={optionsRef}>

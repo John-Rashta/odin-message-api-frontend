@@ -9,7 +9,7 @@ export default function MessagesContainer({info, adminList, setEditId} : {info: 
     const [showFuncs, coordsFuncs, dataFuncs] = useMessageOptionsHandle();
 
     return (
-        <div onMouseEnter={(e) => getFuncs([showFuncs, coordsFuncs, dataFuncs])} onMouseLeave={() => showFuncs.changeShow(false)}>
+        <div onMouseEnter={(e) => handleMessageOptionsClick(e, getFuncs([showFuncs, coordsFuncs, dataFuncs]))} onMouseLeave={() => showFuncs.changeShow(false)}>
             {(showFuncs.checkShow && dataFuncs.checkData.message) ? <MessageOptions changeId={setEditId} coords={coordsFuncs.checkCoords} changeVisible={() => showFuncs.changeShow(false)} messageid={dataFuncs.checkData.message} /> : null}
             {info.map((currentMessage, index) => {
                 return (

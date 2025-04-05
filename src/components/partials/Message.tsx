@@ -1,6 +1,7 @@
 import { MessageInfo } from "../../../util/interfaces";
 import { formatRelative } from "date-fns";
 import { locale } from "../../../util/helpers";
+import { userOptionsClass } from "../../../util/globalValues";
 
 export default function Message({info, previousMessageSenderId, adminList} : {info: MessageInfo, previousMessageSenderId?: string, adminList?: string[]}) {
 
@@ -9,11 +10,11 @@ export default function Message({info, previousMessageSenderId, adminList} : {in
             {info.edited ? <div>Edited</div> : null}
             <div>
                 <div>
-                    <img className="optionsUser" data-userid={info.sender.id} {...(adminList && adminList.includes(info.sender.id)) ? {"data-admin" : true} : {}} src={info.sender.customIcon ? info.sender.customIcon.url : info.sender.icon.source} alt="user icon" />
+                    <img className={userOptionsClass} data-userid={info.sender.id} {...(adminList && adminList.includes(info.sender.id)) ? {"data-admin" : true} : {}} src={info.sender.customIcon ? info.sender.customIcon.url : info.sender.icon.source} alt="user icon" />
                 </div>
                 <div>
                     <div>
-                        <div className="optionsUser" data-userid={info.sender.id} {...(adminList && adminList.includes(info.sender.id)) ? {"data-admin" : true} : {}}>{info.sender.username}</div>
+                        <div className={userOptionsClass} data-userid={info.sender.id} {...(adminList && adminList.includes(info.sender.id)) ? {"data-admin" : true} : {}}>{info.sender.username}</div>
                         {info.sender.id === previousMessageSenderId ? null : 
                         <div>{formatRelative(new Date(info.sentAt), new Date(), {locale})}</div>}
                     </div>
