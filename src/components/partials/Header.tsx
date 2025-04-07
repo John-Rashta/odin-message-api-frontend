@@ -3,8 +3,9 @@ import { useState } from "react";
 import SearchResult from "./SearchResult";
 import { useLogoutUserMutation, useLazySearchUsersQuery } from "../../features/message-api/message-api-slice";
 import { useDispatch } from "react-redux";
-import { setUserId } from "../../features/manager/manager-slice";
+import { setMyId, setUserId } from "../../features/manager/manager-slice";
 import { ClickType } from "../../../util/types";
+import { setAuthState } from "../../features/auth/auth-slice";
 
 export default function Header() {
     const [showOptions, setShowOptions] = useState(false);
@@ -55,11 +56,13 @@ export default function Header() {
                 <NavLink to="/requests">Received</NavLink>
                 <NavLink to="/requests" state={{type: "SENT"}}>Sent</NavLink>
             </div>}
-            <NavLink to="">Conversations</NavLink>
-            <NavLink to="">Groups</NavLink>
-            <NavLink to="">Friends</NavLink>
+            <NavLink to="/conversations">Conversations</NavLink>
+            <NavLink to="/groups">Groups</NavLink>
+            <NavLink to="/friends">Friends</NavLink>
             <div onClick={() => {
                 logoutUser().unwrap().then(() => {
+                    dispatch(setAuthState(false));
+                    dispatch(setMyId("0"));
                     navigate("/");
                 })
             }}>Logout</div>
