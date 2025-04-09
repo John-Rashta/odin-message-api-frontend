@@ -25,7 +25,7 @@ export default function NormalChat({trigger, info} : {trigger: TriggerType, info
                 newForm.append("uploaded_file", possibleFile);
             };
         }
-
+        
         newForm.append("content", content);
         if (info.type === "CONVERSATION") {
             newForm.append("conversationid", info.id);
