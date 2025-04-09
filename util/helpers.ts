@@ -2,8 +2,6 @@ import { enIN } from "date-fns/locale";
 import { Locale } from "date-fns/locale";
 import { BasicClickType, ClickType, FuncsOptionsType } from "./types";
 import { TargetUser, CoordsInfo, TargetMessage, BasicUserInfo } from "./interfaces";
-import { selectMyId } from "../src/features/manager/manager-slice";
-import { useSelector } from "react-redux";
 
 interface HandleOptions {
     changeShow: React.Dispatch<React.SetStateAction<boolean>>,
@@ -45,9 +43,8 @@ const helperGetCoords = function getCoordsFromEventAndTarget(e : BasicClickType,
     }
 };
 
-const handleUserOptionsClick = function handleClickingForOptions(e : BasicClickType, helpFuncs : HandleOptions & UserOptions ) {
+const handleUserOptionsClick = function handleClickingForOptions(myId: string, e : BasicClickType, helpFuncs : HandleOptions & UserOptions ) {
     e.preventDefault();
-    const myId = useSelector(selectMyId);
     const target = e.target as HTMLElement;
     const realTarget = target.closest(".optionsUser");
     if (!realTarget || !(realTarget instanceof HTMLElement)) {
@@ -69,11 +66,11 @@ const handleUserOptionsClick = function handleClickingForOptions(e : BasicClickT
     })
     helpFuncs.changeCoords(finalCoords);
     helpFuncs.changeShow(true);
+    console.log(possibleAdmin)
 };
 
-const handleMessageOptionsClick = function handleClickingMessageForOptions(e: ClickType, helpFuncs: HandleOptions & MessageOptions) {
+const handleMessageOptionsClick = function handleClickingMessageForOptions(myId: string, e: ClickType, helpFuncs: HandleOptions & MessageOptions) {
     e.preventDefault();
-    const myId = useSelector(selectMyId);
     const target = e.target as HTMLElement;
     const checkIfUser = target.closest(".optionsUser");
     if (checkIfUser) {

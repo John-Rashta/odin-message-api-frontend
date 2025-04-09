@@ -9,7 +9,7 @@ export default function GroupPeople({admins, members} : {admins: BasicUserInfo[]
                 <p>Admins</p>
                 {admins.map((member) => {
                     return (
-                    <MiniMembers confirmedAdmin={true} member={member} />
+                    <MiniMembers key={member.id} confirmedAdmin={true} member={member} />
                     )
                 })}
             </div>
@@ -17,7 +17,7 @@ export default function GroupPeople({admins, members} : {admins: BasicUserInfo[]
                 <p>Members</p>
                 {members.map((member) => {
                     return (
-                        <MiniMembers member={member} />
+                        <MiniMembers key={member.id} member={member} />
                     )
                 })}
             </div>

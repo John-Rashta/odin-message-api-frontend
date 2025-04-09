@@ -60,7 +60,7 @@ export default function UserProfile() {
                         {showOptions && <GroupSelection groupsData={groupsData} userid={data.user.id} hideMe={() => setShowOptions(false)} />}
                     </div>
                     <div>{data.user.id}</div>
-                    <div>{data.user.joinedAt.toDateString()}</div>
+                    <div>{data.user.joinedAt.toString()}</div>
                     <div>{data.user.aboutMe}</div>
                 </>
             ) : <div>No User Found.</div>

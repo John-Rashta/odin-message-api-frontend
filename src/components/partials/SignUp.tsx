@@ -35,13 +35,10 @@ export default function SignUp() {
             return;
         };
 
-        const newForm = new FormData();
-        newForm.append("username", username);
-        newForm.append("password", password);
-
-        createUser({data: newForm}).unwrap().then(() => {
+        createUser({username, password}).unwrap().then(() => {
             navigate("/");
-        }).catch(() => {
+        }).catch((response) => {
+            console.log(response)
             setWrongInputs(true);
             resetPws();
         });

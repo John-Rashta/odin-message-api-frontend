@@ -20,7 +20,7 @@ export default function Groups() {
     const dispatch = useDispatch();
     const [showConfirm, setShowConfirm] = useState(false);
 
-    const { data, error, isLoading} = useGetGroupQuery((isUUID(groupId) ? {id: groupId} : skipToken));
+    const { data, error, isLoading} = useGetGroupQuery({id: groupId});
     const [ sendMessage ] = useMessageGroupMutation();
     const [leaveGroup ] = useLeaveGroupMutation();
     const [ createGroup ] = useCreateGroupMutation();
@@ -64,7 +64,7 @@ export default function Groups() {
     return (
         <MainWithOptions {...((data && userIsAdmin) ? {group: groupId} : {})}>
             <button onClick={() => createGroup({})}>Create Group</button>
-            {data && 
+            {(data && !error) && 
                 <div>
                     {userIsAdmin && 
                     <>
@@ -77,7 +77,7 @@ export default function Groups() {
                 </div>
             }
             {
-                (data && userIsAdmin) && (showConfirm ? <button onClick={() => {
+                ((data && !error) && userIsAdmin) && (showConfirm ? <button onClick={() => {
                     deleteGroup({id: groupId}).unwrap().then(() => {
                         dispatch(setGroupId("0"));
                     }).finally(() => {
@@ -89,8 +89,7 @@ export default function Groups() {
             : groupsError ? <div>Error Loading Groups!</div> 
             : groupsData ? <SideBar data={groupsData.user.groups} activeId={groupId} innerComp={MiniGroupSide} />  : <div>No Conversations Yet!</div> }
             {isLoading ?<div>Loading Group...</div> 
-            : error ? <div>Failed Loading Group!</div>
-            : data ? <FullChat adminList={getAdminIds(data.group.admins)} basicInfo={{id: data.group.id, type: "GROUP"}} trigger={sendMessage} info={data.group.contents} /> : <div>Try Starting a Group!</div>}
+            : (data && !error) ? <FullChat adminList={getAdminIds(data.group.admins)} basicInfo={{id: data.group.id, type: "GROUP"}} trigger={sendMessage} info={data.group.contents} /> : <div>Try Starting a Group!</div>}
         </MainWithOptions>
     )
 

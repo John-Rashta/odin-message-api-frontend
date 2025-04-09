@@ -45,7 +45,7 @@ export default function Header() {
                 {usersData &&  <div onClick={handleClick} style={{position: "absolute"}}>
                     {usersData.length > 0 ? usersData.map((user) => {
                             return (
-                            <SearchResult info={user}/>
+                            <SearchResult key={user.id} info={user}/>
                         )
                         }) : <div>No Results Found</div>}
                 </div>}

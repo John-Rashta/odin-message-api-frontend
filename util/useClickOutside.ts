@@ -4,6 +4,7 @@ import { SimpleFunctionType } from "./types";
 export default function useClickOutside(ref: RefObject<HTMLDivElement>, handleOutside : SimpleFunctionType ) {
     useEffect(() => {
         const handleClickOutside = (event : MouseEvent) => {
+            event.stopPropagation();
             const currentTarget = event.target as HTMLDivElement;
             const currentRef = ref.current as HTMLElement;
             if (currentRef && !currentRef.contains(currentTarget)) {

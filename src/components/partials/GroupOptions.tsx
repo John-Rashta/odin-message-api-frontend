@@ -7,7 +7,7 @@ export default function GroupOptions({groupsData, handleClick} : {groupsData: Ba
         <div onClick={handleClick} style={{position: "absolute"}}>
         {groupsData && groupsData.length > 0 ? groupsData.map((group) => {
             return (
-                <div data-groupid={group.id} data-type="INVITEGROUP">{group.name}</div>
+                <div key={group.id} data-groupid={group.id} data-type="INVITEGROUP">{group.name}</div>
             )
         }) : "No Groups" }
         </div>

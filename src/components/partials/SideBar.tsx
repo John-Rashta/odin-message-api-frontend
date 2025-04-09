@@ -14,7 +14,7 @@ export default function SideBar({innerComp : InnerComp, data, activeId} : { inne
         event.preventDefault();
         event.stopPropagation();
         const target = event.target as HTMLElement;
-        const realTarget = target.closest("sidebarOption") as HTMLDivElement;
+        const realTarget = target.closest(".sidebarOption") as HTMLDivElement;
         if (!realTarget) {
             return;
         };
@@ -32,7 +32,7 @@ export default function SideBar({innerComp : InnerComp, data, activeId} : { inne
     return (
         <div onClick={handleClick}>
             {data.map((info) => {
-                return (<InnerComp info={info} {...(activeId === info.id ? {activeId} : {})} />)
+                return (<InnerComp key={info.id} info={info} {...(activeId === info.id ? {activeId} : {})} />)
             })}
         </div>
     )

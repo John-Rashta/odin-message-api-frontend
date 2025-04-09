@@ -16,12 +16,8 @@ interface CredentialsUpdate {
 };
 
 interface UserProfile {
-    data: FormData;
-    /*FOR REFERENCE
-    name?: string,
-    icon?: number,
-    aboutMe?: string,
-    */
+    username: string,
+    password: string
 };
 
 interface IconInfo {
@@ -341,7 +337,7 @@ export const apiSlice = createApi({
                 url:`/groups/${id}/leave`,
                 method: "POST",
             }),
-            invalidatesTags:["GroupInfo", "GroupsInfo"],
+            invalidatesTags:["GroupsInfo"],
         }),
         updateGroup: builder.mutation<ReturnMessage, UId & {info: GroupUpdate}>({
             query: ({id, info}) => ({
@@ -356,7 +352,7 @@ export const apiSlice = createApi({
                 url: `/groups/${id}`,
                 method: "DELETE"
             }),
-            invalidatesTags:["GroupsInfo", "GroupInfo"]
+            invalidatesTags:["GroupsInfo"]
         }),
     })
 });
