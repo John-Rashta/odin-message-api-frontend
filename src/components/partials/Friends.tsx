@@ -9,7 +9,7 @@ export default function Friends() {
             {isLoading ? <div>Loading Friends...</div>
             : error ? <div>Failed Getting Friends!</div>
             : data ? data.friends.friendlist.map((friend) => {
-                return <FriendDisplay info={friend.users[0]} />
+                return <FriendDisplay key={friend.users[0].id} info={friend.users[0]} />
             }) : <div>No Friends Yet!</div>
             }
         </MainWithOptions>

@@ -5,7 +5,6 @@ import { useMakeRequestMutation, useCreateGroupMutation, useGetGroupsQuery, useG
 import { useSelector, useDispatch } from "react-redux";
 import { selectGroupId, selectMyId, setGroupId } from "../../features/manager/manager-slice";
 import { isUUID } from "validator";
-import { skipToken } from "@reduxjs/toolkit/query";
 import MiniGroupSide from "./MiniGroupSide";
 import { getAdminIds } from "../../../util/helpers";
 import { ButtonClickType, FormType } from "../../../util/types";
@@ -29,6 +28,7 @@ export default function Groups() {
     const { data: groupsData, error: groupsError, isLoading: groupsLoading } = useGetGroupsQuery();
 
     const userIsAdmin = data && getAdminIds(data.group.admins).includes(myId);
+    const membersIds = data && data.group.members.map((member) => member.id);
 
     const handleClick = function handleClickingToLeaveGroup(event: ButtonClickType) {
         event.preventDefault();
@@ -62,7 +62,7 @@ export default function Groups() {
     };
 
     return (
-        <MainWithOptions {...((data && userIsAdmin) ? {group: groupId} : {})}>
+        <MainWithOptions {...((data && userIsAdmin) ? {group: groupId, members: membersIds} : {})}>
             <button onClick={() => createGroup({})}>Create Group</button>
             {(data && !error) && 
                 <div>

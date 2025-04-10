@@ -35,7 +35,10 @@ export default function MinimalUserOptions({ info, changeVisible, coords, group 
                     <div>{data.user.username}</div>
                     <StartConvoButton userid={data.user.id} />
                     <div style={{position: "relative"}}>
-                        <div onClick={() => setShowOptions(!showOptions)}>Options</div>
+                        <div onClick={(e) => {
+                            e.stopPropagation();
+                            setShowOptions(!showOptions);
+                        }}>Options</div>
                         {showOptions && <UserOptions changeVisible={closeOptions} coords={coords} group={group} info={info}  />}
                     </div>
                 </>

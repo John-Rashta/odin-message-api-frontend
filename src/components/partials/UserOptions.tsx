@@ -50,7 +50,13 @@ export default function UserOptions({ info, changeVisible, coords, group } : {in
                 changeVisible();
             }).catch((response) => {
                 if (response.data.message === "Request Already Sent") {
+                    console.log(response.data)
                     currentTarget.textContent = "Already Sent";
+                    delete currentTarget.dataset.type;
+                };
+
+                if (response.data.message === "Already Friends") {
+                    currentTarget.textContent = "Already Friends";
                     delete currentTarget.dataset.type;
                 }
             })

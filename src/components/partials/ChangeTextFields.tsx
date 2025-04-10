@@ -30,7 +30,6 @@ export default function ChangeTextFields({myData, fieldname, updater, area} : {m
 
     return (
         <div>
-            <div></div>
             { (showEdit && 
             <form onSubmit={handleSubmit}>
                 {showError &&  <div>{errorMessage}</div>}

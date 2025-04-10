@@ -66,7 +66,6 @@ const handleUserOptionsClick = function handleClickingForOptions(myId: string, e
     })
     helpFuncs.changeCoords(finalCoords);
     helpFuncs.changeShow(true);
-    console.log(possibleAdmin)
 };
 
 const handleMessageOptionsClick = function handleClickingMessageForOptions(myId: string, e: ClickType, helpFuncs: HandleOptions & MessageOptions) {

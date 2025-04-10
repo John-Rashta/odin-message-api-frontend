@@ -18,6 +18,8 @@ export default function EditGroupName({fieldsName, groupId, groupName, buttonTex
         updateName({id: groupId, info: {name: possibleName}}).unwrap().finally(() => {
             setEditName(false);
         });
+
+        target.reset();
     };
 
     return (

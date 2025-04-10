@@ -10,6 +10,7 @@ import { setAuthState } from "../../features/auth/auth-slice";
 export default function Header() {
     const [showOptions, setShowOptions] = useState(false);
     const [logoutUser] = useLogoutUserMutation();
+    const [searchValue, setSearchValue] = useState("");
     const [searchUser, {usersData}] = useLazySearchUsersQuery({selectFromResult: ({data}) => ({
         usersData: data?.users
     })});
@@ -30,6 +31,7 @@ export default function Header() {
         };
 
         dispatch(setUserId(possibleUser));
+        setSearchValue("");
         navigate("/users");
     };
 
@@ -37,12 +39,13 @@ export default function Header() {
         <header>
             <NavLink to="/">Home</NavLink>
             <div style={{position: "relative"}}>
-                <input type="text" name="searchBar" id="searchBar" onChange={(e) => {
+                <input type="text" name="searchBar" id="searchBar" value={searchValue} onChange={(e) => {
+                    setSearchValue(e.target.value)
                     if (e.target.value !== "") {
                         const he = searchUser(e.target.value);
                     }
                 }} />
-                {usersData &&  <div onClick={handleClick} style={{position: "absolute"}}>
+                {(usersData && searchValue !== "") &&  <div onClick={handleClick} style={{position: "absolute"}}>
                     {usersData.length > 0 ? usersData.map((user) => {
                             return (
                             <SearchResult key={user.id} info={user}/>
@@ -59,6 +62,7 @@ export default function Header() {
             <NavLink to="/conversations">Conversations</NavLink>
             <NavLink to="/groups">Groups</NavLink>
             <NavLink to="/friends">Friends</NavLink>
+            <NavLink to="/profile">Profile</NavLink>
             <div onClick={() => {
                 logoutUser().unwrap().then(() => {
                     dispatch(setAuthState(false));

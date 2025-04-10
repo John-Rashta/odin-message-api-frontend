@@ -17,11 +17,11 @@ export default function MyProfile() {
         event.preventDefault();
         event.stopPropagation();
         const target = event.target as HTMLFormElement;
-        if (target.files.length === 0 ) {
+        if (target.imageInput.files.length === 0 ) {
             return;
         };
         
-        const currentFile = target.files[0] as File;
+        const currentFile = target.imageInput.files[0] as File;
         if (Number(((currentFile.size/1024)/1024).toFixed(4)) > 5) {
             setInvalidSize(true);
             return;
@@ -31,6 +31,8 @@ export default function MyProfile() {
         newForm.append("uploaded_file", currentFile);
         updateMe(newForm).unwrap().then().catch(() => {
             setFailedUpload(true);
+        }).finally(() => {
+            target.reset();
         })
     };
 
@@ -43,7 +45,7 @@ export default function MyProfile() {
         event.stopPropagation();
         const target = event.target as HTMLDivElement;
         if (target.dataset.type === "ICONOPTION") {
-            const possibleId = target.dataset.imageid;
+            const possibleId = target.dataset.iconid;
             if (!possibleId) {
                 return;
             };
@@ -64,7 +66,7 @@ export default function MyProfile() {
             ) :  data && data.user ? (
                 <>
                     <img src={data.user.customIcon?.url || data.user.icon.source} alt="" />
-                    <form onSubmit={handleSubmitImage}>
+                    <form onSubmit={handleSubmitImage} onClick={(e) => e.stopPropagation()}>
                         {failedUpload && <div>Failed to upload.</div>}
                         {invalidSize && <div>Size Over Limit!</div>}
                         <label htmlFor="imageInput">Choose image for icon(max 5MB):</label>
@@ -76,17 +78,23 @@ export default function MyProfile() {
                         {(iconOptions && iconData) && <div>
                             {iconData.icons.map((icon) => {
                             return (
-                                    <img src={icon.source} alt="" data-iconid={icon.id} data-type="ICONOPTION"/>
+                                    <img key={icon.id} src={icon.source} alt="" data-iconid={icon.id} data-type="ICONOPTION"/>
                             )
                             })}
                         </div>
                         }
                     </div>
                     <ChangeTextFields fieldname="username" myData={data.user} updater={updateMe} />
-                    <ChangeTextFields fieldname="name" myData={data.user} updater={updateMe} />
+                    <div>
+                        <div>name:</div>
+                        <ChangeTextFields fieldname="name" myData={data.user} updater={updateMe} />
+                    </div>
                     <button onClick={handleChangePassword}>Change Password</button>
-                    <ChangeTextFields fieldname="aboutMe" myData={data.user} updater={updateMe} area={true} />
-                    <div>{data.user.joinedAt.toDateString()}</div>
+                    <div>
+                        <div>About Me:</div>
+                        <ChangeTextFields fieldname="aboutMe" myData={data.user} updater={updateMe} area={true} />
+                    </div>
+                    <div>{data.user.joinedAt.toString()}</div>
                     <div>{data.user.id}</div>
                 </>
             ) : <div>Something went wrong...</div>

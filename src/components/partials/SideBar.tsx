@@ -12,7 +12,6 @@ export default function SideBar({innerComp : InnerComp, data, activeId} : { inne
     const dispatch = useDispatch();
     const handleClick = function handleClickingSideBarOption(event: ClickType) {
         event.preventDefault();
-        event.stopPropagation();
         const target = event.target as HTMLElement;
         const realTarget = target.closest(".sidebarOption") as HTMLDivElement;
         if (!realTarget) {

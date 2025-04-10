@@ -294,7 +294,7 @@ export const apiSlice = createApi({
                  url: `/requests/${id}`,
                 method: "DELETE"
             }),
-            invalidatesTags: ["RequestInfo", "RequestsInfo"],
+            invalidatesTags: ["RequestInfo", "RequestsInfo", "SentRequestsInfo"],
         }),
         getGroups: builder.query<{user: UserGroups}, void>({
             query: () => ({
@@ -314,6 +314,14 @@ export const apiSlice = createApi({
                     })}
                 };
                 return response;
+            },
+            async onQueryStarted(response, lifecycleApi) {
+                try {
+                    const { data: res} = await lifecycleApi.queryFulfilled;
+
+                } catch {
+                    lifecycleApi.dispatch(apiSlice.util.invalidateTags(["GroupsInfo"]));
+                };
             }
         }),
         createGroup: builder.mutation<{group: BasicGroup}, OptionalName>({

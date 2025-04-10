@@ -6,16 +6,19 @@ export default function useClickOutside(ref: RefObject<HTMLDivElement>, handleOu
         const handleClickOutside = (event : MouseEvent) => {
             event.stopPropagation();
             const currentTarget = event.target as HTMLDivElement;
+            if (currentTarget.closest(".optionsUser")) {
+                return;
+            };
             const currentRef = ref.current as HTMLElement;
             if (currentRef && !currentRef.contains(currentTarget)) {
                 handleOutside();
             };
         };
 
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("mouseup", handleClickOutside);
 
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("mouseup", handleClickOutside);
         }
     });
 };

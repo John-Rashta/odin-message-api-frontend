@@ -7,10 +7,10 @@ import { skipToken } from "@reduxjs/toolkit/query";
 export default function AllRequests() {
     const [selectedType, setSelectedType ] = useState("");
     const { state } = useLocation();
-    const { type } = state;
+    const type = state !== null ? state.type : "";
     const { data, error, isLoading } = useGetRequestsQuery();
-    const { data: sentData, error: sentError, isLoading: sentLoading } = useGetSentRequestsQuery(type === "SENT" || selectedType === "SENT" ? undefined : skipToken);
-
+    const { data: sentData, error: sentError, isLoading: sentLoading } = useGetSentRequestsQuery((type === "SENT" || selectedType === "SENT") ? undefined : skipToken);
+    
     return (
         <main>
             <div>
@@ -20,7 +20,7 @@ export default function AllRequests() {
             {(type !== "SENT" && selectedType !== "SENT") && (isLoading ? <div>Loading Requests...</div>
             : error ? <div>Failed Loading Requests!</div>
             : data ? data.user.receivedRequest.map((request) => {
-                return <UserRequest info={request} />
+                return <UserRequest key={request.id} info={request} />
             })
             : <div>No Requests Yet!</div>
             )}
@@ -29,7 +29,7 @@ export default function AllRequests() {
                     sentLoading ? <div>Loading Sent Requests...</div>
                     : sentError ? <div>Failed Loading Sent Requests!</div>
                     : sentData ? sentData.user.sentRequest.map((request) => {
-                        return <UserRequest info={request}/>
+                        return <UserRequest key={request.id} info={request}/>
                     })
                     : <div>No Sent Requests Yet</div>
                 )
