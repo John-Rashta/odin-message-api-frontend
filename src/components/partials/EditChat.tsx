@@ -9,7 +9,7 @@ export default function EditChat({info, changeEdit} : { info: FullMessageInfo, c
         event.stopPropagation();
         const target = event.target as HTMLFormElement;
         const content = target.editInput.value;
-        if (content === "") {
+        if (content === "" && !info.image) {
             return;
         };
         const newForm = new FormData;
