@@ -171,5 +171,12 @@ interface MessageUpdate {
     }
 };
 
+interface userOptionsInterface {
+        showFuncs: ShowType,
+        coordsFuncs: CoordsType,
+        dataFuncs: UserDataType,
+    
+}
 
-export { MessageUpdate, FuncsType, ChatInfo, MessageForm, UserDataType, MessageDataType, ShowType, CoordsType, ReturnMessage, PwInfo, UId, FullMessageInfo, TargetMessage, CoordsInfo, TargetUser, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };
+
+export { userOptionsInterface, MessageUpdate, FuncsType, ChatInfo, MessageForm, UserDataType, MessageDataType, ShowType, CoordsType, ReturnMessage, PwInfo, UId, FullMessageInfo, TargetMessage, CoordsInfo, TargetUser, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };

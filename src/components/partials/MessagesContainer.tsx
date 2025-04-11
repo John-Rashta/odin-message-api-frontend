@@ -12,7 +12,9 @@ export default function MessagesContainer({info, adminList, setEditId, checkId} 
     const myId = useSelector(selectMyId);
 
     return (
-        <div style={{position: "relative"}} onMouseEnter={(e) => handleMessageOptionsClick(myId, e, getFuncs([showFuncs, coordsFuncs, dataFuncs]))} onMouseLeave={() => showFuncs.changeShow(false)}>
+        <div onMouseOver={(e) => {
+            handleMessageOptionsClick(myId, e, getFuncs([showFuncs, coordsFuncs, dataFuncs]));
+            }} onMouseOut={() => showFuncs.changeShow(false)}>
             {(showFuncs.checkShow && dataFuncs.checkData.message) ? <MessageOptions checkId={checkId} changeId={setEditId} coords={coordsFuncs.checkCoords} changeVisible={() => showFuncs.changeShow(false)} messageid={dataFuncs.checkData.message} /> : null}
             {info.map((currentMessage, index) => {
                 return (

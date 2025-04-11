@@ -69,4 +69,5 @@ export default function RootLayout() {
 
 const StyledDiv = styled.div`
     min-height: 100%;
+    position: relative;
 `

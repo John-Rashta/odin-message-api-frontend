@@ -18,7 +18,6 @@ export default function Groups() {
     const myId = useSelector(selectMyId);
     const dispatch = useDispatch();
     const [showConfirm, setShowConfirm] = useState(false);
-
     const { data, error, isLoading} = useGetGroupQuery({id: groupId});
     const [ sendMessage ] = useMessageGroupMutation();
     const [leaveGroup ] = useLeaveGroupMutation();

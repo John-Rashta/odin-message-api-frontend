@@ -35,8 +35,8 @@ const helperGetCoords = function getCoordsFromEventAndTarget(e : BasicClickType,
     const rect = target.getBoundingClientRect();
     const mouseX = e.clientX;
     const mouseY = e.clientY;
-    const finalX = mouseX - rect.left;
-    const finalY = mouseY - rect.top;
+    const finalX = mouseX;
+    const finalY = mouseY;
 
     return {
         top: finalY,
@@ -45,7 +45,6 @@ const helperGetCoords = function getCoordsFromEventAndTarget(e : BasicClickType,
 };
 
 const handleUserOptionsClick = function handleClickingForOptions(myId: string, e : BasicClickType, helpFuncs : HandleOptions & UserOptions ) {
-    e.preventDefault();
     const target = e.target as HTMLElement;
     const realTarget = target.closest(".optionsUser");
     if (!realTarget || !(realTarget instanceof HTMLElement)) {
@@ -67,6 +66,7 @@ const handleUserOptionsClick = function handleClickingForOptions(myId: string, e
     })
     helpFuncs.changeCoords(finalCoords);
     helpFuncs.changeShow(true);
+    return;
 };
 
 const handleMessageOptionsClick = function handleClickingMessageForOptions(myId: string, e: ClickType, helpFuncs: HandleOptions & MessageOptions) {
@@ -85,12 +85,14 @@ const handleMessageOptionsClick = function handleClickingMessageForOptions(myId:
     if (possibleSender !== myId) {
         return;
     };
-    const finalCoords = helperGetCoords(e, target);
+    const boundTarget = target.getBoundingClientRect();
+    const finalCoords = {top: boundTarget.top, left: Math.round(boundTarget.right * 0.9)};
     helpFuncs.changeData({
         message: possibleMessage
     });
     helpFuncs.changeCoords(finalCoords);
     helpFuncs.changeShow(true);
+    return;
 };
 
 const getFuncs = function getChangeFunctionsFromHandlers(info : FuncsOptionsType) {

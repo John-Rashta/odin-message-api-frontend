@@ -3,9 +3,9 @@ import { useState } from "react";
 import SearchResult from "./SearchResult";
 import { useLogoutUserMutation, useLazySearchUsersQuery } from "../../features/message-api/message-api-slice";
 import { useDispatch } from "react-redux";
-import { setMyId, setUserId } from "../../features/manager/manager-slice";
+import { setUserId } from "../../features/manager/manager-slice";
 import { ClickType } from "../../../util/types";
-import { setAuthState } from "../../features/auth/auth-slice";
+
 
 export default function Header() {
     const [showOptions, setShowOptions] = useState(false);

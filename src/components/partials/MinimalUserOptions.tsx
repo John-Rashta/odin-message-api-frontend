@@ -39,7 +39,7 @@ export default function MinimalUserOptions({ info, changeVisible, coords, group 
                             e.stopPropagation();
                             setShowOptions(!showOptions);
                         }}>Options</div>
-                        {showOptions && <UserOptions changeVisible={closeOptions} coords={coords} group={group} info={info}  />}
+                        {showOptions && <UserOptions changeVisible={closeOptions} coords={{top: 0, left: 50}} group={group} info={info}  />}
                     </div>
                 </>
             ) : (

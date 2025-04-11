@@ -26,5 +26,6 @@ type TriggerType = ConversationTriggerType | GroupTriggerType ;
 type FuncsOptionsType = [ShowType, CoordsType, FuncsType];
 type SimpleSubmitFunctionType = (e : FormType) => void;
 type SimpleAnyFunctionType = (e: any) =>  void;
+type MessageOptionsType = [ShowType, CoordsType, UserDataType];
 
-export { SimpleAnyFunctionType, SimpleSubmitFunctionType, FuncsOptionsType, BasicClickType, ConversationTriggerType, GroupTriggerType, TriggerType, EditStateType, MutationTriggerType, ClickType, SimpleFunctionType, FormType, RequestTypes, LazyGetTriggerType, ButtonClickType };
+export { MessageOptionsType, SimpleAnyFunctionType, SimpleSubmitFunctionType, FuncsOptionsType, BasicClickType, ConversationTriggerType, GroupTriggerType, TriggerType, EditStateType, MutationTriggerType, ClickType, SimpleFunctionType, FormType, RequestTypes, LazyGetTriggerType, ButtonClickType };

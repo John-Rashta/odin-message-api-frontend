@@ -1,8 +1,7 @@
 import useOptionsHandle from "./useOptionsHandle";
-import { TargetUser, UserDataType, ShowType, CoordsType } from "./interfaces";
+import { TargetUser } from "./interfaces";
 import { useState } from "react";
-
-type MessageOptionsType = [ShowType, CoordsType, UserDataType];
+import { MessageOptionsType } from "./types";
 
 export default function  useUserOptionsHandle() {
     const  [targetData, setTargetData] = useState({
