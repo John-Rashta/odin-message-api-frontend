@@ -158,12 +158,14 @@ export const apiSlice = createApi({
                     password,
                 }
             }),
+            invalidatesTags: ["SelfInfo"],
         }),
         logoutUser: builder.mutation<ReturnMessage, void>({
             query: () => ({
                 url: "/auth",
                 method: "PUT"
-            })
+            }),
+            invalidatesTags: ["SelfInfo"],
         }),
         getSelf: builder.query<{user: UserInfo}, void>({
             query: () => ({
