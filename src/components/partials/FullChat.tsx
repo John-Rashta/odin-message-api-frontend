@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { ChatInfo, MessageInfo } from "../../../util/interfaces";
 import MessagesContainer from "./MessagesContainer";
-import { useGetMessageQuery } from "../../features/message-api/message-api-slice";
 import { isUUID } from "validator";
-import { skipToken } from "@reduxjs/toolkit/query";
 import NormalChat from "./NormalChat";
 import { TriggerType } from "../../../util/types";
 import EditChat from "./EditChat";
@@ -11,15 +9,14 @@ import EditChat from "./EditChat";
 
 export default function FullChat({info, adminList, basicInfo, trigger} : {info: MessageInfo[], basicInfo: ChatInfo, trigger: TriggerType , adminList?: string[]}) {
     const [editId, setEditId] = useState("0");
-    const { data } = useGetMessageQuery((isUUID(editId) && {id: editId}) || skipToken);
     const clearEdit = function clearEditAfterEditing() {
         setEditId("0");
     }
     return (
         <div>
-            <MessagesContainer info={info} setEditId={setEditId} {...(adminList ? {adminList} : {})} />
-            {(!isUUID(editId) && !data )&& <NormalChat trigger={trigger} info={basicInfo}/>}
-            {(isUUID(editId) && data) && <EditChat info={data} changeEdit={clearEdit} />}
+            <MessagesContainer checkId={editId} info={info} setEditId={setEditId} {...(adminList ? {adminList} : {})} />
+            {!isUUID(editId) && <NormalChat trigger={trigger} info={basicInfo}/>}
+            {isUUID(editId) && <EditChat info={editId} changeEdit={clearEdit} />}
         </div>
     )
 };

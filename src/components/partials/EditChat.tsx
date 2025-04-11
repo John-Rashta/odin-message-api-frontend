@@ -1,28 +1,41 @@
-import { FullMessageInfo } from "../../../util/interfaces";
 import { FormType, SimpleFunctionType } from "../../../util/types";
-import { useUpdateMessageMutation } from "../../features/message-api/message-api-slice";
+import { useGetMessageQuery, useUpdateMessageMutation } from "../../features/message-api/message-api-slice";
 
-export default function EditChat({info, changeEdit} : { info: FullMessageInfo, changeEdit: SimpleFunctionType }) {
+export default function EditChat({info, changeEdit} : { info: string, changeEdit: SimpleFunctionType }) {
     const [updateMessage] = useUpdateMessageMutation();
+    const { messageData } = useGetMessageQuery({id:info}, {selectFromResult: ({data}) => ({
+        messageData: data?.message
+    })});
     const handleSubmit = function handleSubmitingEdit(event: FormType) {
         event.preventDefault();
         event.stopPropagation();
         const target = event.target as HTMLFormElement;
         const content = target.editInput.value;
-        if (content === "" && !info.image) {
+        if (!messageData) {
+            return;
+        }
+        if (content === "" && !messageData.image) {
             return;
         };
-        const newForm = new FormData;
-        newForm.append("content", content);
-        updateMessage({message: newForm, id: info.id}).unwrap().then().catch().finally(() => {
+        updateMessage({message: {content: content}, id: messageData.id}).unwrap().then().catch((e) => {
+            if (e.data.message) {
+                console.log(e.data.message);
+            }
+        }).finally(() => {
             changeEdit();
         })
-    }
+    };
+
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="text" name="editInput" id="editInput" defaultValue={info.content}/>
-            {typeof info.image?.url === "string" ? <img src={info.image.url} alt="message image"/> : null}
-            <button type="submit">Confirm</button>
+    <>
+    {messageData &&
+        <form onSubmit={handleSubmit} onClick={(e) =>  e.stopPropagation()}>
+        <input type="text" name="editInput" id="editInput" defaultValue={messageData.content}/>
+        {typeof messageData.image?.url === "string" ? <img src={messageData.image.url} alt="message image"/> : null}
+        <button onClick={() => changeEdit()} type="button">Cancel</button>
+        <button type="submit">Confirm</button>
         </form>
+    }  
+    </>
     )
 };

@@ -6,7 +6,6 @@ import UserOptions from "./UserOptions";
 import MinimalUserOptions from "./MinimalUserOptions";
 import { useSelector } from "react-redux";
 import { selectMyId } from "../../features/manager/manager-slice";
-import { BasicUserInfo } from "../../../util/interfaces";
 
 export default function MainWithOptions({group, children, members} : {group?: string, children: React.ReactNode, members?: string[]}) {
     const [full, min] = useBothUserOptionsHandle();

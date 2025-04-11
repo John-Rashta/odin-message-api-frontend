@@ -20,7 +20,7 @@ export default function MinimalUserOptions({ info, changeVisible, coords, group 
     useClickOutside(optionsRef, changeVisible);
 
     return (
-        <div ref={optionsRef}>
+        <div ref={optionsRef} style={{position: "absolute", ...coords}}>
             {isLoading ? (
                 <>
                     <div>Loading...</div>

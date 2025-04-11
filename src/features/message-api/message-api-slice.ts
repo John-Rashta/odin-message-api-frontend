@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { MessageForm, ReturnMessage, UId, FriendsInfo, UserInfo, RequestInfo, MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo, UserConversation, FullMessageInfo } from "../../../util/interfaces";
+import { MessageUpdate, MessageForm, ReturnMessage, UId, FriendsInfo, UserInfo, RequestInfo, MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo, UserConversation, FullMessageInfo } from "../../../util/interfaces";
 import { RequestTypes } from "../../../util/types";
 import { isFetchBaseQueryError } from "../../../util/helpers";
  
@@ -141,6 +141,7 @@ export const apiSlice = createApi({
         credentials: "include",
     }),
     tagTypes: ["SelfInfo", "ConvoInfo", "GroupInfo", "FriendsInfo", "ConvosInfo", "RequestInfo", "SentRequestsInfo", "RequestsInfo", "GroupsInfo"],
+    keepUnusedDataFor: 5,
     endpoints: (builder) => ({
         createUser: builder.mutation<ReturnMessage, UserProfile>({
             query: (body) => ({
@@ -165,7 +166,6 @@ export const apiSlice = createApi({
                 url: "/auth",
                 method: "PUT"
             }),
-            invalidatesTags: ["SelfInfo"],
         }),
         getSelf: builder.query<{user: UserInfo}, void>({
             query: () => ({
@@ -196,12 +196,12 @@ export const apiSlice = createApi({
                 url: "/users/profile/icons",
             })
         }),
-        getMessage: builder.query<FullMessageInfo, UId>({
+        getMessage: builder.query<{message: FullMessageInfo}, UId>({
             query: ({id}) => ({
                 url:`/messages/${id}`
             })
         }),
-        updateMessage: builder.mutation<ReturnMessage, MessageForm & UId>({
+        updateMessage: builder.mutation<ReturnMessage, MessageUpdate & UId>({
             query: ({id, message}) => ({
                 url: `/messages/${id}`,
                 method: "PUT",
@@ -333,7 +333,6 @@ export const apiSlice = createApi({
                     }
                 };
             },
-            keepUnusedDataFor: 5,
         }),
         createGroup: builder.mutation<{group: BasicGroup}, OptionalName>({
             query: ({name}) => ({

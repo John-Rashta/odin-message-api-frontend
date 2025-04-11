@@ -4,13 +4,16 @@ import { useRef } from "react";
 import  useClickOutside from "../../../util/useClickOutside";
 import { CoordsProp } from "../../../util/interfaces";
 
-export default function MessageOptions({ messageid, changeVisible, coords, changeId } : {messageid: string, changeVisible: SimpleFunctionType, coords: CoordsProp, changeId: EditStateType}) {
+export default function MessageOptions({ messageid, changeVisible, coords, changeId, checkId } : {messageid: string, changeVisible: SimpleFunctionType, coords: CoordsProp, changeId: EditStateType, checkId: string }) {
     const [deleteMessage] = useDeleteMessageMutation();
     const optionsRef = useRef<HTMLDivElement>(null);
     useClickOutside(optionsRef, changeVisible);
     const handleOnClick = function handleClickingOption(event : ClickType) {
         const currentTarget = event.target as HTMLDivElement;
 
+        if (checkId === messageid) {
+            return;
+        };
         if (currentTarget.dataset.type === "EDIT") {
             changeId(messageid);
             changeVisible();

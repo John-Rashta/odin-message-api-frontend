@@ -163,7 +163,13 @@ interface ChatInfo {
 interface FuncsType {
     checkData: any,
     changeData: React.Dispatch<React.SetStateAction<any>>
-}
+};
+
+interface MessageUpdate {
+    message: {
+        content: string;
+    }
+};
 
 
-export { FuncsType, ChatInfo, MessageForm, UserDataType, MessageDataType, ShowType, CoordsType, ReturnMessage, PwInfo, UId, FullMessageInfo, TargetMessage, CoordsInfo, TargetUser, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };
+export { MessageUpdate, FuncsType, ChatInfo, MessageForm, UserDataType, MessageDataType, ShowType, CoordsType, ReturnMessage, PwInfo, UId, FullMessageInfo, TargetMessage, CoordsInfo, TargetUser, FriendsInfo, UserInfo, RequestInfo, VeryBasicUserInfo, BasicUserInfo, MessageInfo, BasicGroupInfo, UserConversation, CoordsProp };

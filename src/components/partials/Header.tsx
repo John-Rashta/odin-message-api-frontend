@@ -65,9 +65,7 @@ export default function Header() {
             <NavLink to="/profile">Profile</NavLink>
             <div onClick={() => {
                 logoutUser().unwrap().then(() => {
-                    dispatch(setAuthState(false));
-                    dispatch(setMyId("0"));
-                    navigate("/");
+                    location.reload();
                 })
             }}>Logout</div>
         </header>
