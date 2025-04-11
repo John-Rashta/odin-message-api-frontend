@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import useBothUserOptionsHandle from "../../../util/useBothUserOptionsHandle";
 import { getFuncs } from "../../../util/helpers";
 import { handleUserOptionsClick } from "../../../util/helpers";
