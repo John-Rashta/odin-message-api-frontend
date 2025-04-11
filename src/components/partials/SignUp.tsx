@@ -5,21 +5,12 @@ import isAscii from "validator/lib/isAscii";
 import isAlphanumeric from "validator/lib/isAlphanumeric";
 import usePasswordHandle from "../../../util/usePasswordHandle";
 import PasswordConfirm from "./PasswordConfirm";
-import { useSelector } from "react-redux";
-import { selectMyId } from "../../features/manager/manager-slice";
-import { isUUID } from "validator";
 
 export default function SignUp() {
     const [createUser] = useCreateUserMutation();
     const navigate = useNavigate(); 
     const [wrongInputs, setWrongInputs] = useState(false);
     const [pwState, confirmPwState, resetPws] = usePasswordHandle();
-    const possibleMyId = useSelector(selectMyId);
-    
-        if (isUUID(possibleMyId)) {
-            navigate("/");
-            return;
-        };
 
     const handleForm = function handleFormSubmitting(event: React.FormEvent) {
         event.preventDefault();

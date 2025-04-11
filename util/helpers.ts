@@ -2,6 +2,7 @@ import { enIN } from "date-fns/locale";
 import { Locale } from "date-fns/locale";
 import { BasicClickType, ClickType, FuncsOptionsType } from "./types";
 import { TargetUser, CoordsInfo, TargetMessage, BasicUserInfo } from "./interfaces";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 interface HandleOptions {
     changeShow: React.Dispatch<React.SetStateAction<boolean>>,
@@ -106,4 +107,8 @@ const getAdminIds = function getIdOfAdminsFroAdminList(info: BasicUserInfo[]) {
     });
 };
 
-export { locale, handleUserOptionsClick, handleMessageOptionsClick, getFuncs, getAdminIds };
+const isFetchBaseQueryError = function checkErrorBeforeUsing(error: unknown): error is FetchBaseQueryError {
+    return typeof error === 'object' && error != null && 'status' in error;
+};
+
+export { locale, handleUserOptionsClick, handleMessageOptionsClick, getFuncs, getAdminIds, isFetchBaseQueryError };

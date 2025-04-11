@@ -1,24 +1,17 @@
 import React, { useState } from "react";
-import { setMyId, selectMyId } from "../../features/manager/manager-slice";
-import { useDispatch, useSelector } from "react-redux";
+import { setMyId } from "../../features/manager/manager-slice";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../../features/message-api/message-api-slice";
 import isAscii from "validator/lib/isAscii";
 import isAlphanumeric from "validator/lib/isAlphanumeric";
 import { setAuthState } from "../../features/auth/auth-slice";
-import { isUUID } from "validator";
 
 export default function Login() {
     const [loginUser] = useLoginUserMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
     const [wrongInputs, setWrongInputs] = useState(false);
-    const possibleMyId = useSelector(selectMyId);
-
-    if (isUUID(possibleMyId)) {
-        navigate("/");
-        return;
-    };
 
     const handleForm = function handleFormSubmitting(event: React.FormEvent) {
         event.preventDefault();

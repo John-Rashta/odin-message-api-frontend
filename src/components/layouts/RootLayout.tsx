@@ -41,7 +41,7 @@ export default function RootLayout() {
         <StyledDiv>
             <GlobalStyle />
             {authState ? <Header /> : <DefaultHeader />}
-            {!authState && !defaultPaths.includes(pathname) ? <HomePage /> : <Outlet />}
+            {!authState && !defaultPaths.includes(pathname) ? <HomePage /> : authState && defaultPaths.includes(pathname) ? <HomePage /> : <Outlet />}
             <Footer />
         </StyledDiv>
     );

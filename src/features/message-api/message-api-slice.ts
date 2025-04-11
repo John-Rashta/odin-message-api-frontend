@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { MessageForm, ReturnMessage, UId, FriendsInfo, UserInfo, RequestInfo, MessageInfo, BasicUserInfo, VeryBasicUserInfo, BasicGroupInfo, UserConversation, FullMessageInfo } from "../../../util/interfaces";
 import { RequestTypes } from "../../../util/types";
+import { isFetchBaseQueryError } from "../../../util/helpers";
  
 ///KEEPING INTERFACES FOR NOW FOR REFERENCE OF WHATS NEEDED
 
@@ -319,10 +320,18 @@ export const apiSlice = createApi({
                 try {
                     const { data: res} = await lifecycleApi.queryFulfilled;
 
-                } catch {
-                    lifecycleApi.dispatch(apiSlice.util.invalidateTags(["GroupsInfo"]));
+                } catch (err) {
+                    const newErr = typeof err === "object" && err !== null && "error" in err && err;
+                    if (typeof newErr === "object") {
+                        if (isFetchBaseQueryError(newErr.error)) {
+                            if (newErr.error.status === 403) {
+                                lifecycleApi.dispatch(apiSlice.util.invalidateTags(["GroupsInfo"]));
+                            }
+                        }
+                    }
                 };
-            }
+            },
+            keepUnusedDataFor: 5,
         }),
         createGroup: builder.mutation<{group: BasicGroup}, OptionalName>({
             query: ({name}) => ({
