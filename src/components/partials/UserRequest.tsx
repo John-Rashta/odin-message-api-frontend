@@ -32,6 +32,7 @@ export default function UserRequest({info} : {info: RequestInfo}) {
                     {info.sender.id === myId ? `You invited ${info.receiver.username} to ${info.group.name}` : 
                     `${info.sender.username} invited you to ${info.group.name}`}
                 </div>
+                <div>{info.sentAt.toString()}</div>
                 {generateOptions()}
             </div>
         )
@@ -42,6 +43,7 @@ export default function UserRequest({info} : {info: RequestInfo}) {
                     {info.sender.id === myId ? `You sent a Friend Request to ${info.receiver.username}`: 
                     `${info.sender.username} sent you a Friend Request`}
                 </div>
+                <div>{info.sentAt.toString()}</div>
                 {generateOptions()}
             </div>
         )
