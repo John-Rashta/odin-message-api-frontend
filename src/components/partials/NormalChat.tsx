@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChatInfo } from "../../../util/interfaces";
 import { ConversationTriggerType, FormType, TriggerType } from "../../../util/types";
+import styled from "styled-components";
 
 export default function NormalChat({trigger, info} : {trigger: TriggerType, info: ChatInfo}) {
     const [invalidSize, setInvalidSize] = useState(false);
@@ -39,13 +40,25 @@ export default function NormalChat({trigger, info} : {trigger: TriggerType, info
     }
 
     return (
-        <form onSubmit={handleClick} onClick={(e) => e.stopPropagation()}>
+        <form style={{position: "relative"}} onSubmit={handleClick} onClick={(e) => e.stopPropagation()}>
             {invalidSize && <div style={{position: "absolute"}}>File Too Big!(Max 5MB)</div>}
-            <input type="text" id="messageInput" name="messageInput"/>
-            <input type="file" id="fileInput" name="fileInput"/>
+            <StyledFileDiv>
+                <input type="text" id="messageInput" name="messageInput"/>
+                <StyledInputFile type="file" id="fileInput" name="fileInput"/>
+            </StyledFileDiv>
             <button type="submit">Send</button>
         </form>
-       
-    )
-    
+    )  
 };
+
+const StyledInputFile = styled.input`
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+`;
+
+const StyledFileDiv = styled.div`
+    position: relative;
+`;

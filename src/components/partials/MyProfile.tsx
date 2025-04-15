@@ -3,6 +3,7 @@ import { useGetSelfQuery, useUpdateMeMutation, useGetIconsQuery } from "../../fe
 import { ButtonClickType, ClickType, FormType } from "../../../util/types";
 import { useNavigate } from "react-router-dom";
 import ChangeTextFields from "./ChangeTextFields";
+import styled from "styled-components";
 
 export default function MyProfile() {
     const { data, error, isLoading} = useGetSelfQuery();
@@ -69,8 +70,10 @@ export default function MyProfile() {
                     <form onSubmit={handleSubmitImage} onClick={(e) => e.stopPropagation()}>
                         {failedUpload && <div>Failed to upload.</div>}
                         {invalidSize && <div>Size Over Limit!</div>}
-                        <label htmlFor="imageInput">Choose image for icon(max 5MB):</label>
-                        <input type="file" id="imageInput" name="imageInput" accept=".png,.webp,.jpeg,.jpg"/>
+                        <StyledFileDiv>
+                            <label htmlFor="imageInput">Choose image for icon(max 5MB)</label>
+                            <StyledInputFile type="file" id="imageInput" name="imageInput" accept=".png,.webp,.jpeg,.jpg"/>
+                        </StyledFileDiv>
                         <button type="submit">Submit</button>
                     </form>
                     <div onClick={handleClickIconOption}>
@@ -101,4 +104,16 @@ export default function MyProfile() {
             }
         </main>
     )
-}
+};
+
+const StyledInputFile = styled.input`
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+`;
+
+const StyledFileDiv = styled.div`
+    position: relative;
+`;
