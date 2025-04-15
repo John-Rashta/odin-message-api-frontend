@@ -7,12 +7,12 @@ import MinimalUserOptions from "./MinimalUserOptions";
 import { useSelector } from "react-redux";
 import { selectMyId } from "../../features/manager/manager-slice";
 
-export default function MainWithOptions({group, children, members} : {group?: string, children: React.ReactNode, members?: string[]}) {
+export default function MainWithOptions({group, children, members, className} : {group?: string, children: React.ReactNode, members?: string[], className?: string}) {
     const [full, min] = useBothUserOptionsHandle();
     const myId = useSelector(selectMyId);
     
     return (
-        <main onContextMenu={(e) => {
+        <main className={className} onContextMenu={(e) => {
             e.stopPropagation();
             e.preventDefault();
             if (min.showFuncs.checkShow) {

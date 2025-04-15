@@ -12,6 +12,8 @@ import GroupPeople from "./GroupPeople";
 import { useState } from "react";
 import SimpleForm from "./SimpleForm";
 import EditGroupName from "./EditGroupName";
+import styled from "styled-components";
+import { mainBackgroundColor } from "../../../util/style";
 
 export default function Groups() {
     const groupId = useSelector(selectGroupId);
@@ -61,7 +63,7 @@ export default function Groups() {
     };
 
     return (
-        <MainWithOptions {...((data && userIsAdmin) ? {group: groupId, members: membersIds} : {})}>
+        <StyledMain {...((data && userIsAdmin) ? {group: groupId, members: membersIds} : {})}>
             <button onClick={() => createGroup({})}>Create Group</button>
             {(data && !error) && 
                 <div>
@@ -89,7 +91,10 @@ export default function Groups() {
             : groupsData ? <SideBar data={groupsData.user.groups} activeId={groupId} innerComp={MiniGroupSide} />  : <div>No Conversations Yet!</div> }
             {isLoading ?<div>Loading Group...</div> 
             : (data && !error) ? <FullChat adminList={getAdminIds(data.group.admins)} basicInfo={{id: data.group.id, type: "GROUP"}} trigger={sendMessage} info={data.group.contents} /> : <div>Try Starting a Group!</div>}
-        </MainWithOptions>
+        </StyledMain>
     )
+};
 
-}
+const StyledMain = styled(MainWithOptions)`
+    background-color: ${mainBackgroundColor};
+`;

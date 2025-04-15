@@ -1,8 +1,16 @@
+import styled from "styled-components";
+
 export default function Footer() {
     return (
-        <div>
+        <StyledFooter>
           <div>Project for The Odin Project</div>
           <div>2025</div>
-        </div>
+        </StyledFooter>
       );
 };
+
+const StyledFooter = styled.footer`
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 10px;
+`;
