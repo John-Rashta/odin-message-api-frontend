@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 import { navMenuValue, StyledNavLink } from "../../../util/style";
@@ -8,26 +7,33 @@ export default function NavMenu() {
     const [openState, setOpenState] = useState(false);
 
     return (
-        <div>
-            <StyledButton onClick={() =>  setOpenState(!openState)}><Ellipsis /></StyledButton>
+        <StyledDiv>
+            <StyledButton onClick={() =>  setOpenState(!openState)}><Ellipsis/></StyledButton>
             {openState && 
-            <StyledNav>
-                <StyledNavLink to="">Conversations</StyledNavLink>
-                <StyledNavLink to="">Groups</StyledNavLink>
-                <StyledNavLink to="">Friends</StyledNavLink>
+            <StyledNav onClick={() => setOpenState(false)}>
+                <StyledNavLink to="/conversations">Conversations</StyledNavLink>
+                <StyledNavLink to="/groups">Groups</StyledNavLink>
+                <StyledNavLink to="/friends">Friends</StyledNavLink>
             </StyledNav> 
             }
-        </div>
+        </StyledDiv>
     )
 };
 
 const StyledNav = styled.nav`
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(212, 208, 208);
 `;
 
-const StyledButton = styled.button`
+const StyledDiv = styled.div`
 
 @media only screen and (min-width: ${navMenuValue}) {
     display: none;
 }
+`;
+
+const StyledButton = styled.button`
+    background-color: rgb(223, 220, 220);
 `;

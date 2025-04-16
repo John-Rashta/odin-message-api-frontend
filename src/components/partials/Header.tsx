@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { setUserId } from "../../features/manager/manager-slice";
 import { ClickType } from "../../../util/types";
 import styled from "styled-components";
-import { headerBackgroundColor, headerPadding, navMenuValue } from "../../../util/style";
+import { headerBackgroundColor, headerPadding, navMenuValue, StyledInput } from "../../../util/style";
 import NavMenu from "./NavMenu";
 import { StyledNavLink } from "../../../util/style";
 
@@ -43,19 +43,19 @@ export default function Header() {
             <StyledNav>
                 <StyledNavLink to="/">Home</StyledNavLink>
                 <div style={{position: "relative"}}>
-                    <input type="text" name="searchBar" id="searchBar" value={searchValue} onChange={(e) => {
+                    <StyledInput type="text" name="searchBar" id="searchBar" value={searchValue} onChange={(e) => {
                         setSearchValue(e.target.value)
                         if (e.target.value !== "") {
                             const he = searchUser(e.target.value);
                         }
                     }} />
-                    {(usersData && searchValue !== "") &&  <div onClick={handleClick} style={{position: "absolute"}}>
+                    {(usersData && searchValue !== "") &&  <StyledSearchResult onClick={handleClick}>
                         {usersData.length > 0 ? usersData.map((user) => {
                                 return (
                                 <SearchResult key={user.id} info={user}/>
                             )
-                            }) : <div>No Results Found</div>}
-                    </div>}
+                            }) : <StyledNoResults>No Results Found</StyledNoResults>}
+                    </StyledSearchResult>}
                 </div>
                 <StyledNavLink to="/requests">Requests</StyledNavLink>
                 <StyledExtraGroup>
@@ -93,4 +93,18 @@ const StyledNav = styled.nav`
 const StyledHeader = styled.header`
     background-color: ${headerBackgroundColor};
     padding: ${headerPadding};
+    font-size: 1.3rem;
+`;
+
+const StyledSearchResult = styled.div`
+    border: 1px solid black;
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+`;
+
+const StyledNoResults = styled.div`
+    padding: 10px;
 `;
