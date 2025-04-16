@@ -103,6 +103,8 @@ const StyledSearchResult = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
+    max-height: 300px;
+    overflow: auto;
 `;
 
 const StyledNoResults = styled.div`
