@@ -13,4 +13,6 @@ const StyledFooter = styled.footer`
   display: flex;
   justify-content: space-between;
   padding: 15px 10px;
+  background-color: rgb(93, 196, 214);
+  font-size: 1.1rem;
 `;

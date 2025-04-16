@@ -6,6 +6,7 @@ import { useLoginUserMutation } from "../../features/message-api/message-api-sli
 import isAscii from "validator/lib/isAscii";
 import isAlphanumeric from "validator/lib/isAlphanumeric";
 import { setAuthState } from "../../features/auth/auth-slice";
+import { StyledButton, StyledForm, StyledContainer, StyledWrongInput, StyledInput, StyledDivFlex } from "../../../util/style";
 
 export default function Login() {
     const [loginUser] = useLoginUserMutation();
@@ -35,14 +36,16 @@ export default function Login() {
 
     return (
         <main>
-            {wrongInputs ? <div>Username or Password wrong!</div> : null} 
-            <form onSubmit={handleForm}>
-                <label htmlFor="username">Username:</label>
-                <input type="text" name="username" id="username" required/>
-                <label htmlFor="password">Password:</label>
-                <input type="password" name="password" id="password" required/>
-                <button type="submit">Login</button>
-            </form>
+            <StyledContainer>
+                <StyledForm onSubmit={handleForm}>
+                    {wrongInputs ? <StyledWrongInput>Username or Password wrong!</StyledWrongInput> : null}
+                    <label htmlFor="username">Username:</label>
+                    <StyledInput type="text" name="username" id="username" required/>
+                    <label htmlFor="password">Password:</label>
+                    <StyledInput type="password" name="password" id="password" required/>
+                    <StyledButton type="submit">Login</StyledButton>
+                </StyledForm>
+            </StyledContainer>
         </main>
     )
 };

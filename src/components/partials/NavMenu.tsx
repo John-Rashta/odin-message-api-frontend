@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
-import { navMenuValue } from "../../../util/style";
+import { navMenuValue, StyledNavLink } from "../../../util/style";
 import { Ellipsis } from "lucide-react";
 
 export default function NavMenu() {
@@ -12,9 +12,9 @@ export default function NavMenu() {
             <StyledButton onClick={() =>  setOpenState(!openState)}><Ellipsis /></StyledButton>
             {openState && 
             <StyledNav>
-                <NavLink to="">Conversations</NavLink>
-                <NavLink to="">Groups</NavLink>
-                <NavLink to="">Friends</NavLink>
+                <StyledNavLink to="">Conversations</StyledNavLink>
+                <StyledNavLink to="">Groups</StyledNavLink>
+                <StyledNavLink to="">Friends</StyledNavLink>
             </StyledNav> 
             }
         </div>

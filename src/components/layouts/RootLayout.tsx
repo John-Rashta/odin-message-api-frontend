@@ -10,6 +10,7 @@ import styled, { createGlobalStyle } from "styled-components";
 import { selectMyId, setMyId } from "../../features/manager/manager-slice";
 import { useGetSelfQuery } from "../../features/message-api/message-api-slice";
 import { useEffect } from "react";
+import { mainBackgroundColor } from "../../../util/style";
 
 const GlobalStyle = createGlobalStyle`
     * {
@@ -17,16 +18,15 @@ const GlobalStyle = createGlobalStyle`
     }
 
     #root {
-        height: 100%;
         font-family: Times, "Times New Roman", Georgia, serif;
     }
 
+    main,
+    #root,
+    body,
     html {
         height: 100%;
-    }
-
-    body {
-        height: 100%;
+        background-color: ${mainBackgroundColor};
     }
 
     img {

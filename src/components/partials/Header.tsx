@@ -6,12 +6,12 @@ import { useDispatch } from "react-redux";
 import { setUserId } from "../../features/manager/manager-slice";
 import { ClickType } from "../../../util/types";
 import styled from "styled-components";
-import { navMenuValue } from "../../../util/style";
+import { headerBackgroundColor, headerPadding, navMenuValue } from "../../../util/style";
 import NavMenu from "./NavMenu";
+import { StyledNavLink } from "../../../util/style";
 
 
 export default function Header() {
-    const [showOptions, setShowOptions] = useState(false);
     const [logoutUser] = useLogoutUserMutation();
     const [searchValue, setSearchValue] = useState("");
     const [searchUser, {usersData}] = useLazySearchUsersQuery({selectFromResult: ({data}) => ({
@@ -39,9 +39,9 @@ export default function Header() {
     };
 
     return (
-        <header>
+        <StyledHeader>
             <StyledNav>
-                <NavLink to="/">Home</NavLink>
+                <StyledNavLink to="/">Home</StyledNavLink>
                 <div style={{position: "relative"}}>
                     <input type="text" name="searchBar" id="searchBar" value={searchValue} onChange={(e) => {
                         setSearchValue(e.target.value)
@@ -57,26 +57,21 @@ export default function Header() {
                             }) : <div>No Results Found</div>}
                     </div>}
                 </div>
-                <div onClick={() =>  setShowOptions(!showOptions)}>Requests</div>
-                {showOptions &&  
-                <div>
-                    <NavLink to="/requests">Received</NavLink>
-                    <NavLink to="/requests" state={{type: "SENT"}}>Sent</NavLink>
-                </div>}
+                <StyledNavLink to="/requests">Requests</StyledNavLink>
                 <StyledExtraGroup>
-                    <NavLink to="/conversations">Conversations</NavLink>
-                    <NavLink to="/groups">Groups</NavLink>
-                    <NavLink to="/friends">Friends</NavLink>
+                    <StyledNavLink to="/conversations">Conversations</StyledNavLink>
+                    <StyledNavLink to="/groups">Groups</StyledNavLink>
+                    <StyledNavLink to="/friends">Friends</StyledNavLink>
                 </StyledExtraGroup>
                 <NavMenu />
-                <NavLink to="/profile">Profile</NavLink>
+                <StyledNavLink to="/profile">Profile</StyledNavLink>
                 <div onClick={() => {
                     logoutUser().unwrap().then(() => {
                         location.reload();
                     })
                 }}>Logout</div>
             </StyledNav>
-        </header>
+        </StyledHeader>
     )
 };
 
@@ -93,4 +88,9 @@ const StyledNav = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
-`
+`;
+
+const StyledHeader = styled.header`
+    background-color: ${headerBackgroundColor};
+    padding: ${headerPadding};
+`;

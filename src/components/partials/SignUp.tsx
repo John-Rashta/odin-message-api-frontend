@@ -5,6 +5,8 @@ import isAscii from "validator/lib/isAscii";
 import isAlphanumeric from "validator/lib/isAlphanumeric";
 import usePasswordHandle from "../../../util/usePasswordHandle";
 import PasswordConfirm from "./PasswordConfirm";
+import styled from "styled-components";
+import { StyledDivFlex, StyledButton, StyledForm, StyledContainer, StyledWrongInput, StyledInput } from "../../../util/style";
 
 export default function SignUp() {
     const [createUser] = useCreateUserMutation();
@@ -37,16 +39,28 @@ export default function SignUp() {
     };
     return (
         <main>
-            {wrongInputs ? <div>Username or Password wrong!</div> : null} 
-            <form onSubmit={handleForm}>
-                <label htmlFor="username">Username:
-                    <p>Only Letters and/or Numbers</p>
-                </label>
-                <input type="text" name="username" id="username" required/>
-                <PasswordConfirm passwordInfo={pwState} confirmPasswordInfo={confirmPwState}/>
-                <button type="submit">Sign Me Up!</button>
-            </form>
+            <StyledContainer> 
+                <StyledExtraForm onSubmit={handleForm}>
+                    {wrongInputs ? <StyledExtraWrong>Username or Password wrong!</StyledExtraWrong> : null} 
+                    <StyledDivFlex>
+                        <label htmlFor="username">Username:</label>
+                        <StyledInput type="text" name="username" id="username" placeholder="Only Letters and/or Numbers" required/>
+                    </StyledDivFlex>
+                    <PasswordConfirm passwordInfo={pwState} confirmPasswordInfo={confirmPwState}/>
+                    <StyledButton type="submit">Sign Me Up!</StyledButton>
+                </StyledExtraForm>
+            </StyledContainer>
         </main>
     )
 
 };
+
+
+const StyledExtraForm = styled(StyledForm)`
+    width: 300px;
+    gap: 50px;  
+`;
+
+const StyledExtraWrong = styled(StyledWrongInput)`
+    left: 70px;
+`
