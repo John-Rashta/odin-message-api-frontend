@@ -18,10 +18,10 @@ interface MessageOptions {
 };
 
 const formatRelativeLocale = {
-    lastWeek: "'last' eeee 'at' p",
+    lastWeek: "'Last' eeee 'at' p",
     yesterday: "'yesterday at' p",
-    today: "'today at' p",
-    tomorrow: "'tomorrow at' p",
+    today: "'Today at' p",
+    tomorrow: "'Tomorrow at' p",
     nextWeek: "eeee 'at' p",
     other: 'Pp'
 };

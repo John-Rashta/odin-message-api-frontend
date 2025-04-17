@@ -2,6 +2,10 @@ import { useSelector } from "react-redux";
 import { selectMyId } from "../../features/manager/manager-slice";
 import { RequestInfo } from "../../../util/interfaces";
 import { useAcceptRequestMutation, useDeleteRequestMutation } from "../../features/message-api/message-api-slice";
+import { locale } from "../../../util/helpers";
+import { formatRelative } from "date-fns";
+import styled from "styled-components";
+import { StyledDivFlex } from "../../../util/style";
 
 export default function UserRequest({info} : {info: RequestInfo}) {
     const myId = useSelector(selectMyId);
@@ -11,11 +15,11 @@ export default function UserRequest({info} : {info: RequestInfo}) {
     const generateOptions = function displayRequestOptions() {
         return (
             <>
-                {info.sender.id === myId ? <div> <button onClick={()=> deleteRequest({id: info.id})} >Cancel</button> </div> :   
-                    <div> 
-                        <button onClick={() =>  acceptRequest({id: info.id})} >Accept</button>
-                        <button onClick={() => deleteRequest({id: info.id})}>Reject</button>
-                    </div>
+                {info.sender.id === myId ? <StyledButtonContainer> <StyledOptions onClick={()=> deleteRequest({id: info.id})} >Cancel</StyledOptions> </StyledButtonContainer> :   
+                    <StyledButtonContainer> 
+                        <StyledAccept onClick={() =>  acceptRequest({id: info.id})} >Accept</StyledAccept>
+                        <StyledOptions onClick={() => deleteRequest({id: info.id})}>Reject</StyledOptions>
+                    </StyledButtonContainer>
                 }
             </>
         )
@@ -27,25 +31,29 @@ export default function UserRequest({info} : {info: RequestInfo}) {
             return <></>;
         };
         return (
-            <div>
-                <div data-id={info.id} data-group={info.group.id}>
-                    {info.sender.id === myId ? `You invited ${info.receiver.username} to ${info.group.name}` : 
-                    `${info.sender.username} invited you to ${info.group.name}`}
+            <StyledReturn>
+                <div>
+                    <div data-id={info.id} data-group={info.group.id}>
+                        {info.sender.id === myId ? `You invited ${info.receiver.username} to ${info.group.name}` : 
+                        `${info.sender.username} invited you to ${info.group.name}`}
+                    </div>
+                    <div>{formatRelative(new Date(info.sentAt), new Date(), {locale})}</div>
                 </div>
-                <div>{info.sentAt.toString()}</div>
                 {generateOptions()}
-            </div>
+            </StyledReturn>
         )
     } else if (info.type === "FRIEND") {
         return (
-            <div>
-                <div data-id={info.id}>
-                    {info.sender.id === myId ? `You sent a Friend Request to ${info.receiver.username}`: 
-                    `${info.sender.username} sent you a Friend Request`}
-                </div>
-                <div>{info.sentAt.toString()}</div>
+            <StyledReturn>
+                <StyledText>
+                    <div data-id={info.id}>
+                        {info.sender.id === myId ? `You sent a Friend Request to ${info.receiver.username}`: 
+                        `${info.sender.username} sent you a Friend Request`}
+                    </div>
+                    <div>{formatRelative(new Date(info.sentAt), new Date(), {locale})}</div>
+                </StyledText>
                 {generateOptions()}
-            </div>
+            </StyledReturn>
         )
     } else {
         return (
@@ -53,3 +61,41 @@ export default function UserRequest({info} : {info: RequestInfo}) {
         )
     };
 };
+
+const StyledReturn = styled.div`
+    display: flex;
+    gap: 20px;
+    box-shadow: 0 -1px 0 black;
+    justify-content: space-between;
+    padding: 20px;
+    &:hover {
+        background-color: rgb(255, 255, 255);
+    }
+`;
+
+const StyledOptions = styled.button`
+    padding: 10px;
+    font-weight: bold;
+    background-color: rgba(255, 0, 0, 0.88);
+    color: rgb(255, 255, 255);
+    border-radius: 20px;
+    &:hover {
+        background-color: rgba(4, 0, 255, 0.88);
+    }
+`;
+
+const StyledAccept = styled(StyledOptions)`
+    background-color: rgb(11, 134, 0);
+`
+
+const StyledButtonContainer = styled.div`
+    display: flex;
+    gap: 10px;
+    align-items: center;
+`;
+
+const StyledText = styled(StyledDivFlex)`
+    gap: 5px;
+    font-size: 1.1rem;
+
+`
