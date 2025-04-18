@@ -60,10 +60,23 @@ const StyledWrongInput = styled.div`
 const StyledDivFlex = styled.div`
     display: flex;
     flex-direction: column;
-`
+`;
+
+const StyledErrorMessage = styled.div`
+    align-self: center;
+    font-size: 1.4rem;
+`;
+
+const StyledReturn = styled.div`
+    display: flex;
+    gap: 20px;
+    box-shadow: 0 -1px 0 black;
+    justify-content: space-between;
+    padding: 20px;
+`;
 
 
-export { 
+export {
     StyledButton, 
     StyledContainer, 
     StyledForm, 
@@ -75,4 +88,6 @@ export {
     navMenuValue, 
     mainBackgroundColor,
     StyledDivFlex,
+    StyledErrorMessage,
+    StyledReturn,
 };

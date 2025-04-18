@@ -5,7 +5,7 @@ import { useAcceptRequestMutation, useDeleteRequestMutation } from "../../featur
 import { locale } from "../../../util/helpers";
 import { formatRelative } from "date-fns";
 import styled from "styled-components";
-import { StyledDivFlex } from "../../../util/style";
+import { StyledDivFlex, StyledReturn as ExtraReturn } from "../../../util/style";
 
 export default function UserRequest({info} : {info: RequestInfo}) {
     const myId = useSelector(selectMyId);
@@ -62,12 +62,7 @@ export default function UserRequest({info} : {info: RequestInfo}) {
     };
 };
 
-const StyledReturn = styled.div`
-    display: flex;
-    gap: 20px;
-    box-shadow: 0 -1px 0 black;
-    justify-content: space-between;
-    padding: 20px;
+const StyledReturn = styled(ExtraReturn)`
     &:hover {
         background-color: rgb(255, 255, 255);
     }

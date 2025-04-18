@@ -5,6 +5,10 @@ import StartConvoButton from "./StartConvoButton";
 import { useState, useRef } from "react";
 import UserOptions from "./UserOptions";
 import useClickOutside from "../../../util/useClickOutside";
+import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { setUserId } from "../../features/manager/manager-slice";
+import { useNavigate } from "react-router-dom";
 
 export default function MinimalUserOptions({ info, changeVisible, coords, group } : {info: TargetUser, changeVisible: SimpleFunctionType, coords: CoordsProp, group?: string}) {
     if (!info.user) {
@@ -17,7 +21,18 @@ export default function MinimalUserOptions({ info, changeVisible, coords, group 
         setShowOptions(false)
     };
 
+    const dispatch  = useDispatch();
+    const navigate = useNavigate();
+
     useClickOutside(optionsRef, changeVisible);
+
+    const onClickName = function clickingNameInOption() {
+        if (!data) {
+            return;
+        };
+        dispatch(setUserId(data.user.id));
+        navigate("/users");
+    };
 
     return (
         <div ref={optionsRef} style={{position: "absolute", ...coords}}>
@@ -32,7 +47,7 @@ export default function MinimalUserOptions({ info, changeVisible, coords, group 
             ) : data && data.user ? (
                 <>
                     <img src={data.user.customIcon?.url || data.user.icon.source} alt="" />
-                    <div>{data.user.username}</div>
+                    <StyledName onClick={onClickName} >{data.user.username}</StyledName>
                     <StartConvoButton userid={data.user.id} />
                     <div style={{position: "relative"}}>
                         <div onClick={(e) => {
@@ -50,5 +65,11 @@ export default function MinimalUserOptions({ info, changeVisible, coords, group 
             }
 
         </div>
-    )
-}
+    );
+};
+
+const StyledName = styled.div`
+    &:hover {
+        text-decoration-line: underline;
+    }
+`;

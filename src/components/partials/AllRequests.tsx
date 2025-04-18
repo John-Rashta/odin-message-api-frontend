@@ -3,6 +3,7 @@ import { useGetRequestsQuery, useGetSentRequestsQuery } from "../../features/mes
 import UserRequest from "./UserRequest";
 import { skipToken } from "@reduxjs/toolkit/query";
 import styled from "styled-components";
+import { StyledErrorMessage } from "../../../util/style";
 
 export default function AllRequests() {
     const [selectedType, setSelectedType ] = useState("RECEIVED");
@@ -15,21 +16,21 @@ export default function AllRequests() {
                 <StyledClickButton $currentType={selectedType} $trueType="SENT" onClick={() => setSelectedType("SENT")}>Sent</StyledClickButton>
             </StyledButtonsContainer>
             <StyledMainContainer>
-                {(selectedType !== "SENT") && (isLoading ? <StyledErrorMessages>Loading Requests...</StyledErrorMessages>
-                : error ? <StyledErrorMessages>Failed Loading Requests!</StyledErrorMessages>
+                {(selectedType !== "SENT") && (isLoading ? <StyledErrorMessage>Loading Requests...</StyledErrorMessage>
+                : error ? <StyledErrorMessage>Failed Loading Requests!</StyledErrorMessage>
                 : data ? (data.user.receivedRequest.length > 0 && data.user.receivedRequest.map((request) => {
                     return <UserRequest key={request.id} info={request} />
-                })) || <StyledErrorMessages>No Requests Yet!</StyledErrorMessages>
-                : <StyledErrorMessages>No Requests Yet!</StyledErrorMessages>
+                })) || <StyledErrorMessage>No Requests Yet!</StyledErrorMessage>
+                : <StyledErrorMessage>No Requests Yet!</StyledErrorMessage>
                 )}
                 {
                     (selectedType === "SENT") && (
-                        sentLoading ? <StyledErrorMessages>Loading Sent Requests...</StyledErrorMessages>
-                        : sentError ? <StyledErrorMessages>Failed Loading Sent Requests!</StyledErrorMessages>
+                        sentLoading ? <StyledErrorMessage>Loading Sent Requests...</StyledErrorMessage>
+                        : sentError ? <StyledErrorMessage>Failed Loading Sent Requests!</StyledErrorMessage>
                         : sentData ? (sentData.user.sentRequest.length > 0 && sentData.user.sentRequest.map((request) => {
                             return <UserRequest key={request.id} info={request}/>
-                        })) || <StyledErrorMessages>No Sent Requests Yet!</StyledErrorMessages>
-                        : <StyledErrorMessages>No Sent Requests Yet!</StyledErrorMessages>
+                        })) || <StyledErrorMessage>No Sent Requests Yet!</StyledErrorMessage>
+                        : <StyledErrorMessage>No Sent Requests Yet!</StyledErrorMessage>
                     )
                 }
             </StyledMainContainer>
@@ -51,11 +52,6 @@ const StyledMainContainer = styled.div`
     flex-direction: column;
     overflow: auto;
     padding: 3px;
-`;
-
-const StyledErrorMessages = styled.div`
-    align-self: center;
-    font-size: 1.4rem;
 `;
 
 const StyledMain = styled.main`

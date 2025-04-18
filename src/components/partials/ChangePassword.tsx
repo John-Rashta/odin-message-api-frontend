@@ -4,6 +4,8 @@ import usePasswordHandle from "../../../util/usePasswordHandle";
 import { useNavigate } from "react-router-dom";
 import isAscii from "validator/lib/isAscii";
 import { useState } from "react";
+import { StyledButton, StyledContainer, StyledDivFlex, StyledForm, StyledInput, StyledWrongInput } from "../../../util/style";
+import styled from "styled-components";
 
 export default function ChangePassword() {
     const [updatePw] = useUpdateMeMutation();
@@ -37,13 +39,27 @@ export default function ChangePassword() {
     }
     return (
         <main>
-            <form onSubmit={handleSubmit}>
-                {wrongInputs && <div>Invalid Password!</div>}
-                <label htmlFor="oldPassword">Current Password:</label>
-                <input type="password" id="oldPassword" name="oldPassword" />
-                <PasswordConfirm passwordInfo={pwState} confirmPasswordInfo={confirmPwState}/>
-                <button type="submit">Change Password</button>
-            </form>
+            <StyledContainer>
+                <StyledExtraForm onSubmit={handleSubmit}>
+                    {wrongInputs && <StyledExtraInvalid>Invalid Password!</StyledExtraInvalid>}
+                    <StyledDivFlex>
+                        <label htmlFor="oldPassword">Current Password:</label>
+                        <StyledInput type="password" id="oldPassword" name="oldPassword" />
+                    </StyledDivFlex>
+                    <PasswordConfirm passwordInfo={pwState} confirmPasswordInfo={confirmPwState}/>
+                    <StyledButton type="submit">Change Password</StyledButton>
+                </StyledExtraForm>
+            </StyledContainer>
         </main>
     )
 };
+
+const StyledExtraForm = styled(StyledForm)`
+    gap: 45px;
+    width: 270px;
+`;
+
+const StyledExtraInvalid = styled(StyledWrongInput)`
+    left: 90px;
+    font-weight: bold;
+`;
