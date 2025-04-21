@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 export default function NormalChat({trigger, info} : {trigger: TriggerType, info: ChatInfo}) {
     const [invalidSize, setInvalidSize] = useState(false);
+    const [textValue, setTextValue ] = useState("");
     const handleClick = function handleSendingMessage(event: FormType ) {
         event.preventDefault();
         event.stopPropagation();
@@ -43,7 +44,7 @@ export default function NormalChat({trigger, info} : {trigger: TriggerType, info
         <form style={{position: "relative"}} onSubmit={handleClick} onClick={(e) => e.stopPropagation()}>
             {invalidSize && <div style={{position: "absolute"}}>File Too Big!(Max 5MB)</div>}
             <StyledFileDiv>
-                <input type="text" id="messageInput" name="messageInput"/>
+                <input type="text" id="messageInput" name="messageInput" value={textValue} onChange={(e) => setTextValue(e.target.value)}/>
                 <StyledInputFile type="file" id="fileInput" name="fileInput"/>
             </StyledFileDiv>
             <button type="submit">Send</button>
