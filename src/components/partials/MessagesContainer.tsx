@@ -13,8 +13,18 @@ export default function MessagesContainer({info, adminList, setEditId, checkId} 
 
     return (
         <div onMouseOver={(e) => {
+            const target = e.target as HTMLElement;
+                if (target.closest(".messageOptionsContainer")) {
+                    return;
+                };
             handleMessageOptionsClick(myId, e, getFuncs([showFuncs, coordsFuncs, dataFuncs]));
-            }} onMouseOut={() => showFuncs.changeShow(false)}>
+            }} onMouseOut={(e) => {
+                const target = e.relatedTarget as HTMLElement;
+                if (target && target.closest(".messageOptionsContainer")) {
+                    return;
+                };
+                showFuncs.changeShow(false)
+                }}>
             {(showFuncs.checkShow && dataFuncs.checkData.message) ? <MessageOptions checkId={checkId} changeId={setEditId} coords={coordsFuncs.checkCoords} changeVisible={() => showFuncs.changeShow(false)} messageid={dataFuncs.checkData.message} /> : null}
             {info.map((currentMessage, index) => {
                 return (

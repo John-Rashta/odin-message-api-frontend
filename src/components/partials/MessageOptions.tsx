@@ -25,7 +25,7 @@ export default function MessageOptions({ messageid, changeVisible, coords, chang
     };
 
     return (
-        <div onClick={handleOnClick} ref={optionsRef} style={{position: "absolute", ...coords}}>
+        <div onClick={handleOnClick} className="messageOptionsContainer" ref={optionsRef} style={{position: "absolute", ...coords}}>
             <div className="messageOption" data-type="EDIT">Edit</div>
             <div className="messageOption" data-type="DELETE">Delete</div>
         </div>

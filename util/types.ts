@@ -27,5 +27,6 @@ type FuncsOptionsType = [ShowType, CoordsType, FuncsType];
 type SimpleSubmitFunctionType = (e : FormType) => void;
 type SimpleAnyFunctionType = (e: any) =>  void;
 type MessageOptionsType = [ShowType, CoordsType, UserDataType];
+type EditBooleanType = React.Dispatch<React.SetStateAction<boolean>>;
 
-export { MessageOptionsType, SimpleAnyFunctionType, SimpleSubmitFunctionType, FuncsOptionsType, BasicClickType, ConversationTriggerType, GroupTriggerType, TriggerType, EditStateType, MutationTriggerType, ClickType, SimpleFunctionType, FormType, RequestTypes, LazyGetTriggerType, ButtonClickType };
+export { EditBooleanType, MessageOptionsType, SimpleAnyFunctionType, SimpleSubmitFunctionType, FuncsOptionsType, BasicClickType, ConversationTriggerType, GroupTriggerType, TriggerType, EditStateType, MutationTriggerType, ClickType, SimpleFunctionType, FormType, RequestTypes, LazyGetTriggerType, ButtonClickType };

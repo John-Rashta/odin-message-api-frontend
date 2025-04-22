@@ -1,16 +1,20 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useCreateConversationMutation } from "../../features/message-api/message-api-slice";
 import { ButtonClickType } from "../../../util/types";
-import { setConversationId } from "../../features/manager/manager-slice";
+import { selectMyId, setConversationId } from "../../features/manager/manager-slice";
 
 export default function StartConvoButton({userid, customText} : { userid: string, customText?: string}) {
     const [createConvo] = useCreateConversationMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const myId = useSelector(selectMyId);
 
     const handleClick = function handleClickingStartConversation(event: ButtonClickType) {
             event.stopPropagation();
+            if (myId === userid) {
+                return;
+            }
             const target = event.target as HTMLButtonElement;
             target.disabled = true;
             createConvo({targetid: userid}).unwrap().then((response) => {

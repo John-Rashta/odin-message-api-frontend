@@ -1,13 +1,16 @@
+import { useSelector } from "react-redux";
 import { BasicGroupInfo } from "../../../util/interfaces"
 import { ClickType, SimpleFunctionType } from "../../../util/types"
 import { useMakeRequestMutation } from "../../features/message-api/message-api-slice";
 import GroupOptions from "./GroupOptions";
+import { selectMyId } from "../../features/manager/manager-slice";
 
 export default function GroupSelection({groupsData, userid, hideMe}: {groupsData: BasicGroupInfo[] | undefined, userid: string | undefined, hideMe: SimpleFunctionType}) {
     const [makeRequest] = useMakeRequestMutation();
+    const myId = useSelector(selectMyId);
     const handleClick = function handleClickingAnOption(event: ClickType) {
         event.stopPropagation();
-        if (!userid) {
+        if (!userid || myId === userid) {
             return;
         }
         const currentTarget = event.target as HTMLDivElement;

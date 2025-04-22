@@ -75,6 +75,10 @@ const StyledReturn = styled.div`
     padding: 20px;
 `;
 
+const StyledEmoteOptionsBox = styled.div`
+    position: relative;
+`;
+
 
 export {
     StyledButton, 
@@ -90,4 +94,5 @@ export {
     StyledDivFlex,
     StyledErrorMessage,
     StyledReturn,
+    StyledEmoteOptionsBox,
 };

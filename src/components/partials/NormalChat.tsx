@@ -2,10 +2,13 @@ import { useState } from "react";
 import { ChatInfo } from "../../../util/interfaces";
 import { ConversationTriggerType, FormType, TriggerType } from "../../../util/types";
 import styled from "styled-components";
+import EmotesDisplay from "./EmotesDisplay";
+import { StyledEmoteOptionsBox } from "../../../util/style";
 
 export default function NormalChat({trigger, info} : {trigger: TriggerType, info: ChatInfo}) {
     const [invalidSize, setInvalidSize] = useState(false);
     const [textValue, setTextValue ] = useState("");
+    const [ showEmotes, setShowEmotes ] = useState(false);
     const handleClick = function handleSendingMessage(event: FormType ) {
         event.preventDefault();
         event.stopPropagation();
@@ -37,6 +40,7 @@ export default function NormalChat({trigger, info} : {trigger: TriggerType, info
             trigger({message: newForm, id: info.id});
         };
 
+        setTextValue("");
         target.reset();
     }
 
@@ -45,6 +49,10 @@ export default function NormalChat({trigger, info} : {trigger: TriggerType, info
             {invalidSize && <div style={{position: "absolute"}}>File Too Big!(Max 5MB)</div>}
             <StyledFileDiv>
                 <input type="text" id="messageInput" name="messageInput" value={textValue} onChange={(e) => setTextValue(e.target.value)}/>
+                <StyledEmoteOptionsBox>
+                    {showEmotes && <EmotesDisplay hideMe={() => setShowEmotes(false)} currentMessage={textValue} addEmote={setTextValue} />}
+                    <button type="button" onClick={() => setShowEmotes(!showEmotes)}>&#x1F600;</button>
+                </StyledEmoteOptionsBox>
                 <StyledInputFile type="file" id="fileInput" name="fileInput"/>
             </StyledFileDiv>
             <button type="submit">Send</button>

@@ -2,20 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { ButtonClickType } from "../../../util/types";
 import { useGetGroupsQuery, useMakeRequestMutation, useGetUserQuery } from "../../features/message-api/message-api-slice";
 import GroupSelection from "./GroupSelection";
-import { selectUserId } from "../../features/manager/manager-slice";
+import { selectMyId, selectUserId } from "../../features/manager/manager-slice";
 import { useSelector } from "react-redux";
 import StartConvoButton from "./StartConvoButton";
 import { isUUID } from "validator";
 
 export default function UserProfile() {
     const userid = useSelector(selectUserId);
-    if (!isUUID(userid)) {
-        return (
-            <main>
-                <div>Try searching a User in the search bar!</div>
-            </main>
-            )
-    };
+    const myId = useSelector(selectMyId);
     const {data, error, isLoading } = useGetUserQuery(userid);
     const [makeRequest] = useMakeRequestMutation();
     const [showOptions, setShowOptions] = useState(false);
@@ -42,6 +36,9 @@ export default function UserProfile() {
     const handleFriendRequest = function sendFriendRequestToUser(event : ButtonClickType) {
         event.stopPropagation();
         if (!data) {
+            return;
+        };
+        if (myId === userid) {
             return;
         }
         const target = event.target as HTMLButtonElement;
