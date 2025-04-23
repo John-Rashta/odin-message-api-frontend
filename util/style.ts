@@ -79,6 +79,34 @@ const StyledEmoteOptionsBox = styled.div`
     position: relative;
 `;
 
+const StyledExtraMessage = styled(StyledErrorMessage)`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+`;
+
+const StyledProfileMain = styled.main`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+    font-size: 1.1rem;
+`;
+
+const StyledProfileImg = styled.img`
+    width: 150px;
+    height: 150px;
+`;
+
+const aboutMeStyle = `
+     width: 400px;
+    max-height: 150px;
+    height: 150px;
+    overflow: auto;
+    background-color: white;
+`;
 
 export {
     StyledButton, 
@@ -95,4 +123,8 @@ export {
     StyledErrorMessage,
     StyledReturn,
     StyledEmoteOptionsBox,
+    StyledExtraMessage,
+    StyledProfileMain,
+    StyledProfileImg,
+    aboutMeStyle,
 };

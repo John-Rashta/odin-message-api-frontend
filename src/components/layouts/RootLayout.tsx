@@ -13,6 +13,12 @@ import { useEffect } from "react";
 import { mainBackgroundColor } from "../../../util/style";
 
 const GlobalStyle = createGlobalStyle`
+    *,
+    *::before,
+    *::after {
+    box-sizing: border-box;
+    }
+
     * {
         margin: 0px;
     }

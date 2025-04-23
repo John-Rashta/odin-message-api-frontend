@@ -4,7 +4,7 @@ import { useCreateConversationMutation } from "../../features/message-api/messag
 import { ButtonClickType } from "../../../util/types";
 import { selectMyId, setConversationId } from "../../features/manager/manager-slice";
 
-export default function StartConvoButton({userid, customText} : { userid: string, customText?: string}) {
+export default function StartConvoButton({userid, customText, className} : { userid: string, customText?: string, className?: string}) {
     const [createConvo] = useCreateConversationMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -26,9 +26,7 @@ export default function StartConvoButton({userid, customText} : { userid: string
         };
 
     return (
-        <>
-            <button onClick={handleClick}>{typeof customText === "string" && customText || "Start Conversation"} </button>
-        </>
+            <button className={className} onClick={handleClick}>{typeof customText === "string" && customText || "Start Conversation"} </button> 
     )
 
 };

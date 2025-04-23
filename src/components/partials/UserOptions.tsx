@@ -114,5 +114,4 @@ export default function UserOptions({ info, changeVisible, coords, group } : {in
             {group && groupOptions()}
         </div>
     )
-
 };

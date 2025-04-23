@@ -141,7 +141,7 @@ export const apiSlice = createApi({
         credentials: "include",
     }),
     tagTypes: ["SelfInfo", "ConvoInfo", "GroupInfo", "FriendsInfo", "ConvosInfo", "RequestInfo", "SentRequestsInfo", "RequestsInfo", "GroupsInfo"],
-    keepUnusedDataFor: 5,
+    keepUnusedDataFor: 3,
     endpoints: (builder) => ({
         createUser: builder.mutation<ReturnMessage, UserProfile>({
             query: (body) => ({
