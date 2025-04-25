@@ -17,9 +17,6 @@ export default function MinimalUserOptions({ info, changeVisible, coords, group 
     const [showOptions, setShowOptions] = useState(false);
     const { data, error, isLoading } = useGetUserQuery(info.user);
     const optionsRef = useRef<HTMLDivElement>(null);
-    const closeOptions = function closeThisOptionsComponent() {
-        setShowOptions(false)
-    };
 
     const dispatch  = useDispatch();
     const navigate = useNavigate();
@@ -35,7 +32,7 @@ export default function MinimalUserOptions({ info, changeVisible, coords, group 
     };
 
     return (
-        <div ref={optionsRef} style={{position: "absolute", ...coords}}>
+        <StyledMiniOptions onClick={(e) => e.stopPropagation()} ref={optionsRef} style={{position: "absolute", ...coords}}>
             {isLoading ? (
                 <>
                     <div>Loading...</div>
@@ -48,13 +45,13 @@ export default function MinimalUserOptions({ info, changeVisible, coords, group 
                 <>
                     <img src={data.user.customIcon?.url || data.user.icon.source} alt="" />
                     <StyledName onClick={onClickName} >{data.user.username}</StyledName>
-                    <StartConvoButton userid={data.user.id} />
+                    <StyleStartConvo userid={data.user.id} />
                     <div style={{position: "relative"}}>
-                        <div onClick={(e) => {
+                        <StyleBottomOptions onClick={(e) => {
                             e.stopPropagation();
                             setShowOptions(!showOptions);
-                        }}>Options</div>
-                        {showOptions && <UserOptions changeVisible={closeOptions} coords={{top: 0, left: 50}} group={group} info={info}  />}
+                        }}>Options</StyleBottomOptions>
+                        {showOptions && <UserOptions changeVisible={() => null} coords={{top: 0, left: 50}} group={group} info={info}  />}
                     </div>
                 </>
             ) : (
@@ -64,12 +61,49 @@ export default function MinimalUserOptions({ info, changeVisible, coords, group 
             )
             }
 
-        </div>
+        </StyledMiniOptions>
     );
 };
 
 const StyledName = styled.div`
+    cursor: pointer;
+    font-weight: bold;
     &:hover {
         text-decoration-line: underline;
+    }
+`;
+
+const StyledMiniOptions = styled.div`
+    z-index: 4;
+    padding: 10px;
+    background-color: rgb(138, 175, 209);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border: solid 2px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+`;
+
+const StyleBottomOptions = styled.div`
+    background-color: rgb(172, 201, 209);
+    padding: 3px 6px;
+    border-radius: 5px;
+    cursor: default;
+    &:hover {
+        background-color: rgb(139, 204, 223);
+    }
+`;
+
+const  StyleStartConvo = styled(StartConvoButton)`
+    padding: 3px 5px;
+    background-color: rgb(164, 223, 240);
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-family: "Times New Roman";
+    &:hover {
+         background-color: rgb(17, 170, 212);
     }
 `;

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { setConversationId, setGroupId } from "../../features/manager/manager-slice";
 import { ClickType } from "../../../util/types";
 import { isUUID } from "validator";
+import styled from "styled-components";
 
 type CompType = ({info, activeId} : {info: UserConversation | BasicGroupInfo,
     activeId?: string}) => React.JSX.Element;
@@ -29,10 +30,17 @@ export default function SideBar({innerComp : InnerComp, data, activeId} : { inne
 
     }
     return (
-        <div onClick={handleClick}>
+        <StyledSidebar onClick={handleClick}>
             {data.map((info) => {
                 return (<InnerComp key={info.id} info={info} {...(activeId === info.id ? {activeId} : {})} />)
             })}
-        </div>
+        </StyledSidebar>
     )
 };
+
+const StyledSidebar = styled.div`
+    width: 300px;
+    max-width: 300px;
+    padding: 10px;
+    background-color: rgb(55, 169, 214);
+`;

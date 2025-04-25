@@ -8,7 +8,7 @@ import FullChat from "./FullChat";
 import { skipToken } from "@reduxjs/toolkit/query";
 import MainWithOptions from "./MainWithOptions";
 import styled from "styled-components";
-import { mainBackgroundColor } from "../../../util/style";
+import { footerHeight, headerHeight, mainBackgroundColor, StyledExtraMessage } from "../../../util/style";
 
 export default function Conversations() {
     const convoId = useSelector(selectConversationId);
@@ -18,17 +18,19 @@ export default function Conversations() {
     const { data: convosData, error: convosError, isLoading: convosLoading } = useGetConversationsQuery();
     return (
         <StyledMain>
-            {convosLoading ? <div>Loading Conversations...</div>
-            : convosError ? <div>Failed getting Conversations!</div> 
-            : convosData && convosData.user ? <SideBar data={convosData.user.convos} innerComp={MiniConversationSide} activeId={convoId} /> : <div>No Conversations Yet!</div> }
-            {isLoading ? <div>Loading Conversation...</div> : error ? <div>Error Loading Conversation!</div> : data 
+            {convosLoading ? <StyledExtraMessage>Loading Conversations...</StyledExtraMessage>
+            : convosError ? <StyledExtraMessage>Failed getting Conversations!</StyledExtraMessage> 
+            : convosData && convosData.user ? (convosData.user.convos.length > 0 && <SideBar data={convosData.user.convos} innerComp={MiniConversationSide} activeId={convoId} />) || <StyledExtraMessage>No Conversations Yet!</StyledExtraMessage>  : <StyledExtraMessage>No Conversations Yet!</StyledExtraMessage> }
+            {isLoading ? <StyledExtraMessage>Loading Conversation...</StyledExtraMessage> : error ? <StyledExtraMessage>Error Loading Conversation!</StyledExtraMessage> : data 
                 ? <FullChat info={data.conversation.contents} trigger={sendMessage} basicInfo={{id: data.conversation.id, type:  "CONVERSATION"}}/>
-                : <div>Try Starting a Conversation!</div>
+                : <StyledExtraMessage>Try Starting a Conversation!</StyledExtraMessage>
             }
         </StyledMain>
     )
 };
 
 const StyledMain = styled(MainWithOptions)`
-    background-color: ${mainBackgroundColor};
+    display: grid;
+    grid-template-columns: auto 1fr;
+    max-height: calc(100vh - (${headerHeight} + ${footerHeight}));
 `;

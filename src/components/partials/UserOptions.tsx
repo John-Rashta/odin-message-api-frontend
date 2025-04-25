@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import useClickOutside from "../../../util/useClickOutside";
 import { useNavigate } from "react-router-dom";
 import GroupSelection from "./GroupSelection";
+import styled from "styled-components";
 
 export default function UserOptions({ info, changeVisible, coords, group } : {info: TargetUser, changeVisible: SimpleFunctionType, coords: CoordsProp, group?: string}) {
     const [showOptions, setShowOptions] = useState(false);
@@ -26,11 +27,10 @@ export default function UserOptions({ info, changeVisible, coords, group } : {in
 
         return (
            <>
-                <div data-type="REMOVEGROUP">
+                <StyledTextOptions data-type="REMOVEGROUP">
                     Remove From Group
-                </div>
-                <div></div>
-                {info.admin ? <div data-type="DEMOTEGROUP">Demote</div> : <div data-type="PROMOTEGROUP">Promote</div>}
+                </StyledTextOptions>
+                {info.admin ? <StyledTextOptions data-type="DEMOTEGROUP">Demote</StyledTextOptions> : <StyledTextOptions data-type="PROMOTEGROUP">Promote</StyledTextOptions>}
            </>
         )
     };
@@ -103,15 +103,32 @@ export default function UserOptions({ info, changeVisible, coords, group } : {in
     };
 
     return (
-        <div ref={optionsRef} style={{position: "absolute", ...coords}} onClick={handleClick}>
-            <div data-type="PROFILE">Profile</div>
-            {info.friend ? <div data-type="REMOVEFRIEND">Remove Friend</div> : <div data-type="ADDFRIEND">Add Friend</div>}
-            <div data-type="STARTCONVO">Start Conversation</div>
+        <StyledOptions ref={optionsRef} style={{position: "absolute", ...coords}} onClick={handleClick}>
+            <StyledTextOptions data-type="PROFILE">Profile</StyledTextOptions>
+            {info.friend ? <StyledTextOptions data-type="REMOVEFRIEND">Remove Friend</StyledTextOptions> : <StyledTextOptions data-type="ADDFRIEND">Add Friend</StyledTextOptions>}
+            <StyledTextOptions data-type="STARTCONVO">Start Conversation</StyledTextOptions>
+            {group && groupOptions()}
             <div onMouseEnter={() => setShowOptions(true)} onMouseLeave={() => setShowOptions(false)} style={{position: "relative"}}>
-                <div>Invite to Groups</div>
+                <StyledTextOptions>Invite to Groups</StyledTextOptions>
                 {showOptions && <GroupSelection userid={info.user} hideMe={() => setShowOptions(false)} groupsData={groupsData} />}
             </div>
-            {group && groupOptions()}
-        </div>
+        </StyledOptions>
     )
 };
+
+const StyledOptions = styled.div`
+    padding: 8px;
+    background-color: rgb(131, 208, 231);
+    z-index: 5;
+    font-size: 1rem;
+    font-family: Times;
+    border: 2px solid;
+`;
+
+const StyledTextOptions = styled.div`
+    font-size: 1.1rem;
+    padding: 2px;
+    &:hover {
+        background-color: rgb(61, 184, 221);
+    }
+`;

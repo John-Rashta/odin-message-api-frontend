@@ -3,7 +3,8 @@ import { ChatInfo } from "../../../util/interfaces";
 import { ConversationTriggerType, FormType, TriggerType } from "../../../util/types";
 import styled from "styled-components";
 import EmotesDisplay from "./EmotesDisplay";
-import { StyledEmoteOptionsBox } from "../../../util/style";
+import { StyledEmoteOptionsBox, StyledChatForm as StyledForm, StyledInputMessage, StyledEmoteButton } from "../../../util/style";
+import { Image } from "lucide-react";
 
 export default function NormalChat({trigger, info} : {trigger: TriggerType, info: ChatInfo}) {
     const [invalidSize, setInvalidSize] = useState(false);
@@ -24,6 +25,11 @@ export default function NormalChat({trigger, info} : {trigger: TriggerType, info
             const possibleFile = target.fileInput.files[0] as File;
             if (possibleFile) {
                 if (Number(((possibleFile.size/1024)/1024).toFixed(4)) > 5) {
+                    if (!invalidSize) {
+                        setTimeout(() => {
+                            setInvalidSize(false);
+                        }, 5000);
+                    };
                     setInvalidSize(true);
                     return;
                 }
@@ -45,18 +51,19 @@ export default function NormalChat({trigger, info} : {trigger: TriggerType, info
     }
 
     return (
-        <form style={{position: "relative"}} onSubmit={handleClick} onClick={(e) => e.stopPropagation()}>
-            {invalidSize && <div style={{position: "absolute"}}>File Too Big!(Max 5MB)</div>}
+        <StyledForm style={{position: "relative"}} onSubmit={handleClick} onClick={(e) => e.stopPropagation()}>
+            <StyledInputMessage type="text" id="messageInput" name="messageInput" value={textValue} onChange={(e) => setTextValue(e.target.value)}/>
             <StyledFileDiv>
-                <input type="text" id="messageInput" name="messageInput" value={textValue} onChange={(e) => setTextValue(e.target.value)}/>
-                <StyledEmoteOptionsBox>
-                    {showEmotes && <EmotesDisplay hideMe={() => setShowEmotes(false)} currentMessage={textValue} addEmote={setTextValue} />}
-                    <button type="button" onClick={() => setShowEmotes(!showEmotes)}>&#x1F600;</button>
-                </StyledEmoteOptionsBox>
+                {invalidSize && <StyledFileError>File Too Big!(Max 5MB)</StyledFileError>}
+                <StyledLabel htmlFor="fileInput"><Image /></StyledLabel>
                 <StyledInputFile type="file" id="fileInput" name="fileInput"/>
             </StyledFileDiv>
-            <button type="submit">Send</button>
-        </form>
+            <StyledEmoteOptionsBox>
+                    {showEmotes && <EmotesDisplay hideMe={() => setShowEmotes(false)} currentMessage={textValue} addEmote={setTextValue} />}
+                    <StyledEmoteButton type="button" onClick={() => setShowEmotes(!showEmotes)}>&#x1F600;</StyledEmoteButton>
+            </StyledEmoteOptionsBox>
+            <StyledSendButton type="submit">Send</StyledSendButton>
+        </StyledForm>
     )  
 };
 
@@ -66,6 +73,29 @@ const StyledInputFile = styled.input`
     top: 0;
     left: 0;
     width: 0;
+`;
+
+const StyledLabel = styled.label`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+`;
+
+const StyledSendButton = styled.button`
+    padding: 8px;
+    background-color: rgb(161, 209, 231);
+    font-weight: bold;
+
+`;
+
+const StyledFileError = styled.div`
+    position: absolute;
+    bottom: 120%;
+    right: -65px;
+    width: 150px;
+    text-align: center;
+    color: rgb(206, 0, 0);
 `;
 
 const StyledFileDiv = styled.div`

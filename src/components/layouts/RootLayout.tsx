@@ -27,15 +27,21 @@ const GlobalStyle = createGlobalStyle`
         font-family: Times, "Times New Roman", Georgia, serif;
     }
 
-    main,
     #root,
     body,
     html {
         height: 100%;
+    }
+
+
+    main,
+    #root,
+    body,
+    html {
         background-color: ${mainBackgroundColor};
     }
 
-    img {
+    img:not(.messageImage) {
         width: 50px;
         height: 50px;
         border-radius: 50%;

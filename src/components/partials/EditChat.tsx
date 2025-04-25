@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { FormType, SimpleFunctionType } from "../../../util/types";
 import { useGetMessageQuery, useUpdateMessageMutation } from "../../features/message-api/message-api-slice";
 import EmotesDisplay from "./EmotesDisplay";
-import { StyledEmoteOptionsBox } from "../../../util/style";
+import { StyledChatForm, StyledEmoteButton, StyledEmoteOptionsBox, StyledInputMessage } from "../../../util/style";
+import styled from "styled-components";
 
 export default function EditChat({info, changeEdit} : { info: string, changeEdit: SimpleFunctionType }) {
     const [updateMessage] = useUpdateMessageMutation();
@@ -44,17 +45,29 @@ export default function EditChat({info, changeEdit} : { info: string, changeEdit
     return (
     <>
     {messageData &&
-        <form onSubmit={handleSubmit} onClick={(e) =>  e.stopPropagation()}>
-        <input type="text" name="editInput" id="editInput" onChange={(e) => setTextValue(e.target.value)} value={textValue}/>
+        <StyledChatForm onSubmit={handleSubmit} onClick={(e) =>  e.stopPropagation()}>
+        <StyledInputMessage type="text" name="editInput" id="editInput" onChange={(e) => setTextValue(e.target.value)} value={textValue}/>
         <StyledEmoteOptionsBox>
             {showEmotes && <EmotesDisplay hideMe={() => setShowEmotes(false)} currentMessage={textValue} addEmote={setTextValue} />}
-            <button type="button" onClick={() => setShowEmotes(!showEmotes)}>&#x1F600;</button>
+            <StyledEmoteButton type="button" onClick={() => setShowEmotes(!showEmotes)}>&#x1F600;</StyledEmoteButton>
         </StyledEmoteOptionsBox>
-        {typeof messageData.image?.url === "string" ? <img src={messageData.image.url} alt="message image"/> : null}
-        <button onClick={() => changeEdit()} type="button">Cancel</button>
-        <button type="submit">Confirm</button>
-        </form>
+        <StyledCancel onClick={() => changeEdit()} type="button">Cancel</StyledCancel>
+        <StyledConfirm type="submit">Confirm</StyledConfirm>
+        </StyledChatForm>
     }  
     </>
     )
 };
+
+const StyledButtons = styled.button`
+    padding: 7px;
+    font-weight: bold;
+`
+
+const StyledCancel = styled(StyledButtons)`
+    background-color: rgb(212, 0, 0);
+`;
+
+const StyledConfirm = styled(StyledButtons)`
+    background-color: rgba(48, 204, 0, 0.65);
+`;

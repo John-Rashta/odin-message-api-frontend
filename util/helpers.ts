@@ -85,8 +85,8 @@ const handleMessageOptionsClick = function handleClickingMessageForOptions(myId:
     if (possibleSender !== myId) {
         return;
     };
-    const boundTarget = target.getBoundingClientRect();
-    const finalCoords = {top: boundTarget.top, left: Math.round(boundTarget.right * 0.9)};
+    const boundTarget = realTarget.getBoundingClientRect();
+    const finalCoords = {top: boundTarget.top -30, left: Math.round(boundTarget.right * 0.9)};
     helpFuncs.changeData({
         message: possibleMessage
     });

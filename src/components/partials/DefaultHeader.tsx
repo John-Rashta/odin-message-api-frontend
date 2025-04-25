@@ -1,6 +1,5 @@
-import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { headerBackgroundColor, headerPadding, StyledNavLink } from "../../../util/style";
+import { headerBackgroundColor, headerHeight, headerPadding, StyledNavLink } from "../../../util/style";
 
 export default function DefaultHeader() {
     return (
@@ -22,6 +21,8 @@ const StyledHeader = styled.header`
     align-items: center;
     padding: ${headerPadding};
     font-size: 1.3rem;
+    max-height: ${headerHeight};
+    height: ${headerHeight};
 `;
 
 const StyledNavContainer = styled.div`

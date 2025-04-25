@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { setUserId } from "../../features/manager/manager-slice";
 import { ClickType } from "../../../util/types";
 import styled from "styled-components";
-import { headerBackgroundColor, headerPadding, navMenuValue, StyledInput } from "../../../util/style";
+import { headerBackgroundColor, headerHeight, headerPadding, navMenuValue, StyledInput } from "../../../util/style";
 import NavMenu from "./NavMenu";
 import { StyledNavLink } from "../../../util/style";
 
@@ -94,6 +94,8 @@ const StyledHeader = styled.header`
     background-color: ${headerBackgroundColor};
     padding: ${headerPadding};
     font-size: 1.3rem;
+    max-height: ${headerHeight};
+    height: ${headerHeight};
 `;
 
 const StyledSearchResult = styled.div`

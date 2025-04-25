@@ -96,8 +96,8 @@ const StyledProfileMain = styled.main`
 `;
 
 const StyledProfileImg = styled.img`
-    width: 150px;
-    height: 150px;
+    width: 150px !important;
+    height: 150px !important;
 `;
 
 const aboutMeStyle = `
@@ -106,6 +106,33 @@ const aboutMeStyle = `
     height: 150px;
     overflow: auto;
     background-color: white;
+`;
+
+const headerHeight = `85px`;
+const footerHeight = `52px`;
+
+
+const StyledChatForm = styled.form`
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: rgb(42, 138, 247);
+`;
+
+const StyledInputMessage = styled.input`
+    height: 50px;
+    font-size: 1.2rem;
+    padding: 5px;
+`;
+
+
+const StyledEmoteButton = styled.button`
+    padding: 7px;
+    font-size: 1.1rem;
+    background-color: rgb(199, 214, 230);
 `;
 
 export {
@@ -127,4 +154,9 @@ export {
     StyledProfileMain,
     StyledProfileImg,
     aboutMeStyle,
+    headerHeight,
+    footerHeight,
+    StyledChatForm,
+    StyledEmoteButton,
+    StyledInputMessage
 };

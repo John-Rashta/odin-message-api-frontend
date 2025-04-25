@@ -6,13 +6,61 @@ import MessageOptions from "./MessageOptions";
 import { EditStateType } from "../../../util/types";
 import { useSelector } from "react-redux";
 import { selectMyId } from "../../features/manager/manager-slice";
+import styled from "styled-components";
+import { useEffect, useRef, useState } from "react";
 
-export default function MessagesContainer({info, adminList, setEditId, checkId} : {info: MessageInfo[], setEditId: EditStateType, checkId: string, adminList?: string[]}) {
+export default function MessagesContainer({info, adminList, setEditId, checkId, basicId} : {info: MessageInfo[], setEditId: EditStateType, checkId: string, adminList?: string[], basicId: string}) {
     const [showFuncs, coordsFuncs, dataFuncs] = useMessageOptionsHandle();
     const myId = useSelector(selectMyId);
+    const [onLoadChat, setOnLoadChat] = useState(false);
+    const chatRef = useRef<HTMLDivElement>(null);
+    const [currentId, setCurrentId] = useState("");
+    useEffect(() => {
+        const autoScroll = function autoScrollChat() {
+            if (!chatRef.current) {
+                return;
+            };
+
+            const { scrollTop, scrollHeight, clientHeight } = chatRef.current;
+
+            if (!onLoadChat) {
+                chatRef.current.scrollTop = scrollHeight;
+                setOnLoadChat(true);
+                return;
+            };
+            const maxScroll = scrollHeight * 0.9;
+            if (scrollTop + clientHeight >= maxScroll) {
+                chatRef.current.scrollTop = scrollHeight;
+                return;
+            } else {
+                return;
+            }
+        };
+
+        autoScroll();
+    },[info]);
+
+    useEffect(() => {
+
+        const scrollOnChange = function scrollPageToEndWhenChangingConvo() {
+            if (!chatRef.current) {
+                return;
+            };
+            const { scrollHeight } = chatRef.current;
+
+            if (basicId !== currentId) {
+                chatRef.current.scrollTop = scrollHeight;
+                setCurrentId(basicId);
+                return;
+            };
+
+        };
+
+        scrollOnChange();
+    },[basicId]);
 
     return (
-        <div onMouseOver={(e) => {
+        <StyledMessagesContainer ref={chatRef} onMouseOver={(e) => {
             const target = e.target as HTMLElement;
                 if (target.closest(".messageOptionsContainer")) {
                     return;
@@ -32,6 +80,14 @@ export default function MessagesContainer({info, adminList, setEditId, checkId} 
                     {...( Array.isArray(adminList) ? {adminList} : {})} />
                 )
             })}
-        </div>
+        </StyledMessagesContainer>
     )
 };
+
+const StyledMessagesContainer = styled.div`
+    overflow-y: auto;
+    overflow-wrap: anywhere;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+`;
