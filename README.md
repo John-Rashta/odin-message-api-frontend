@@ -1,1 +1,1 @@
-Icons from https://www.flaticon.com/  
+Icons from https://www.flaticon.com   
