@@ -12,7 +12,6 @@ import { useEffect, useRef, useState } from "react";
 export default function MessagesContainer({info, adminList, setEditId, checkId, basicId} : {info: MessageInfo[], setEditId: EditStateType, checkId: string, adminList?: string[], basicId: string}) {
     const [showFuncs, coordsFuncs, dataFuncs] = useMessageOptionsHandle();
     const myId = useSelector(selectMyId);
-    const [onLoadChat, setOnLoadChat] = useState(false);
     const chatRef = useRef<HTMLDivElement>(null);
     const [currentId, setCurrentId] = useState("");
     useEffect(() => {
@@ -23,11 +22,6 @@ export default function MessagesContainer({info, adminList, setEditId, checkId, 
 
             const { scrollTop, scrollHeight, clientHeight } = chatRef.current;
 
-            if (!onLoadChat) {
-                chatRef.current.scrollTop = scrollHeight;
-                setOnLoadChat(true);
-                return;
-            };
             const maxScroll = scrollHeight * 0.9;
             if (scrollTop + clientHeight >= maxScroll) {
                 chatRef.current.scrollTop = scrollHeight;
