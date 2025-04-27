@@ -64,33 +64,37 @@ export default function Groups() {
 
     return (
         <StyledMain {...((data && userIsAdmin) ? {group: groupId, members: membersIds} : {})}>
-            <button onClick={() => createGroup({})}>Create Group</button>
-            {(data && !error) && 
-                <div>
-                    {userIsAdmin && 
-                    <>
-                        <EditGroupName buttonText="Edit" groupId={groupId} fieldsName="newName" groupName={data.group.name || ""} />
-                        <SimpleForm submitFunc={(e) => handleSubmitInvite(e,"inviteUser")} fieldsName="inviteUser" buttonText="Invite" />
-                    </>
-                    }
-                    <button onClick={handleClick}>Leave Group</button>
-                    <GroupPeople admins={data.group.admins} members={data.group.members} />
-                </div>
-            }
-            {
-                ((data && !error) && userIsAdmin) && (showConfirm ? <button onClick={() => {
-                    deleteGroup({id: groupId}).unwrap().then(() => {
-                        dispatch(setGroupId("0"));
-                    }).finally(() => {
-                        setShowConfirm(false);
-                    });
-                }}>Confirm</button> :<button onClick={() => setShowConfirm(true)}>Delete Group</button>)
-            }
-            {groupsLoading ? <div>Groups Loading...</div> 
-            : groupsError ? <div>Error Loading Groups!</div> 
-            : groupsData ? <SideBar data={groupsData.user.groups} activeId={groupId} innerComp={MiniGroupSide} />  : <div>No Conversations Yet!</div> }
+            <div>
+                <button onClick={() => createGroup({})}>Create Group</button>
+                {groupsLoading ? <div>Groups Loading...</div> 
+                : groupsError ? <div>Error Loading Groups!</div> 
+                : groupsData ? <SideBar data={groupsData.user.groups} activeId={groupId} innerComp={MiniGroupSide} />  : <div>No Conversations Yet!</div> }
+            </div>
             {isLoading ?<div>Loading Group...</div> 
-            : (data && !error) ? <FullChat adminList={getAdminIds(data.group.admins)} basicInfo={{id: data.group.id, type: "GROUP"}} trigger={sendMessage} info={data.group.contents} /> : <div>Try Starting a Group!</div>}
+            : (data && !error) ? <>
+                <div>
+                    <div>
+                        {userIsAdmin && 
+                        <>
+                            <EditGroupName buttonText="Edit" groupId={groupId} fieldsName="newName" groupName={data.group.name || ""} />
+                            <SimpleForm submitFunc={(e) => handleSubmitInvite(e,"inviteUser")} fieldsName="inviteUser" buttonText="Invite" />
+                        </>
+                        }
+                        <button onClick={handleClick}>Leave Group</button>
+                        {
+                            userIsAdmin && (showConfirm ? <button onClick={() => {
+                                deleteGroup({id: groupId}).unwrap().then(() => {
+                                    dispatch(setGroupId("0"));
+                                }).finally(() => {
+                                    setShowConfirm(false);
+                                });
+                            }}>Confirm</button> :<button onClick={() => setShowConfirm(true)}>Delete Group</button>)
+                        }
+                    </div>
+                    <FullChat adminList={getAdminIds(data.group.admins)} basicInfo={{id: data.group.id, type: "GROUP"}} trigger={sendMessage} info={data.group.contents} />
+                </div>
+                <GroupPeople admins={data.group.admins} members={data.group.members} />
+            </> : <div>Try Starting a Group!</div>}
         </StyledMain>
     )
 };

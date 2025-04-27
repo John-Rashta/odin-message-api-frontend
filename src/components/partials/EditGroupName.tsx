@@ -25,11 +25,9 @@ export default function EditGroupName({fieldsName, groupId, groupName, buttonTex
     return (
         <div>
             {(editName ? <div onClick={() => setEditName(false)}>Cancel</div> : <div onClick={() => setEditName(true)}>Edit Name</div>)}
-            {(editName ?
+            {(editName &&
             <SimpleForm fieldsName={fieldsName} possibleDefault={groupName || ""} buttonText={buttonText} submitFunc={(e) => handleSubmit(e, fieldsName)} />
-            : <div>{groupName}</div>
             )}
-
         </div>
     )
 };
