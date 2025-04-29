@@ -13,7 +13,7 @@ import { useState } from "react";
 import SimpleForm from "../partials/SimpleForm";
 import EditGroupName from "./EditGroupName";
 import styled from "styled-components";
-import { mainBackgroundColor, mainTextsHeight, sidebarColor, StyledExtraMessage } from "../../../util/style";
+import { mainTextsHeight, sidebarColor, StyledExtraMessage } from "../../../util/style";
 
 export default function Groups() {
     const groupId = useSelector(selectGroupId);
