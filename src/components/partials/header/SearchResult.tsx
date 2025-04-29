@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { UserInfo } from "../../../util/interfaces";
+import { UserInfo } from "../../../../util/interfaces";
 
 ///PROPER ROUTES NEED TO BE DONE
 export default function SearchResult({info} : {info: UserInfo}) {

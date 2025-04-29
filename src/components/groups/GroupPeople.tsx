@@ -1,12 +1,14 @@
+import styled from "styled-components";
 import { BasicUserInfo } from "../../../util/interfaces";
 import MiniMembers from "./MiniMembers";
+import { styledOverflow } from "../../../util/style";
 
 export default function GroupPeople({admins, members} : {admins: BasicUserInfo[], members: BasicUserInfo[]}) {
 
     return (
-        <div>
+        <StyledMembersSide>
             <div>
-                <p>Admins</p>
+                <StyledTitles>Admins</StyledTitles>
                 {admins.map((member) => {
                     return (
                     <MiniMembers key={member.id} confirmedAdmin={true} member={member} />
@@ -14,14 +16,28 @@ export default function GroupPeople({admins, members} : {admins: BasicUserInfo[]
                 })}
             </div>
             <div>
-                <p>Members</p>
+                <StyledTitles>Members</StyledTitles>
                 {members.map((member) => {
                     return (
                         <MiniMembers key={member.id} member={member} />
                     )
                 })}
             </div>
-        </div>
+        </StyledMembersSide>
     )
 
 };
+
+const StyledMembersSide = styled.div`
+    padding: 20px;
+    background-color: rgb(86, 161, 190);
+    display: flex;
+    flex-direction: column;
+    ${styledOverflow}
+`;
+
+const StyledTitles = styled.p`
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.64);
+`;

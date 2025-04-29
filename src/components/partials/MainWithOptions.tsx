@@ -2,8 +2,8 @@ import React from "react";
 import useBothUserOptionsHandle from "../../../util/useBothUserOptionsHandle";
 import { getFuncs } from "../../../util/helpers";
 import { handleUserOptionsClick } from "../../../util/helpers";
-import UserOptions from "./UserOptions";
-import MinimalUserOptions from "./MinimalUserOptions";
+import UserOptions from "./options/UserOptions";
+import MinimalUserOptions from "./options/MinimalUserOptions";
 import { useSelector } from "react-redux";
 import { selectMyId } from "../../features/manager/manager-slice";
 

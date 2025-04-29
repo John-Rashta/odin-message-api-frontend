@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { ButtonClickType } from "../../../util/types";
 import { useGetGroupsQuery, useMakeRequestMutation, useGetUserQuery } from "../../features/message-api/message-api-slice";
-import GroupSelection from "./GroupSelection";
+import GroupSelection from "../partials/options/GroupSelection";
 import { selectMyId, selectUserId } from "../../features/manager/manager-slice";
 import { useSelector } from "react-redux";
-import StartConvoButton from "./StartConvoButton";
+import StartConvoButton from "../partials/StartConvoButton";
 import { isUUID } from "validator";
 import { aboutMeStyle, StyledExtraMessage, StyledProfileImg, StyledProfileMain } from "../../../util/style";
 import styled from "styled-components";

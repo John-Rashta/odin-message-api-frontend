@@ -1,10 +1,10 @@
-import { TargetUser, CoordsProp } from "../../../util/interfaces";
-import { SimpleFunctionType, ClickType } from "../../../util/types";
-import { setUserId, setConversationId } from "../../features/manager/manager-slice";
+import { TargetUser, CoordsProp } from "../../../../util/interfaces";
+import { SimpleFunctionType, ClickType } from "../../../../util/types";
+import { setUserId, setConversationId } from "../../../features/manager/manager-slice";
 import { useDispatch } from "react-redux";
-import { useCreateConversationMutation, useMakeRequestMutation, useUpdateGroupMutation, useDeleteFriendMutation, useGetGroupsQuery } from "../../features/message-api/message-api-slice";
+import { useCreateConversationMutation, useMakeRequestMutation, useUpdateGroupMutation, useDeleteFriendMutation, useGetGroupsQuery } from "../../../features/message-api/message-api-slice";
 import { useRef, useState } from "react";
-import useClickOutside from "../../../util/useClickOutside";
+import useClickOutside from "../../../../util/useClickOutside";
 import { useNavigate } from "react-router-dom";
 import GroupSelection from "./GroupSelection";
 import styled from "styled-components";
@@ -103,7 +103,7 @@ export default function UserOptions({ info, changeVisible, coords, group } : {in
     };
 
     return (
-        <StyledOptions ref={optionsRef} style={{position: "absolute", ...coords}} onClick={handleClick}>
+        <StyledOptions className="userOptions" ref={optionsRef} style={{...coords}} onClick={handleClick}>
             <StyledTextOptions data-type="PROFILE">Profile</StyledTextOptions>
             {info.friend ? <StyledTextOptions data-type="REMOVEFRIEND">Remove Friend</StyledTextOptions> : <StyledTextOptions data-type="ADDFRIEND">Add Friend</StyledTextOptions>}
             <StyledTextOptions data-type="STARTCONVO">Start Conversation</StyledTextOptions>
@@ -117,6 +117,7 @@ export default function UserOptions({ info, changeVisible, coords, group } : {in
 };
 
 const StyledOptions = styled.div`
+    position: absolute;
     padding: 8px;
     background-color: rgb(131, 208, 231);
     z-index: 5;

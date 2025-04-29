@@ -1,7 +1,7 @@
-import { MessageInfo } from "../../../util/interfaces";
+import { MessageInfo } from "../../../../util/interfaces";
 import { formatRelative } from "date-fns";
-import { locale } from "../../../util/helpers";
-import { userOptionsClass } from "../../../util/globalValues";
+import { locale } from "../../../../util/helpers";
+import { userOptionsClass } from "../../../../util/globalValues";
 import styled from "styled-components";
 
 export default function Message({info, previousMessageSenderId, adminList} : {info: MessageInfo, previousMessageSenderId?: string, adminList?: string[]}) {

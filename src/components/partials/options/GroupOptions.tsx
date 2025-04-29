@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { BasicGroupInfo } from "../../../util/interfaces";
-import { ClickType } from "../../../util/types";
+import { BasicGroupInfo } from "../../../../util/interfaces";
+import { ClickType } from "../../../../util/types";
 
 type ClickFunction = (event: ClickType) => void;
 export default function GroupOptions({groupsData, handleClick} : {groupsData: BasicGroupInfo[] | undefined, handleClick?: ClickFunction }) {

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { FormType, SimpleFunctionType } from "../../../util/types";
-import { useGetMessageQuery, useUpdateMessageMutation } from "../../features/message-api/message-api-slice";
-import EmotesDisplay from "./EmotesDisplay";
-import { StyledChatForm, StyledEmoteButton, StyledEmoteOptionsBox, StyledInputMessage } from "../../../util/style";
+import { FormType, SimpleFunctionType } from "../../../../util/types";
+import { useGetMessageQuery, useUpdateMessageMutation } from "../../../features/message-api/message-api-slice";
+import EmotesDisplay from "../EmotesDisplay";
+import { StyledChatForm, StyledEmoteButton, StyledEmoteOptionsBox, StyledInputMessage } from "../../../../util/style";
 import styled from "styled-components";
 
 export default function EditChat({info, changeEdit} : { info: string, changeEdit: SimpleFunctionType }) {

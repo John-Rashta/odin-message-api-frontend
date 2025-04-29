@@ -363,7 +363,7 @@ export const apiSlice = createApi({
                 method: "PUT",
                 body: info
             }),
-            invalidatesTags:["GroupInfo"],
+            invalidatesTags:["GroupInfo", "GroupsInfo"],
         }),
         deleteGroup: builder.mutation<ReturnMessage, UId>({
             query: ({id}) => ({

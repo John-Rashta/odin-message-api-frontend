@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { navMenuValue, StyledNavLink } from "../../../util/style";
+import { navMenuValue, StyledNavLink } from "../../../../util/style";
 import { Ellipsis } from "lucide-react";
 
 export default function NavMenu() {

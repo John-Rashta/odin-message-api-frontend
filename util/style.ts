@@ -110,7 +110,7 @@ const aboutMeStyle = `
 
 const headerHeight = `85px`;
 const footerHeight = `52px`;
-
+const sidebarColor = ` rgb(55, 169, 214)`;
 
 const StyledChatForm = styled.form`
     display: grid;
@@ -133,6 +133,26 @@ const StyledEmoteButton = styled.button`
     padding: 7px;
     font-size: 1.1rem;
     background-color: rgb(199, 214, 230);
+`;
+
+const mainTextsHeight = `calc(100vh - (${headerHeight} + ${footerHeight}))`;
+
+const styledOverflow = `
+    overflow-y: auto;
+    overflow-wrap: anywhere;
+`;
+
+const StyledSides = styled.div`
+    display: flex;
+    padding: 5px;
+    gap: 10px;
+    align-items: center;
+    word-break: break-word;
+    &.selected {
+        background-color: rgb(159, 201, 231);
+        border-radius: 10px;
+    }
+    font-size: 1.2rem;
 `;
 
 export {
@@ -158,5 +178,9 @@ export {
     footerHeight,
     StyledChatForm,
     StyledEmoteButton,
-    StyledInputMessage
+    StyledInputMessage,
+    mainTextsHeight,
+    StyledSides,
+    styledOverflow,
+    sidebarColor
 };

@@ -1,13 +1,13 @@
-import { useGetUserQuery } from "../../features/message-api/message-api-slice";
-import { TargetUser, CoordsProp } from "../../../util/interfaces";
-import { SimpleFunctionType } from "../../../util/types";
-import StartConvoButton from "./StartConvoButton";
+import { useGetUserQuery } from "../../../features/message-api/message-api-slice";
+import { TargetUser, CoordsProp } from "../../../../util/interfaces";
+import { SimpleFunctionType } from "../../../../util/types";
+import StartConvoButton from "../StartConvoButton";
 import { useState, useRef } from "react";
 import UserOptions from "./UserOptions";
-import useClickOutside from "../../../util/useClickOutside";
+import useClickOutside from "../../../../util/useClickOutside";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { setUserId } from "../../features/manager/manager-slice";
+import { setUserId } from "../../../features/manager/manager-slice";
 import { useNavigate } from "react-router-dom";
 
 export default function MinimalUserOptions({ info, changeVisible, coords, group } : {info: TargetUser, changeVisible: SimpleFunctionType, coords: CoordsProp, group?: string}) {
@@ -32,7 +32,7 @@ export default function MinimalUserOptions({ info, changeVisible, coords, group 
     };
 
     return (
-        <StyledMiniOptions onClick={(e) => e.stopPropagation()} ref={optionsRef} style={{position: "absolute", ...coords}}>
+        <StyledMiniOptions className="userOptions" onClick={(e) => e.stopPropagation()} ref={optionsRef} style={{...coords}}>
             {isLoading ? (
                 <>
                     <div>Loading...</div>
@@ -84,6 +84,7 @@ const StyledMiniOptions = styled.div`
     border: solid 2px;
     border-radius: 10px;
     font-size: 1.1rem;
+    position: absolute;
 `;
 
 const StyleBottomOptions = styled.div`

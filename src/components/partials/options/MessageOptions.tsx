@@ -1,14 +1,11 @@
-import { ClickType, EditStateType, SimpleFunctionType } from "../../../util/types";
-import { useDeleteMessageMutation } from "../../features/message-api/message-api-slice";
+import { ClickType, EditStateType, SimpleFunctionType } from "../../../../util/types";
+import { useDeleteMessageMutation } from "../../../features/message-api/message-api-slice";
 import { useRef } from "react";
-import  useClickOutside from "../../../util/useClickOutside";
-import { CoordsProp } from "../../../util/interfaces";
+import { CoordsProp } from "../../../../util/interfaces";
 import styled from "styled-components";
 
 export default function MessageOptions({ messageid, changeVisible, coords, changeId, checkId } : {messageid: string, changeVisible: SimpleFunctionType, coords: CoordsProp, changeId: EditStateType, checkId: string }) {
     const [deleteMessage] = useDeleteMessageMutation();
-    const optionsRef = useRef<HTMLDivElement>(null);
-    useClickOutside(optionsRef, changeVisible);
     const handleOnClick = function handleClickingOption(event : ClickType) {
         const currentTarget = event.target as HTMLDivElement;
 
@@ -26,7 +23,7 @@ export default function MessageOptions({ messageid, changeVisible, coords, chang
     };
 
     return (
-        <StyledMessageOptions onClick={handleOnClick} className="messageOptionsContainer" ref={optionsRef} style={{position: "absolute", ...coords}}>
+        <StyledMessageOptions onClick={handleOnClick} className="messageOptionsContainer" style={{position: "absolute", ...coords}}>
             <StyledOptions className="messageOption" data-type="EDIT">Edit</StyledOptions>
             <StyledOptions className="messageOption" data-type="DELETE">Delete</StyledOptions>
         </StyledMessageOptions>

@@ -1,14 +1,14 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SearchResult from "./SearchResult";
-import { useLogoutUserMutation, useLazySearchUsersQuery } from "../../features/message-api/message-api-slice";
+import { useLogoutUserMutation, useLazySearchUsersQuery } from "../../../features/message-api/message-api-slice";
 import { useDispatch } from "react-redux";
-import { setUserId } from "../../features/manager/manager-slice";
-import { ClickType } from "../../../util/types";
+import { setUserId } from "../../../features/manager/manager-slice";
+import { ClickType } from "../../../../util/types";
 import styled from "styled-components";
-import { headerBackgroundColor, headerHeight, headerPadding, navMenuValue, StyledInput } from "../../../util/style";
+import { headerBackgroundColor, headerHeight, headerPadding, navMenuValue, StyledInput } from "../../../../util/style";
 import NavMenu from "./NavMenu";
-import { StyledNavLink } from "../../../util/style";
+import { StyledNavLink } from "../../../../util/style";
 
 
 export default function Header() {

@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { ChatInfo } from "../../../util/interfaces";
-import { ConversationTriggerType, FormType, TriggerType } from "../../../util/types";
+import { ChatInfo } from "../../../../util/interfaces";
+import { ConversationTriggerType, FormType, TriggerType } from "../../../../util/types";
 import styled from "styled-components";
-import EmotesDisplay from "./EmotesDisplay";
-import { StyledEmoteOptionsBox, StyledChatForm as StyledForm, StyledInputMessage, StyledEmoteButton } from "../../../util/style";
+import EmotesDisplay from "../EmotesDisplay";
+import { StyledEmoteOptionsBox, StyledChatForm as StyledForm, StyledInputMessage, StyledEmoteButton } from "../../../../util/style";
 import { Image } from "lucide-react";
 
 export default function NormalChat({trigger, info} : {trigger: TriggerType, info: ChatInfo}) {
@@ -58,9 +58,12 @@ export default function NormalChat({trigger, info} : {trigger: TriggerType, info
                 <StyledLabel htmlFor="fileInput"><Image /></StyledLabel>
                 <StyledInputFile type="file" id="fileInput" name="fileInput"/>
             </StyledFileDiv>
-            <StyledEmoteOptionsBox>
+            <StyledEmoteOptionsBox className="otherOptions">
                     {showEmotes && <EmotesDisplay hideMe={() => setShowEmotes(false)} currentMessage={textValue} addEmote={setTextValue} />}
-                    <StyledEmoteButton type="button" onClick={() => setShowEmotes(!showEmotes)}>&#x1F600;</StyledEmoteButton>
+                    <StyledEmoteButton type="button" onClick={(e) => {
+                        e.stopPropagation();
+                        setShowEmotes(!showEmotes);
+                    }}>&#x1F600;</StyledEmoteButton>
             </StyledEmoteOptionsBox>
             <StyledSendButton type="submit">Send</StyledSendButton>
         </StyledForm>

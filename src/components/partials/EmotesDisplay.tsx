@@ -19,7 +19,7 @@ export default function EmotesDisplay({hideMe, addEmote, currentMessage} : {hide
     const emotesRef = useRef<HTMLDivElement>(null);
     useClickOutside(emotesRef, hideMe);
     return (
-        <StyledEmotesContainer ref={emotesRef} onClick={handleClick}>
+        <StyledEmotesContainer className="extraOptions" ref={emotesRef} onClick={handleClick}>
             {emotesArr.map((emote, index) => {
                 return (
                     <div key={index} className="emoteOption">

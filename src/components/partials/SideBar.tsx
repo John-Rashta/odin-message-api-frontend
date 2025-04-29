@@ -5,6 +5,7 @@ import { setConversationId, setGroupId } from "../../features/manager/manager-sl
 import { ClickType } from "../../../util/types";
 import { isUUID } from "validator";
 import styled from "styled-components";
+import { sidebarColor, styledOverflow } from "../../../util/style";
 
 type CompType = ({info, activeId} : {info: UserConversation | BasicGroupInfo,
     activeId?: string}) => React.JSX.Element;
@@ -42,5 +43,6 @@ const StyledSidebar = styled.div`
     width: 300px;
     max-width: 300px;
     padding: 10px;
-    background-color: rgb(55, 169, 214);
+    background-color: ${sidebarColor};
+    ${styledOverflow}
 `;

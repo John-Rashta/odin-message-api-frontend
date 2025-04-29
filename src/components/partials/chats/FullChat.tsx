@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { ChatInfo, MessageInfo } from "../../../util/interfaces";
+import { ChatInfo, MessageInfo } from "../../../../util/interfaces";
 import MessagesContainer from "./MessagesContainer";
 import { isUUID } from "validator";
 import NormalChat from "./NormalChat";
-import { TriggerType } from "../../../util/types";
+import { TriggerType } from "../../../../util/types";
 import EditChat from "./EditChat";
 import styled from "styled-components";
 

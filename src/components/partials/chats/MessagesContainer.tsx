@@ -1,13 +1,14 @@
 import Message from "./Message";
-import { MessageInfo } from "../../../util/interfaces";
-import { getFuncs, handleMessageOptionsClick } from "../../../util/helpers";
-import useMessageOptionsHandle from "../../../util/useMessageOptionsHandle";
-import MessageOptions from "./MessageOptions";
-import { EditStateType } from "../../../util/types";
+import { MessageInfo } from "../../../../util/interfaces";
+import { getFuncs, handleMessageOptionsClick } from "../../../../util/helpers";
+import useMessageOptionsHandle from "../../../../util/useMessageOptionsHandle";
+import MessageOptions from "../options/MessageOptions";
+import { EditStateType } from "../../../../util/types";
 import { useSelector } from "react-redux";
-import { selectMyId } from "../../features/manager/manager-slice";
+import { selectMyId } from "../../../features/manager/manager-slice";
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
+import { styledOverflow } from "../../../../util/style";
 
 export default function MessagesContainer({info, adminList, setEditId, checkId, basicId} : {info: MessageInfo[], setEditId: EditStateType, checkId: string, adminList?: string[], basicId: string}) {
     const [showFuncs, coordsFuncs, dataFuncs] = useMessageOptionsHandle();
@@ -79,8 +80,7 @@ export default function MessagesContainer({info, adminList, setEditId, checkId, 
 };
 
 const StyledMessagesContainer = styled.div`
-    overflow-y: auto;
-    overflow-wrap: anywhere;
+    ${styledOverflow}
     display: flex;
     flex-direction: column;
     gap: 10px;

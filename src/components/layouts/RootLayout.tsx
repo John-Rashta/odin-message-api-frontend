@@ -1,11 +1,11 @@
 import { selectAuthState, setAuthState } from "../../features/auth/auth-slice";
 import { useDispatch, useSelector } from "react-redux";
-import DefaultHeader from "../partials/DefaultHeader";
+import DefaultHeader from "../partials/header/DefaultHeader";
 import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../partials/Footer";
-import Header from "../partials/Header";
+import Header from "../partials/header/Header";
 import { defaultPaths } from "../../../util/globalValues";
-import HomePage from "../partials/HomePage";
+import HomePage from "../defaults/HomePage";
 import styled, { createGlobalStyle } from "styled-components";
 import { selectMyId, setMyId } from "../../features/manager/manager-slice";
 import { useGetSelfQuery } from "../../features/message-api/message-api-slice";

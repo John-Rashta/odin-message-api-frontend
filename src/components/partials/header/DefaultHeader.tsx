@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { headerBackgroundColor, headerHeight, headerPadding, StyledNavLink } from "../../../util/style";
+import { headerBackgroundColor, headerHeight, headerPadding, StyledNavLink } from "../../../../util/style";
 
 export default function DefaultHeader() {
     return (

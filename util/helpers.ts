@@ -31,12 +31,21 @@ const locale : Locale = {
     formatRelative: token => formatRelativeLocale[token]
 };
 
-const helperGetCoords = function getCoordsFromEventAndTarget(e : BasicClickType, target : HTMLElement) {
-    const rect = target.getBoundingClientRect();
+const helperGetCoords = function getCoordsFromEventAndTarget(e : BasicClickType) {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
-    const finalX = mouseX;
-    const finalY = mouseY;
+    let finalX = mouseX;
+    let finalY = mouseY;
+    const fullHeight = window.innerHeight;
+    const fullWidth = window.innerWidth;
+
+    if (fullWidth < (finalX + 160)) {
+        finalX = finalX - 160;
+    };
+
+    if (fullHeight < (finalY + 215)) {
+        finalY = finalY - 215;
+    };
 
     return {
         top: finalY,
@@ -56,7 +65,7 @@ const handleUserOptionsClick = function handleClickingForOptions(myId: string, e
         return;
     }
 
-    const finalCoords = helperGetCoords(e, target);
+    const finalCoords = helperGetCoords(e);
     const possibleAdmin = realTarget.dataset.admin;
     const possibleFriend = realTarget.dataset.friend;
     helpFuncs.changeData({

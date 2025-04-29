@@ -4,7 +4,7 @@ import { useCreateUserMutation } from "../../features/message-api/message-api-sl
 import isAscii from "validator/lib/isAscii";
 import isAlphanumeric from "validator/lib/isAlphanumeric";
 import usePasswordHandle from "../../../util/usePasswordHandle";
-import PasswordConfirm from "./PasswordConfirm";
+import PasswordConfirm from "../partials/PasswordConfirm";
 import styled from "styled-components";
 import { StyledDivFlex, StyledButton, StyledForm, StyledContainer, StyledWrongInput, StyledInput } from "../../../util/style";
 

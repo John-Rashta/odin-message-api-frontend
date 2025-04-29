@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useGetSelfQuery, useUpdateMeMutation, useGetIconsQuery } from "../../features/message-api/message-api-slice";
 import { ButtonClickType, ClickType, FormType } from "../../../util/types";
 import { useNavigate } from "react-router-dom";
-import ChangeTextFields from "./ChangeTextFields";
+import ChangeTextFields from "../partials/ChangeTextFields";
 import styled from "styled-components";
 import { aboutMeStyle, StyledExtraMessage, StyledProfileImg, StyledProfileMain } from "../../../util/style";
 import { format } from "date-fns";

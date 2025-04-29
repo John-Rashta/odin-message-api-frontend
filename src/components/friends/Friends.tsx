@@ -1,6 +1,6 @@
 import FriendDisplay from "./FriendDisplay";
 import { useGetFriendsQuery } from "../../features/message-api/message-api-slice";
-import MainWithOptions from "./MainWithOptions";
+import MainWithOptions from "../partials/MainWithOptions";
 import styled from "styled-components";
 import { StyledExtraMessage } from "../../../util/style";
 
