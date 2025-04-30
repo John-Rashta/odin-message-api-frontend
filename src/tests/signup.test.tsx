@@ -1,0 +1,22 @@
+import { screen } from "@testing-library/react";
+import SignUp from "../components/defaults/SignUp";
+import { renderWithProviders } from "./setups/setupRedux";
+
+vi.mock("../features/message-api/message-api-slice");
+
+vi.mock("react-router-dom", () => {
+  return {
+    useNavigate: vi.fn(),
+    NavLink: <div></div>
+  };
+});
+
+describe("Loads Signup Page", () => {
+    it("shows basic display", () => {
+        renderWithProviders(<SignUp/>);
+        expect(screen.getByText("Username:")).toBeInTheDocument();
+        expect(screen.getByText("Password:")).toBeInTheDocument();
+        expect(screen.getByText("Confirm Password:")).toBeInTheDocument();
+        expect(screen.getByText("Sign Me Up!")).toBeInTheDocument();
+    })
+});

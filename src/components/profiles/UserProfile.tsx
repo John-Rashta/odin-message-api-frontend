@@ -21,6 +21,7 @@ export default function UserProfile() {
             groupsData: data?.user.groups
         })});
 
+
     useEffect(() => {
         const resetForm = function resetWhenNewUser() {
             if (!isUUID(userid)) {
@@ -63,9 +64,9 @@ export default function UserProfile() {
         <StyledProfileMain>
             {
             isLoading  ? (
-                <StyledExtraMessage>Loading </StyledExtraMessage>
+                <StyledExtraMessage>Loading...</StyledExtraMessage>
             ) : error ? (
-                <StyledExtraMessage>Error loading!</StyledExtraMessage>
+                <StyledExtraMessage>Error Loading!</StyledExtraMessage>
             ) : data && data.user ? (
                 <>
                     <StyledImageContainer>
