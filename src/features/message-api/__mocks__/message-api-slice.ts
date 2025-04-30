@@ -191,6 +191,14 @@ const useGetSentRequestsQuery = vi.fn(() => {
     };
 });
 
+const useDeleteFriendMutation = vi.fn(() => {
+    return [ vi.fn ]
+});
+
+const useUpdateGroupMutation = vi.fn(() => {
+    return [ vi.fn ]
+});
+
 export {
     useCreateUserMutation,
     useLoginUserMutation,
@@ -205,4 +213,6 @@ export {
     useDeleteRequestMutation,
     useGetRequestsQuery,
     useGetSentRequestsQuery,
+    useDeleteFriendMutation,
+    useUpdateGroupMutation,
 };
