@@ -2,13 +2,13 @@ import styled from "styled-components";
 import { footerHeight } from "../../../util/style";
 
 export default function Footer() {
-    return (
-        <StyledFooter>
-          <div>Project for The Odin Project</div>
-          <div>2025</div>
-        </StyledFooter>
-      );
-};
+  return (
+    <StyledFooter>
+      <div>Project for The Odin Project</div>
+      <div>2025</div>
+    </StyledFooter>
+  );
+}
 
 const StyledFooter = styled.footer`
   display: flex;

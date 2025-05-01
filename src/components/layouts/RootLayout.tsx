@@ -25,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
 
     #root {
         font-family: Times, "Times New Roman", Georgia, serif;
+        overflow: hidden;
     }
 
     #root,
@@ -49,40 +50,46 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default function RootLayout() {
-    const authState = useSelector(selectAuthState);
-    const dispatch = useDispatch();
-    const myId = useSelector(selectMyId);
-    const { pathname } = useLocation();
-    const { data } = useGetSelfQuery();
+  const authState = useSelector(selectAuthState);
+  const dispatch = useDispatch();
+  const myId = useSelector(selectMyId);
+  const { pathname } = useLocation();
+  const { data } = useGetSelfQuery();
 
-    useEffect(() => {
-        const checkSession = function checkIfActiveSession() {
-            if (data) {
-                if (data.user.id === myId) {
-                    return;
-                };
-
-                dispatch(setMyId(data.user.id));
-                dispatch(setAuthState(true));
-            }
+  useEffect(() => {
+    const checkSession = function checkIfActiveSession() {
+      if (data) {
+        if (data.user.id === myId) {
+          return;
         }
 
-        checkSession();
-    },[data]);
+        dispatch(setMyId(data.user.id));
+        dispatch(setAuthState(true));
+      }
+    };
 
-    return (
-        <StyledDiv>
-            <GlobalStyle />
-            {authState ? <Header /> : <DefaultHeader />}
-            {!authState && !defaultPaths.includes(pathname) ? <HomePage /> : authState && defaultPaths.includes(pathname) ? <HomePage /> : <Outlet />}
-            <Footer />
-        </StyledDiv>
-    );
-};
+    checkSession();
+  }, [data]);
+
+  return (
+    <StyledDiv>
+      <GlobalStyle />
+      {authState ? <Header /> : <DefaultHeader />}
+      {!authState && !defaultPaths.includes(pathname) ? (
+        <HomePage />
+      ) : authState && defaultPaths.includes(pathname) ? (
+        <HomePage />
+      ) : (
+        <Outlet />
+      )}
+      <Footer />
+    </StyledDiv>
+  );
+}
 
 const StyledDiv = styled.div`
-    min-height: 100%;
-    position: relative;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-`
+  min-height: 100%;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+`;

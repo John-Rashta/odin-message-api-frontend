@@ -11,53 +11,53 @@ import Login from "./components/defaults/Login";
 import SignUp from "./components/defaults/SignUp";
 import ChangePassword from "./components/partials/ChangePassword";
 
-const routes : (IndexRouteObject | NonIndexRouteObject)[] = [
-    {
-        path: "/",
-        element: <RootLayout />,
-        children: [
-            {
-                index: true,
-                element: <HomePage />,
-            },
-            {
-                path: "users",
-                element: <UserProfile />,
-            },
-            {
-                path: "friends",
-                element: <Friends />,
-            },
-            {
-                path: "password",
-                element: <ChangePassword />,
-            },
-            {
-                path: "login",
-                element: <Login />,
-            },
-            {
-                path: "signup",
-                element: <SignUp />,
-            },
-            {
-                path: "profile",
-                element: <MyProfile />,
-            },
-            {
-                path: "requests",
-                element: <AllRequests />,
-            },
-            {
-                path: "conversations",
-                element: <Conversations />,
-            },
-            {
-                path: "groups",
-                element: <Groups />,
-            },
-        ]
-    }
+const routes: (IndexRouteObject | NonIndexRouteObject)[] = [
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "users",
+        element: <UserProfile />,
+      },
+      {
+        path: "friends",
+        element: <Friends />,
+      },
+      {
+        path: "password",
+        element: <ChangePassword />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "signup",
+        element: <SignUp />,
+      },
+      {
+        path: "profile",
+        element: <MyProfile />,
+      },
+      {
+        path: "requests",
+        element: <AllRequests />,
+      },
+      {
+        path: "conversations",
+        element: <Conversations />,
+      },
+      {
+        path: "groups",
+        element: <Groups />,
+      },
+    ],
+  },
 ];
 
 export default routes;
