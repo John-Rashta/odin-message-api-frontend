@@ -135,7 +135,7 @@ interface ResponseGroup {
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: `https://${String(process.env.VITE_API_URL)}`,
+    baseUrl: `https://${import.meta.env.VITE_API_URL}`,
     credentials: "include",
   }),
   tagTypes: [
