@@ -117,6 +117,7 @@ const StyledMainMessage = styled.div`
 
 const StyledEdited = styled.div`
   font-size: 0.8rem;
+  flex-grow: 0;
 `;
 
 const StyledMessageImage = styled.img`
